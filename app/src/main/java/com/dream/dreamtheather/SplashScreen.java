@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
@@ -21,9 +22,9 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void openActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Test.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         //don't allow to return to this activity
         this.finish();
     }
@@ -57,5 +58,11 @@ public class SplashScreen extends AppCompatActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+    }
+
+    public void test(View view) {
+        Intent intent = new Intent(this, Test.class);
+        startActivity(intent);
+        this.finish();
     }
 }
