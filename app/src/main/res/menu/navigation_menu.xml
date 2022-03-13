@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_login_register"
+        android:title="@string/nav_login_register"
+        />
+    <item
+        android:id="@+id/nav_booking_by_film"
+        android:title="@string/nav_booking_by_film"
+        />
+    <item
+        android:id="@+id/nav_booking_by_theater"
+        android:title="@string/nav_booking_by_theater"
+        />
+</menu>
