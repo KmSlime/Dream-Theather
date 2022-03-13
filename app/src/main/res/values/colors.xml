@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="app_color">#FF8000</color>
     <color name="trans">#00000000</color>
+    <color name="divider">#828282</color>
 
 </resources>

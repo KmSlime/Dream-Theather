@@ -1,4 +1,12 @@
 <resources>
     <!--    link logo app <a href="https://www.flaticon.com/free-icons/cinema" title="cinema icons">Cinema icons created by lapiyee - Flaticon</a>-->
     <string name="app_name">Dream Cinema</string>
+    <string name="nav_login_register">Login/Register</string>
+    <string name="nav_booking_by_film">Booking ticket by film</string>
+    <string name="nav_booking_by_theater">Booking ticket by Movie Theater</string>
+
+<!--    for navigation-->
+    <string name="nav_toggle_open">Open NavigationView</string>
+    <string name="nav_toggle_close">Close NavigationView</string>
+
 </resources>
