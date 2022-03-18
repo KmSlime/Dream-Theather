@@ -22,9 +22,9 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void openActivity() {
-        Intent intent = new Intent(this, Test.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         //don't allow to return to this activity
         this.finish();
     }
@@ -52,17 +52,20 @@ public class SplashScreen extends AppCompatActivity {
                 //Slide TextView and set opacity to 100
                 swipeText.startAnimation(AnimationUtils.loadAnimation(SplashScreen.this, R.anim.right_to_left_swipe));
                 swipeText.animate().alpha(1f).setDuration(1000);
+//                openActivity();
+
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-            }
-        });
-    }
+                if(!true){
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    openActivity();
+                }
 
-    public void test(View view) {
-        Intent intent = new Intent(this, Test.class);
-        startActivity(intent);
-        this.finish();
+
+            }
+
+        });
     }
 }
