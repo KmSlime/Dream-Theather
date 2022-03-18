@@ -61,12 +61,7 @@ public class SplashScreen extends AppCompatActivity {
                 //Slide TextView and set opacity to 100
                 swipeText.startAnimation(AnimationUtils.loadAnimation(SplashScreen.this, R.anim.right_to_left_swipe));
                 swipeText.animate().alpha(1f).setDuration(1000);
-<<<<<<< HEAD
-//                openActivity();
-
-=======
                 gotoNextActivity();
->>>>>>> 726ea97335c6702b3f23f2d2efb37b02d589bc84
             }
 
             @Override
