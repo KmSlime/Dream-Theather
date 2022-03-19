@@ -31,9 +31,9 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     public void openActivity() {
-        Intent intent = new Intent(this, Test.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         //don't allow to return to this activity
         this.finish();
     }
@@ -66,13 +66,14 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-            }
-        });
-    }
+                if(!true){
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    openActivity();
+                }
 
-    public void test(View view) {
-        Intent intent = new Intent(this, Test.class);
-        startActivity(intent);
-        this.finish();
+
+            }
+
+        });
     }
 }
