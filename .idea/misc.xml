@@ -20,18 +20,27 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/main_logo.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/radio_button_background.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/screen_rectangle.xml" value="0.1125" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/shape_button.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/shape_rounded.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen_opacity.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen_overlay.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/button_gradient.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/button_stroke.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/design_header.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/diagonal.xml" value="0.124" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_search.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/neoncolor.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_test.xml" value="0.15885416666666666" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/test_template.xml" value="0.3619791666666667" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/toolbar.xml" value="0.2" />
       </map>
