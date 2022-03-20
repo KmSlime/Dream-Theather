@@ -13,6 +13,7 @@
     <string name="no_favorites_msg_header">No favorites yet</string>
     <string name="no_favorites_msg_body">Tap the heart icon on a film to add it to your favorites list.</string>
     <string name="no_reservations_msg_body">Tap the RESERVE button on a film to make a reservation.</string>
+    <string name="login">Đăng nhập</string>
 
     <string-array name="genres_array">
         <item>All</item>

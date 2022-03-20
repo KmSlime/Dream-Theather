@@ -66,12 +66,6 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                if(!true){
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    openActivity();
-                }
-
-
             }
 
         });
