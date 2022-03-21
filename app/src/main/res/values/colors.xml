@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--    add-->
+    <color name="greensky">#FF03DAC5</color>
     <color name="opacity20">#33000000</color>
     <color name="colorPrimary">#f44e39</color>
 <!--    <color name="colorPrimaryDark">#f44e39</color>-->
