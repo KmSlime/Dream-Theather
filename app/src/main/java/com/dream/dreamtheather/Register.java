@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dream.dreamtheather.Model.InputValidatorHelper;
 import com.dream.dreamtheather.Model.UserHelperClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -39,17 +41,18 @@ import java.util.Date;
 public class Register extends AppCompatActivity {
 
     private ImageButton btnEyeShow, btnDatePicker;
-    private EditText edtAuthor_Name, edtRegisterUsername, edtRegisterEmail, edtRegisterPassword, edtRegisterPasswordConfirm;
+    private EditText edtAuthor_Name, edtRegisterUsername, edtRegisterEmail, edtRegisterPassword, edtRegisterPasswordConfirm, edtPhoneNum;
     private Button btnConfirm;
     private TextView tvDatepicked, tvAge;
     private DatePickerDialog.OnDateSetListener dateSetListener1;
+    private boolean pickdate = false;
 
     // Write a message to the firebase database
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    private FirebaseAuth mAuth;
-    private String currentUserId;
-    private int id;
+
+    //validation checker
+    InputValidatorHelper inputValidatorHelper = new InputValidatorHelper();
 
 
     @Override
@@ -72,6 +75,7 @@ public class Register extends AppCompatActivity {
         edtRegisterEmail = findViewById(R.id.edtRegisterEmail);
         edtRegisterPassword = findViewById(R.id.edtRegisterPassword);
         edtRegisterPasswordConfirm = findViewById(R.id.edtRegisterPasswordConfirm);
+        edtPhoneNum = findViewById(R.id.edtPhoneNum);
 
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
@@ -134,6 +138,7 @@ public class Register extends AppCompatActivity {
                         int days = period.getDays();
                         tvAge.setText("Tuổi: ");
                         tvDatepicked.setText(years + " tuổi " + months + " tháng " + days + " ngày");
+                        pickdate = true;
                     } else {
                         Toast.makeText(getApplicationContext(), "Ngày sinh phải trước ngày hiện tại!", Toast.LENGTH_LONG).show();
                     }
@@ -149,18 +154,45 @@ public class Register extends AppCompatActivity {
                 edtRegisterPassword.getText().toString().isEmpty() ||
                 edtRegisterEmail.getText().toString().isEmpty() ||
                 edtRegisterPasswordConfirm.getText().toString().isEmpty() ||
-                edtAuthor_Name.getText().toString().isEmpty()){
+                edtAuthor_Name.getText().toString().isEmpty() ||
+                edtPhoneNum.getText().toString().isEmpty()){
             return true;
         }
         return false;
+    }
+
+    public boolean emailValidate(){
+        if(inputValidatorHelper.isValidEmail(edtRegisterEmail.getText().toString())){
+            return true;
+        } else{
+            edtRegisterEmail.setError("Nhập sai định dạng email");
+            edtRegisterEmail.requestFocus();
+            return false;
+        }
     }
 
     public boolean checkPassConfirm(){
         if (edtRegisterPassword.getText().toString().equals(edtRegisterPasswordConfirm.getText().toString()))
         {
             return true;
+        } else
+        {
+            edtRegisterPasswordConfirm.setError("Mật khẩu không trùng nhau");
+            edtRegisterPasswordConfirm.requestFocus();
+            return false;
         }
-        return false;
+    }
+
+    public boolean checkPhoneNum(){
+        if((edtPhoneNum.getText().length()>=8 && edtPhoneNum.getText().length()<=10))
+        {
+            return true;
+        } else
+        {
+            edtPhoneNum.setError("SĐT phải từ 8 đến 10 số!");
+            edtPhoneNum.requestFocus();
+            return false;
+        }
     }
 
     @Override
@@ -176,47 +208,36 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if (checkPassConfirm()) {
+                        if(emailValidate()){
+                            if(checkPhoneNum()){
+                                if(pickdate) {
+                                    //save data in firebase on button click
+                                    database = FirebaseDatabase.getInstance();
+                                    reference = database.getReference("Users/");
 
-                        //save data in firebase on button click
-                        database = FirebaseDatabase.getInstance();
-                        reference = database.getReference("Users/");
+                                    //get all values
+                                    String email = edtRegisterEmail.getText().toString();
+                                    String userName = edtRegisterUsername.getText().toString();
+                                    String passWord = edtRegisterPassword.getText().toString();
+                                    String phoneNum = edtPhoneNum.getText().toString();
 
-                        //get all values
-                        String email = edtRegisterEmail.getText().toString();
-                        String username = edtRegisterUsername.getText().toString();
-                        String password = edtRegisterPassword.getText().toString();
+                                    UserHelperClass userHelperClass = new UserHelperClass(email, userName, passWord, phoneNum);
+                                    //add a user with key as email to firebase
+                                    reference.child(phoneNum).setValue(userHelperClass);
 
-                        //count children
-                        reference.child("Users").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) id = (int) snapshot.getChildrenCount();
-                                else id = 0;
+                                    Intent intent = new Intent(Register.this, Login.class);
+                                    intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
+                                    intent.putExtra("RegisterEmail", edtRegisterEmail.getText().toString());
+                                    intent.putExtra("RegisterPassword", edtRegisterPassword.getText().toString());
+                                    startActivity(intent);
+                                    finish();
+                                } else Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
                             }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-                        UserHelperClass userHelperClass = new UserHelperClass(email, username, password);
-                        //id == count currunt children of table, then add model into firebase with id++
-                        reference.child(String.valueOf(id+1)).setValue(userHelperClass);
-
-                        Intent intent = new Intent(Register.this, Login.class);
-                        intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
-                        intent.putExtra("RegisterEmail", edtRegisterEmail.getText().toString());
-                        intent.putExtra("RegisterPassword", edtRegisterPassword.getText().toString());
-                        startActivity(intent);
-                        finish();
-                    }else Toast.makeText(getApplicationContext(), "Mật khẩu không trùng nhau", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             }
         });
-
     }
-
 
 }

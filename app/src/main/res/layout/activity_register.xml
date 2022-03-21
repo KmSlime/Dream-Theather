@@ -65,21 +65,6 @@
             />
 
             <EditText
-                android:hint="Email"
-                android:id="@+id/edtRegisterEmail"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:inputType="textEmailAddress"
-                android:textSize="15dp"
-                android:drawablePadding="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edtRegisterUsername"
-                />
-
-            <EditText
             android:hint="Password"
             android:id="@+id/edtRegisterPassword"
             android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
@@ -91,7 +76,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edtRegisterEmail"
+            app:layout_constraintTop_toBottomOf="@id/edtRegisterUsername"
             />
 
             <ImageButton
@@ -119,6 +104,40 @@
                 app:layout_constraintTop_toBottomOf="@id/edtRegisterPassword"
                 />
 
+
+            <EditText
+                android:hint="Email"
+                android:id="@+id/edtRegisterEmail"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:inputType="textEmailAddress"
+                android:textSize="15dp"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edtRegisterPasswordConfirm"
+                />
+
+            <EditText
+                android:hint="@string/Input_PhoneNum"
+                android:id="@+id/edtPhoneNum"
+                android:drawableLeft="@drawable/ic_phone_24"
+                android:inputType="phone|number"
+                android:textSize="15dp"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toBottomOf="@id/edtRegisterEmail"
+                app:layout_constraintStart_toStartOf="@id/edtRegisterEmail"
+                app:layout_constraintEnd_toEndOf="@id/edtRegisterEmail"
+                />
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,9 +146,9 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:layout_constraintTop_toBottomOf="@id/edtRegisterPasswordConfirm"
-                app:layout_constraintEnd_toEndOf="@id/edtRegisterPasswordConfirm"
-                app:layout_constraintStart_toStartOf="@id/edtRegisterPasswordConfirm"
+                app:layout_constraintTop_toBottomOf="@id/edtPhoneNum"
+                app:layout_constraintEnd_toEndOf="@id/edtPhoneNum"
+                app:layout_constraintStart_toStartOf="@id/edtPhoneNum"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -210,6 +229,8 @@
                     android:text="Date of Birth" />
 
             </LinearLayout>
+
+
 
             <Button
             android:id="@+id/btnConfirm"
