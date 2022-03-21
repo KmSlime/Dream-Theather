@@ -33,11 +33,14 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_calendar.xml" value="0.1845" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_search.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/neoncolor.xml" value="0.124" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_forgotten_password.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_test.xml" value="0.15885416666666666" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />

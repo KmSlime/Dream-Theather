@@ -15,9 +15,17 @@
     <string name="no_reservations_msg_body">Tap the RESERVE button on a film to make a reservation.</string>
     <string name="login">Đăng nhập</string>
     <string name="DontHaveAccountYet">Bạn chưa có tài khoản?</string>
-    <string name="txtLogin">Đăng nhập</string>
+    <string name="tvLogin">Đăng nhập</string>
     <string name="forgottenPassword">Quên mật khẩu?</string>
-    <string name="txtRegister">Đăng ký ngay!</string>
+    <string name="tvRegister">Đăng ký ngay!</string>
+    <!--    fb required-->
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+    <string name="register">Đăng ký</string>
+    <string name="what_is_your_name">Tên của bạn là gì?</string>
+    <string name="user_Name">Tên đăng nhập</string>
+    <string name="Confirm_Password">Nhập lại Password</string>
 
     <string-array name="genres_array">
         <item>All</item>

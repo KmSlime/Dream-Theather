@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359747608446",
+    "project_id": "dreamtheather-1647802109369",
+    "storage_bucket": "dreamtheather-1647802109369.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359747608446:android:ed69a403742e89d82e1d2f",
+        "android_client_info": {
+          "package_name": "com.dream.dreamtheather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5tnnHjaB6mMak2PxEPm6wYLKEapAvd58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

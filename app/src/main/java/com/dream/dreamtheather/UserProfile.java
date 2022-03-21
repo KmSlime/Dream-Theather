@@ -22,14 +22,15 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.squareup.picasso.Picasso;
 
+
 public class UserProfile extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private ImageView imageAvt;
-    private TextView txtUserNameOfAcount;
-    private TextView txtEmailOfAcount;
-    private TextView txtHoTenOfAcount;
-    private TextView txtBirthdayOfAcount;
-    private TextView txtGenderOfAcount;
+    private TextView tvUserNameOfAcount;
+    private TextView tvEmailOfAcount;
+    private TextView tvHoTenOfAcount;
+    private TextView tvBirthdayOfAcount;
+    private TextView tvGenderOfAcount;
     private Button btnSignOut;
 
     private GoogleApiClient googleApiClient;
@@ -41,11 +42,11 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
         setContentView(R.layout.activity_user_profile);
 
         imageAvt = findViewById(R.id.imageAvt);
-        txtUserNameOfAcount = findViewById(R.id.txtUserNameOfAcount);
-        txtEmailOfAcount = findViewById(R.id.txtEmailOfAcount);
-        txtHoTenOfAcount = findViewById(R.id.txtHoTenOfAcount);
-        txtBirthdayOfAcount = findViewById(R.id.txtBirthdayOfAcount);
-        txtGenderOfAcount = findViewById(R.id.txtGenderOfAcount);
+        tvUserNameOfAcount = findViewById(R.id.tvUserNameOfAcount);
+        tvEmailOfAcount = findViewById(R.id.tvEmailOfAcount);
+        tvHoTenOfAcount = findViewById(R.id.tvHoTenOfAcount);
+        tvBirthdayOfAcount = findViewById(R.id.tvBirthdayOfAcount);
+        tvGenderOfAcount = findViewById(R.id.tvGenderOfAcount);
         btnSignOut = findViewById(R.id.btnSignOut);
 
 
@@ -69,7 +70,7 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
     }
 
     private void gotoLoginAcitivity() {
-        startActivity(new Intent(this, Login.class));
+        startActivity(new Intent(UserProfile.this, Login.class));
         finish();
     }
 
@@ -82,9 +83,9 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
         if(result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
 
-            txtUserNameOfAcount.setText(account.getDisplayName());
-            txtEmailOfAcount.setText(account.getEmail());
-            txtHoTenOfAcount.setText(account.getDisplayName());
+            tvUserNameOfAcount.setText(account.getDisplayName());
+            tvEmailOfAcount.setText(account.getEmail());
+            tvHoTenOfAcount.setText(account.getDisplayName());
 
             Picasso.get().load(account.getPhotoUrl()).placeholder(R.mipmap.ic_launcher).into(imageAvt);
         }else{

@@ -17,33 +17,46 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.dream.dreamtheather.Model.UserHelperClass;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     //ánh xạ
     ImageButton btnEyeShow;
-    EditText edtPassword;
-    Button LoginEmail;
+    EditText edtPassword, edtUsername;
+    Button btnLoginFacebook, btnLoginEmail, btnLogin;
 
-    //
+    //google auth
     private GoogleApiClient googleApiClient;
     private static final int SIGN_IN = 1;
 
-
+    // Write a message to the firebase database
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btnEyeShow = findViewById(R.id.btnEyeShow);
         edtPassword = findViewById(R.id.edtPassword);
-        LoginEmail = findViewById(R.id.LoginEmail);
+        edtUsername = findViewById(R.id.edtUsername);
+
+        //Img btn
+        btnEyeShow = findViewById(R.id.btnEyeShow);
+        btnLoginEmail = findViewById(R.id.btnLoginEmail);
+        btnLoginFacebook = findViewById(R.id.btnLoginFacebook);
+        btnLogin = findViewById(R.id.btnLogin);
+
+        //firebase
+//        database = FirebaseDatabase.getInstance();
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -66,7 +79,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
 
-        LoginEmail.setOnClickListener(new View.OnClickListener() {
+        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
@@ -76,11 +89,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     public void btnRegister(View view) {
-
+        startActivity(new Intent(this, Register.class));
     }
 
     public void ResetPass(View view) {
-
+        startActivity(new Intent(this, ForgottenPassword.class));
     }
 
     @Override
@@ -99,6 +112,76 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 finish();
             } else Toast.makeText(this, "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    //firebase auth
+    public void isValidate(){
+        database = FirebaseDatabase.getInstance();
+        reference =database.getReference("User");
+
+        UserHelperClass userHelperClass = new UserHelperClass();
+        //get all value
+//        String userName = edtUsername.getText().toString();
+//        String passWord = edtPassword.getText().toString();
+
+
+//        if(edtUsername.getText().equals(database.getReference("User")))
+
+    }
+
+
+    public boolean checkValidate(){
+        if (edtUsername.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkValidAccount(){
+//        if (!true) //vài bửa sửa thành compare dữ liệu từ database
+//        {
+//            return true;
+//        }
+//        return false;
+        return true;
+    }
+
+    public boolean IsRegister(){
+        Intent getIntent = getIntent();
+        if (edtUsername.getText().toString().compareTo(getIntent.getStringExtra("RegisterUser")) == 0
+                && edtPassword.getText().toString().compareTo(getIntent.getStringExtra("RegisterPassword")) == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void btnLogin(View view) {
+        if (checkValidate()) {
+            Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+        } else {
+            if (checkValidAccount() || IsRegister()) {
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                startActivity(intent);
+                onStop();
+            } else
+                Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //get data login from register
+        Intent getIntent = getIntent();
+        String user = getIntent.getStringExtra("RegisterUser");
+        String psd = getIntent.getStringExtra("RegisterPassword");
+        edtUsername.setText(user);
+        edtPassword.setText(psd);
+
     }
 }
 

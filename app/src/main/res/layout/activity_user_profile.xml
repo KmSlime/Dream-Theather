@@ -41,7 +41,7 @@
                 app:cardCornerRadius="20dp">
 
                 <TextView
-                    android:id="@+id/txtUserNameOfAcount"
+                    android:id="@+id/tvUserNameOfAcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -62,7 +62,7 @@
                 app:cardCornerRadius="20dp">
 
                 <TextView
-                    android:id="@+id/txtEmailOfAcount"
+                    android:id="@+id/tvEmailOfAcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -83,7 +83,7 @@
                 app:cardCornerRadius="20dp">
 
                 <TextView
-                    android:id="@+id/txtHoTenOfAcount"
+                    android:id="@+id/tvHoTenOfAcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -104,7 +104,7 @@
                 app:cardCornerRadius="20dp">
 
                 <TextView
-                    android:id="@+id/txtBirthdayOfAcount"
+                    android:id="@+id/tvBirthdayOfAcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -125,7 +125,7 @@
                 app:cardCornerRadius="20dp">
 
                 <TextView
-                    android:id="@+id/txtGenderOfAcount"
+                    android:id="@+id/tvGenderOfAcount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
