@@ -139,6 +139,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     public boolean checkValidAccount(){
+        //save data in firebase on button click
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("Users/UserTest");
+
+        //get all values
+        String username = edtUsername.getText().toString();
+        String password = edtPassword.getText().toString();
+
 //        if (!true) //vài bửa sửa thành compare dữ liệu từ database
 //        {
 //            return true;

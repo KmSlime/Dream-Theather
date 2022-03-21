@@ -1,5 +1,7 @@
 package com.dream.dreamtheather;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -18,8 +20,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dream.dreamtheather.Model.UserHelperClass;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.joda.time.*;
 
@@ -30,15 +38,19 @@ import java.util.Date;
 
 public class Register extends AppCompatActivity {
 
-    ImageButton btnEyeShow, btnDatePicker;
-    EditText edtAuthor_Name, edtRegisterUsername, edtRegisterEmail, edtRegisterPassword, edtRegisterPasswordConfirm;
-    Button btnConfirm;
-    TextView tvDatepicked, tvAge;
-    DatePickerDialog.OnDateSetListener dateSetListener1;
+    private ImageButton btnEyeShow, btnDatePicker;
+    private EditText edtAuthor_Name, edtRegisterUsername, edtRegisterEmail, edtRegisterPassword, edtRegisterPasswordConfirm;
+    private Button btnConfirm;
+    private TextView tvDatepicked, tvAge;
+    private DatePickerDialog.OnDateSetListener dateSetListener1;
 
     // Write a message to the firebase database
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private FirebaseAuth mAuth;
+    private String currentUserId;
+    private int id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,7 @@ public class Register extends AppCompatActivity {
         edtRegisterEmail = findViewById(R.id.edtRegisterEmail);
         edtRegisterPassword = findViewById(R.id.edtRegisterPassword);
         edtRegisterPasswordConfirm = findViewById(R.id.edtRegisterPasswordConfirm);
+
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -163,6 +176,35 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if (checkPassConfirm()) {
+
+                        //save data in firebase on button click
+                        database = FirebaseDatabase.getInstance();
+                        reference = database.getReference("Users/");
+
+                        //get all values
+                        String email = edtRegisterEmail.getText().toString();
+                        String username = edtRegisterUsername.getText().toString();
+                        String password = edtRegisterPassword.getText().toString();
+
+                        //count children
+                        reference.child("Users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()) id = (int) snapshot.getChildrenCount();
+                                else id = 0;
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                        UserHelperClass userHelperClass = new UserHelperClass(email, username, password);
+                        //id == count currunt children of table, then add model into firebase with id++
+                        reference.child(String.valueOf(id+1)).setValue(userHelperClass);
+
                         Intent intent = new Intent(Register.this, Login.class);
                         intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
                         intent.putExtra("RegisterEmail", edtRegisterEmail.getText().toString());
@@ -175,4 +217,6 @@ public class Register extends AppCompatActivity {
         });
 
     }
+
+
 }

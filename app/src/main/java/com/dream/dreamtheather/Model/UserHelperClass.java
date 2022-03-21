@@ -2,14 +2,23 @@ package com.dream.dreamtheather.Model;
 
 public class UserHelperClass {
 
-    String Username, Password;
+    String Email, Username, Password;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String username, String password) {
+    public UserHelperClass(String email, String username, String password) {
+        Email = email;
         Username = username;
         Password = password;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getUsername() {
