@@ -14,7 +14,13 @@
             android:exported="false" />
         <activity
             android:name=".Test"
-            android:exported="false" />
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:exported="true">
