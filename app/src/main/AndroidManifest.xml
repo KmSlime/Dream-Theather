@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DreamTheaTher">
         <activity
-<<<<<<< HEAD
+
             android:name=".Login"
             android:exported="false" />
         <activity
@@ -24,10 +24,14 @@
 
             </intent-filter>
         </activity>
-=======
-            android:name=".UserProfile"
-            android:exported="false" />
->>>>>>> 55f1fab5107ade23238b15845ddd7fceb9b82568
+
+        <activity android:name=".UserProfile"
+
+            android:exported="false" >
+
+        </activity>
+
+
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -37,12 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
-            android:name=".Test"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

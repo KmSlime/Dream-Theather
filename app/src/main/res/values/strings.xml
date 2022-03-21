@@ -13,17 +13,17 @@
     <string name="no_favorites_msg_header">No favorites yet</string>
     <string name="no_favorites_msg_body">Tap the heart icon on a film to add it to your favorites list.</string>
     <string name="no_reservations_msg_body">Tap the RESERVE button on a film to make a reservation.</string>
-<<<<<<< HEAD
+
     <string name="test_introduction_film">Lần đầu tiên trong lịch sử điện ảnh của Người Nhện, thân phận người hàng xóm thân thiện bị lật mở, khiến trách nhiệm làm một Siêu Anh Hùng xung đột với cuộc sống bình thường và đặt người anh quan tâm nhất vào tình thế nguy hiểm. Khi anh nhờ đến giúp đỡ của Doctor Strange để khôi phục lại bí mật, phép thuật đã gây ra lỗ hổng thời không, giải phóng những ác nhân mạnh mẽ nhất từng đối đầu với Người Nhện từ mọi vũ trụ. Bây giờ, Peter sẽ phải vượt qua thử thách lớn nhất của mình, nó sẽ thay đổi không chỉ tương lai của chính anh mà còn là tương lai của cả Đa Vũ Trụ.</string>
     <string name="test_title_film">NGƯỜI NHỆN KHÔNG CÒN NHÀ</string>
     <string name="dat_ve">Đặt vé</string>
-=======
+
     <string name="login">Đăng nhập</string>
     <string name="DontHaveAccountYet">Bạn chưa có tài khoản?</string>
     <string name="txtLogin">Đăng nhập</string>
     <string name="forgottenPassword">Quên mật khẩu?</string>
     <string name="txtRegister">Đăng ký ngay!</string>
->>>>>>> 55f1fab5107ade23238b15845ddd7fceb9b82568
+
 
     <string-array name="genres_array">
         <item>All</item>
