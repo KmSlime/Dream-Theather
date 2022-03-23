@@ -41,8 +41,25 @@
             </intent-filter>
         </activity> <!-- Tới đây -->
         <activity
-            android:name=".UserProfile"
+            android:name=".Login"
             android:exported="false" />
+        <activity
+            android:name=".Test"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UserProfile"
+
+            android:exported="false" >
+
+        </activity>
+
+
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -52,12 +69,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
-            android:name=".Test"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
