@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 
@@ -57,6 +58,7 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
@@ -70,6 +72,7 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
     }
 
     private void gotoLoginAcitivity() {
+
         startActivity(new Intent(UserProfile.this, Login.class));
         finish();
     }

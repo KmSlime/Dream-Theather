@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.dream.dreamtheather.Model.UserHelperClass;
@@ -24,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,6 +34,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     ImageButton btnEyeShow;
     EditText edtPassword, edtUsername;
     Button btnLoginFacebook, btnLoginEmail, btnLogin;
+    ProgressBar progressBar;
 
     //google auth
     private GoogleApiClient googleApiClient;
@@ -40,6 +43,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     // Write a message to the firebase database
     FirebaseDatabase database;
     DatabaseReference reference;
+    FirebaseAuth firebaseAuth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         btnLoginEmail = findViewById(R.id.btnLoginEmail);
         btnLoginFacebook = findViewById(R.id.btnLoginFacebook);
         btnLogin = findViewById(R.id.btnLogin);
+
+        progressBar = findViewById(R.id.progressBar);
 
         //firebase
 //        database = FirebaseDatabase.getInstance();
@@ -119,7 +127,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         database = FirebaseDatabase.getInstance();
         reference =database.getReference("User");
 
-        UserHelperClass userHelperClass = new UserHelperClass();
+//        UserHelperClass userHelperClass = new UserHelperClass();
         //get all value
 //        String userName = edtUsername.getText().toString();
 //        String passWord = edtPassword.getText().toString();
@@ -168,12 +176,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     public void btnLogin(View view) {
         if (checkValidate()) {
             Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.VISIBLE);
         } else {
             if (checkValidAccount() || IsRegister()) {
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 startActivity(intent);
                 onStop();
             } else
+                progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
         }
     }

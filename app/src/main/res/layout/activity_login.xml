@@ -4,16 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LavenderBlush"
+    android:background="@color/black"
     tools:context=".Login">
 
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/LoginForm"
+        app:layout_constraintStart_toStartOf="@+id/LoginForm"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/LoginForm"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/movie_pop_corn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Dream Theather"
+            app:fontFamily="@font/postnobillsjaffna_extrabold"
+            android:layout_marginTop="10dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/heavy_yellow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="Hệ thống rạp chiếu phim hiện đại toàn cầu"
+            android:textColor="@color/titleColor"
+            android:textSize="20dp"
+            app:fontFamily="@font/postnobillsjaffna_extrabold" />
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/LoginForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="60dp"
         app:cardCornerRadius="8dp">
@@ -24,16 +63,17 @@
 
         <TextView
             android:id="@+id/tvLogin"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:textSize="25dp"
-            android:textColor="@color/Indigo"
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:padding="5dp"
-            android:layout_marginTop="10dp"/>
+            android:text="@string/login"
+            android:textColor="@color/Indigo"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
         <EditText
             android:hint="Username"
@@ -222,9 +262,10 @@
                     <Button
                         android:id="@+id/btnLoginFacebook"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_facebook_logo"
                         android:paddingStart="7dp"
+                        android:textSize="15dp"
                         android:background="#1977F3"
                         android:text="Đăng nhập Facebook"
                         android:textColor="@android:color/white" />
@@ -238,6 +279,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/LoginForm"
+        app:layout_constraintEnd_toEndOf="@+id/LoginForm"
+        app:layout_constraintTop_toBottomOf="@+id/LoginForm"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,11 +19,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dream.dreamtheather.Model.InputValidatorHelper;
 import com.dream.dreamtheather.Model.UserHelperClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -47,9 +52,15 @@ public class Register extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener1;
     private boolean pickdate = false;
 
+
     // Write a message to the firebase database
     private FirebaseDatabase database;
     private DatabaseReference reference;
+
+    // Firebase Auth
+    FirebaseAuth firebaseAuth;
+    ProgressBar progressBar;
+
 
     //validation checker
     InputValidatorHelper inputValidatorHelper = new InputValidatorHelper();
@@ -76,6 +87,9 @@ public class Register extends AppCompatActivity {
         edtRegisterPassword = findViewById(R.id.edtRegisterPassword);
         edtRegisterPasswordConfirm = findViewById(R.id.edtRegisterPasswordConfirm);
         edtPhoneNum = findViewById(R.id.edtPhoneNum);
+
+        //Progress Bar
+        progressBar = findViewById(R.id.progressBar);
 
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
@@ -172,7 +186,11 @@ public class Register extends AppCompatActivity {
     }
 
     public boolean checkPassConfirm(){
-        if (edtRegisterPassword.getText().toString().equals(edtRegisterPasswordConfirm.getText().toString()))
+        if(edtRegisterPassword.getText().length() < 6){
+            edtRegisterPasswordConfirm.setError("Mật khẩu không được dưới 6 ký tự");
+            edtRegisterPasswordConfirm.requestFocus();
+            return false;
+        }else if (edtRegisterPassword.getText().toString().equals(edtRegisterPasswordConfirm.getText().toString()))
         {
             return true;
         } else
@@ -199,11 +217,16 @@ public class Register extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+//        if(firebaseAuth.getCurrentUser() != null){
+//            startActivity(new Intent(Register.this, MainActivity.class));
+//            finish();
+//        }
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 if (checkValidate()) {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
@@ -213,31 +236,51 @@ public class Register extends AppCompatActivity {
                                 if(pickdate) {
                                     //save data in firebase on button click
                                     database = FirebaseDatabase.getInstance();
+                                    firebaseAuth = FirebaseAuth.getInstance();
                                     reference = database.getReference("Users/");
 
                                     //get all values
-                                    String email = edtRegisterEmail.getText().toString();
-                                    String userName = edtRegisterUsername.getText().toString();
-                                    String passWord = edtRegisterPassword.getText().toString();
-                                    String phoneNum = edtPhoneNum.getText().toString();
+                                    String email = edtRegisterEmail.getText().toString().trim();
+                                    String userName = edtRegisterUsername.getText().toString().trim();
+                                    String passWord = edtRegisterPassword.getText().toString().trim();
+                                    String phoneNum = edtPhoneNum.getText().toString().trim();
+                                    String dateOfBirth = tvDatepicked.getText().toString().trim();
 
-                                    UserHelperClass userHelperClass = new UserHelperClass(email, userName, passWord, phoneNum);
+                                    UserHelperClass userHelperClass = new UserHelperClass(email, userName, passWord, phoneNum, dateOfBirth, "", "", "", 0);
                                     //add a user with key as email to firebase
                                     reference.child(phoneNum).setValue(userHelperClass);
 
-                                    Intent intent = new Intent(Register.this, Login.class);
-                                    intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
-                                    intent.putExtra("RegisterEmail", edtRegisterEmail.getText().toString());
-                                    intent.putExtra("RegisterPassword", edtRegisterPassword.getText().toString());
-                                    startActivity(intent);
-                                    finish();
+                                    firebaseAuth.createUserWithEmailAndPassword(email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if(task.isSuccessful()) {
+                                                Toast.makeText(Register.this, "Tạo tài khoản thành công", Toast.LENGTH_LONG).show();
+                                                Intent intent = new Intent(Register.this, UserProfile.class);
+                                                intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
+                                                intent.putExtra("RegisterEmail", edtRegisterEmail.getText().toString());
+                                                intent.putExtra("RegisterPassword", edtRegisterPassword.getText().toString());
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                            else {
+                                                Toast.makeText(Register.this, "Có gì đó không ổn", Toast.LENGTH_LONG).show();
+                                                progressBar.setVisibility(View.VISIBLE);
+                                            }
+                                        }
+                                    });
+
                                 } else Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 }
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
 
+    public void BackToLogin(View view) {
+        startActivity(new Intent(Register.this, Login.class));
+        finish();
+    }
 }

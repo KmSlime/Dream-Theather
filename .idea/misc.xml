@@ -22,6 +22,7 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/screen_rectangle.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/shape_button.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable-v24/shape_rounded.xml" value="0.153" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ayp_background_item_selected.xml" value="0.258" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen_opacity.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/background_screen_overlay.xml" value="0.124" />
@@ -36,6 +37,8 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_calendar.xml" value="0.1845" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_facebook_logo.xml" value="0.1595" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.258" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_logo.xml" value="0.258" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_search.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/neoncolor.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_forgotten_password.xml" value="0.25416666666666665" />
