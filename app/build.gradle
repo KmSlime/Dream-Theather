@@ -64,14 +64,21 @@ dependencies {
     apply plugin: 'com.android.application'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
+    //google ui button
+    implementation 'com.github.TutorialsAndroid:GButton:v1.0.19'
+
+
     //facebook login
     implementation 'com.facebook.android:facebook-login:latest.release'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
     //google firebase
     //firebase auth
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.3'
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+
     //firebase realtime database
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-database:20.0.4'
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.2.1')

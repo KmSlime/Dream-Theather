@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">DreamTheater</string>
-
-
     <!--    add-->
     <string name="title_home">Home</string>
     <string name="title_reservations">Reservations</string>
@@ -23,10 +21,12 @@
     <string name="tvLogin">Đăng nhập</string>
     <string name="forgottenPassword">Quên mật khẩu?</string>
     <string name="tvRegister">Đăng ký ngay!</string>
+
     <!--    fb required-->
-    <string name="facebook_app_id">1234</string>
+    <string name="facebook_application_id">1234</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">56789</string>
+
     <string name="register">Đăng ký</string>
     <string name="what_is_your_name">Tên của bạn là gì?</string>
     <string name="user_Name">Tên đăng nhập</string>
