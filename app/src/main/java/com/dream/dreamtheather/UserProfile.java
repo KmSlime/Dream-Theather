@@ -59,20 +59,20 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if(status.isSuccess()) gotoLoginAcitivity();
-                        else Toast.makeText(UserProfile.this, "Đăng xuất thất bại!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                gotoLoginAcitivity();
+//                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+//                    @Override
+//                    public void onResult(@NonNull Status status) {
+//                        if(status.isSuccess()) gotoLoginAcitivity();
+//                        else Toast.makeText(UserProfile.this, "Đăng xuất thất bại!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         });
 
     }
 
     private void gotoLoginAcitivity() {
-
         startActivity(new Intent(UserProfile.this, Login.class));
         finish();
     }

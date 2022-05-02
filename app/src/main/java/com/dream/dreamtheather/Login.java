@@ -1,11 +1,12 @@
 package com.dream.dreamtheather;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -16,15 +17,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dream.dreamtheather.Model.UserHelperClass;
-import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,6 +70,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         //firebase
 //        database = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -94,6 +100,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 startActivityForResult(intent, SIGN_IN);
             }
         });
+
     }
 
     public void btnRegister(View view) {
@@ -101,7 +108,38 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     public void ResetPass(View view) {
-        startActivity(new Intent(this, ForgottenPassword.class));
+//        startActivity(new Intent(this, ForgottenPassword.class));
+        final EditText resetMail = new EditText(Login.this);
+        final AlertDialog.Builder passWordResetDialog = new AlertDialog.Builder(Login.this);
+        passWordResetDialog.setTitle("Thay đổi mật khẩu?");
+        passWordResetDialog.setMessage("Nhập email của bạn:");
+        passWordResetDialog.setView(resetMail);
+
+        passWordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String mail = resetMail.getText().toString();
+                firebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(Login.this, "Đã gửi link reset về email của bạn", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Login.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        passWordResetDialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        passWordResetDialog.create().show();
     }
 
     @Override
@@ -122,22 +160,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
     }
 
-    //firebase auth
-    public void isValidate(){
-        database = FirebaseDatabase.getInstance();
-        reference =database.getReference("User");
-
-//        UserHelperClass userHelperClass = new UserHelperClass();
-        //get all value
-//        String userName = edtUsername.getText().toString();
-//        String passWord = edtPassword.getText().toString();
-
-
-//        if(edtUsername.getText().equals(database.getReference("User")))
-
-    }
-
-
     public boolean checkValidate(){
         if (edtUsername.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty())
         {
@@ -145,49 +167,16 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
         return false;
     }
-
-    public boolean checkValidAccount(){
-        //save data in firebase on button click
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("Users/UserTest");
-
-        //get all values
-        String username = edtUsername.getText().toString();
-        String password = edtPassword.getText().toString();
-
-//        if (!true) //vài bửa sửa thành compare dữ liệu từ database
+//
+//    public boolean IsRegister(){
+//        Intent getIntent = getIntent();
+//        if (edtUsername.getText().toString().compareTo(getIntent.getStringExtra("RegisterUser")) == 0
+//                && edtPassword.getText().toString().compareTo(getIntent.getStringExtra("RegisterPassword")) == 0)
 //        {
 //            return true;
 //        }
 //        return false;
-        return true;
-    }
-
-    public boolean IsRegister(){
-        Intent getIntent = getIntent();
-        if (edtUsername.getText().toString().compareTo(getIntent.getStringExtra("RegisterUser")) == 0
-                && edtPassword.getText().toString().compareTo(getIntent.getStringExtra("RegisterPassword")) == 0)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public void btnLogin(View view) {
-        if (checkValidate()) {
-            Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            if (checkValidAccount() || IsRegister()) {
-                Intent intent = new Intent(Login.this, MainActivity.class);
-                startActivity(intent);
-                onStop();
-            } else
-                progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(), "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-        }
-    }
-
+//    }
 
     @Override
     protected void onStart() {
@@ -199,6 +188,31 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         String psd = getIntent.getStringExtra("RegisterPassword");
         edtUsername.setText(user);
         edtPassword.setText(psd);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkValidate()) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    firebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString(), edtPassword.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Login.this, UserProfile.class)); // sau này sẽ sửa dòng này
+                                    finish();
+                                }else{
+                                    Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                }
+            }
+        });
 
     }
 }

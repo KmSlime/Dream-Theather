@@ -26,9 +26,12 @@ import android.widget.Toast;
 import com.dream.dreamtheather.Model.InputValidatorHelper;
 import com.dream.dreamtheather.Model.UserHelperClass;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,19 +54,21 @@ public class Register extends AppCompatActivity {
     private TextView tvDatepicked, tvAge;
     private DatePickerDialog.OnDateSetListener dateSetListener1;
     private boolean pickdate = false;
-
+    private ProgressBar progressBar;
 
     // Write a message to the firebase database
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
-    // Firebase Auth
+    // Firebase
     FirebaseAuth firebaseAuth;
-    ProgressBar progressBar;
 
 
     //validation checker
     InputValidatorHelper inputValidatorHelper = new InputValidatorHelper();
+
+    //
+    String userID;
 
 
     @Override
@@ -90,6 +95,7 @@ public class Register extends AppCompatActivity {
 
         //Progress Bar
         progressBar = findViewById(R.id.progressBar);
+
 
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
@@ -217,16 +223,10 @@ public class Register extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        if(firebaseAuth.getCurrentUser() != null){
-//            startActivity(new Intent(Register.this, MainActivity.class));
-//            finish();
-//        }
-
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 if (checkValidate()) {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
@@ -250,10 +250,27 @@ public class Register extends AppCompatActivity {
                                     //add a user with key as email to firebase
                                     reference.child(phoneNum).setValue(userHelperClass);
 
-                                    firebaseAuth.createUserWithEmailAndPassword(email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    firebaseAuth.createUserWithEmailAndPassword(email, passWord)
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if(task.isSuccessful()) {
+                                                //send noti to email
+                                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                                userID = user.getUid();
+
+                                                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(Register.this, "Đã gửi email xác nhận", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("Thất bại:", "Không gửi được email" + e.getMessage());
+                                                    }
+                                                });
+
                                                 Toast.makeText(Register.this, "Tạo tài khoản thành công", Toast.LENGTH_LONG).show();
                                                 Intent intent = new Intent(Register.this, UserProfile.class);
                                                 intent.putExtra("RegisterUser", edtRegisterUsername.getText().toString());
@@ -276,7 +293,9 @@ public class Register extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
             }
+
         });
+
     }
 
     public void BackToLogin(View view) {
