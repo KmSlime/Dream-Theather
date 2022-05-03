@@ -184,7 +184,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         //get data login from register
         Intent getIntent = getIntent();
-        String user = getIntent.getStringExtra("RegisterUser");
+        String user = getIntent.getStringExtra("edtRegisterEmail");
         String psd = getIntent.getStringExtra("RegisterPassword");
         edtUsername.setText(user);
         edtPassword.setText(psd);

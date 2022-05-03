@@ -2,16 +2,14 @@ package com.dream.dreamtheather.Model;
 
 public class UserHelperClass {
 
-    String email, userName, passWord, phoneNumber, userDOB, User_Name, User_Address, User_Email ;
+    String email, phoneNumber, userDOB, User_Name, User_Address, User_Email ;
     int User_LoyaltyPoint;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String email, String userName, String passWord, String phoneNumber, String userDOB, String user_Name, String user_Address, String user_Email, int user_LoyaltyPoint) {
+    public UserHelperClass(String email, String phoneNumber, String userDOB, String user_Name, String user_Address, String user_Email, int user_LoyaltyPoint) {
         this.email = email;
-        this.userName = userName;
-        this.passWord = passWord;
         this.phoneNumber = phoneNumber;
         this.userDOB = userDOB;
         this.User_Name = user_Name;
@@ -26,22 +24,6 @@ public class UserHelperClass {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
     }
 
     public String getPhoneNumber() {

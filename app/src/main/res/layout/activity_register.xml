@@ -53,18 +53,32 @@
                 app:layout_constraintTop_toBottomOf="@id/tvRegister"/>
 
             <EditText
-            android:hint="@string/user_Name"
-            android:id="@+id/edtRegisterUsername"
-            android:drawableLeft="@drawable/ic_account_circle_24"
-            android:textSize="15dp"
-            android:drawablePadding="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edtAuthor_Name"
-            />
+                android:hint="Email"
+                android:id="@+id/edtRegisterEmail"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:inputType="textEmailAddress"
+                android:textSize="15dp"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edtAuthor_Name"
+                />
+<!--            <EditText-->
+<!--            android:hint="@string/user_Name"-->
+<!--            android:id="@+id/edtRegisterUsername"-->
+<!--            android:drawableLeft="@drawable/ic_account_circle_24"-->
+<!--            android:textSize="15dp"-->
+<!--            android:drawablePadding="5dp"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/edtAuthor_Name"-->
+<!--            />-->
 
             <EditText
             android:hint="Password"
@@ -78,7 +92,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/edtRegisterUsername"
+            app:layout_constraintTop_toBottomOf="@id/edtRegisterEmail"
             />
 
             <ImageButton
@@ -107,20 +121,6 @@
                 />
 
 
-            <EditText
-                android:hint="Email"
-                android:id="@+id/edtRegisterEmail"
-                android:drawableLeft="@drawable/ic_baseline_email_24"
-                android:inputType="textEmailAddress"
-                android:textSize="15dp"
-                android:drawablePadding="5dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/edtRegisterPasswordConfirm"
-                />
 
             <EditText
                 android:hint="@string/Input_PhoneNum"
@@ -135,15 +135,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintTop_toBottomOf="@id/edtRegisterEmail"
-                app:layout_constraintStart_toStartOf="@id/edtRegisterEmail"
-                app:layout_constraintEnd_toEndOf="@id/edtRegisterEmail"
+                app:layout_constraintTop_toBottomOf="@id/edtRegisterPasswordConfirm"
+                app:layout_constraintStart_toStartOf="@id/edtRegisterPasswordConfirm"
+                app:layout_constraintEnd_toEndOf="@id/edtRegisterPasswordConfirm"
                 />
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/radio_group"
+                android:id="@+id/radioGroup"
                 android:drawablePadding="5dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="10dp"
@@ -166,7 +166,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Nam"
-                    android:id="@+id/radio_button_male"
+                    android:id="@+id/radioMale"
                     android:textSize="15dp"
                     android:layout_marginRight="15dp"
                     android:checked="true"
@@ -176,7 +176,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Nữ"
-                    android:id="@+id/radio_button_female"
+                    android:id="@+id/radioFemale"
                     android:textSize="15dp"
                     android:checked="false"
                     android:layout_weight="1"/>
@@ -192,7 +192,7 @@
                 android:layout_marginRight="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radio_group"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
                 android:orientation="horizontal"
                 android:weightSum="3"
                 android:gravity="center">
