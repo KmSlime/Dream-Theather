@@ -31,7 +31,7 @@
             android:text="Bạn muốn tìm phim gì?"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:layout_marginLeft="50dp"
 
             app:layout_constraintRight_toRightOf="parent"

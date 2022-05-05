@@ -67,7 +67,6 @@ dependencies {
     //google ui button
     implementation 'com.github.TutorialsAndroid:GButton:v1.0.19'
 
-
     //facebook login
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
@@ -95,5 +94,13 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
+
+
+
+    //img round
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

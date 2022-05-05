@@ -39,7 +39,7 @@
             android:text=""
             android:ellipsize="end"
             android:textColor="@android:color/white"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:lines="1"
             android:padding="8dp"
             android:layout_alignParentTop="true"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                app:fontSize="12sp"
+                app:fontSize="12dp"
                 app:color="@color/ayp_red"
 
                 android:maxHeight="100dp" />
@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ayp_live"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="12dp"
 
                 android:padding="8dp"
                 android:gravity="center_vertical"

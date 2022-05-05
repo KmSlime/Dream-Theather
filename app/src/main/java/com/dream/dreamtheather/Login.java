@@ -46,8 +46,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private static final int SIGN_IN = 1;
 
     // Write a message to the firebase database
-    FirebaseDatabase database;
-    DatabaseReference reference;
     FirebaseAuth firebaseAuth;
 
 
@@ -71,6 +69,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         //firebase
 //        database = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
 
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
             @Override

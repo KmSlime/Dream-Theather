@@ -10,7 +10,7 @@
         android:id="@+id/sv_film_picked"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarSize="5sp">
+        android:scrollbarSize="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"

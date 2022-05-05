@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phim"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
 
             tools:ignore="HardcodedText" />
@@ -73,7 +73,7 @@
                     android:layout_marginBottom="6dp"
                     android:layout_toStartOf="@+id/btn_dat_ve"
                     android:text="@string/test_title_film"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <Button
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="@string/dat_ve"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:text="@string/test_introduction_film"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     app:colorClickableText="@color/red"
                     app:showTrimExpandedText="true"
                     app:trimCollapsedText="Ít hơn"
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Kiểm duyệt"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Khởi chiếu"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         />
                     <TextView
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Thể loại"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -217,7 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Đạo diễn"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         />
                     <TextView
@@ -239,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Thời lượng"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Ngôn ngữ"
-                        android:textSize="14sp"
+                        android:textSize="14dp"
                         android:textStyle="bold"
                         />
                     <TextView
@@ -385,7 +385,7 @@
                         android:layout_marginBottom="6dp"
                         android:layout_toStartOf="@+id/btn_show_all_promo"
                         android:text="Tin mới và Ưu đãi"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                     <Button
@@ -394,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:text="Tất cả"
-                        android:textSize="12sp" />
+                        android:textSize="12dp" />
                 </RelativeLayout>
 
             </LinearLayout>

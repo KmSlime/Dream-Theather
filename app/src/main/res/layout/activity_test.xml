@@ -40,7 +40,7 @@
                     android:text="Select your Show Details to Order F &amp; B"
                     android:textAlignment="center"
                     android:textColor="#4e4e50"
-                    android:textSize="16sp" />
+                    android:textSize="16dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                             android:text="IMAX: Cinesphere, Mumbai"
                             android:textAlignment="center"
                             android:textColor="#7E7E7E"
-                            android:textSize="16sp"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
 
@@ -118,7 +118,7 @@
                     android:fontFamily="@font/calibri"
                     android:text="SELECT A MOVIE"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <HorizontalScrollView
@@ -155,7 +155,7 @@
                                 android:text="World of Warcraft"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -180,7 +180,7 @@
                                 android:text="Kong: Skull Island"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -205,7 +205,7 @@
                                 android:text="The Lego Batman"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -230,7 +230,7 @@
                                 android:text="World of Warcraft"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -255,7 +255,7 @@
                                 android:text="Kong: Skull Island"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -280,7 +280,7 @@
                                 android:text="The Lego Batman"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -305,7 +305,7 @@
                                 android:text="World of Warcraft"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -330,7 +330,7 @@
                                 android:text="Kong: Skull Island"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -355,7 +355,7 @@
                                 android:text="The Lego Batman"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="14sp" />
+                                android:textSize="14dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -369,7 +369,7 @@
                     android:fontFamily="@font/calibri"
                     android:text="SELECT A DATE"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <VideoView
@@ -404,7 +404,7 @@
                                 android:text="25"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -413,7 +413,7 @@
                                 android:text="TUE"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -432,7 +432,7 @@
                                 android:text="26"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -441,7 +441,7 @@
                                 android:text="WED"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -460,7 +460,7 @@
                                 android:text="27"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -469,7 +469,7 @@
                                 android:text="THU"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -488,7 +488,7 @@
                                 android:text="28"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -497,7 +497,7 @@
                                 android:text="FRI"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -516,7 +516,7 @@
                                 android:text="29"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -525,7 +525,7 @@
                                 android:text="SAT"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -544,7 +544,7 @@
                                 android:text="30"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="24sp" />
+                                android:textSize="24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -553,7 +553,7 @@
                                 android:text="SUN"
                                 android:textAlignment="center"
                                 android:textColor="#7E7E7E"
-                                android:textSize="12sp" />
+                                android:textSize="12dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -574,7 +574,7 @@
                     android:fontFamily="@font/calibri"
                     android:text="SELECT A SHOWTIME"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -600,7 +600,7 @@
                         android:paddingBottom="12dp"
                         android:text="11:00 AM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -616,7 +616,7 @@
                         android:paddingBottom="12dp"
                         android:text="1:30 PM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -632,7 +632,7 @@
                         android:paddingBottom="12dp"
                         android:text="04:00 PM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -657,7 +657,7 @@
                         android:paddingBottom="12dp"
                         android:text="11:00 AM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -673,7 +673,7 @@
                         android:paddingBottom="12dp"
                         android:text="1:30 PM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -689,7 +689,7 @@
                         android:paddingBottom="12dp"
                         android:text="04:00 PM"
                         android:textAlignment="center"
-                        android:textSize="14sp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -715,12 +715,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/buttonshape"
+                android:background="@drawable/button_shape"
                 android:fontFamily="@font/calibri"
                 android:text="PROCEED"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
