@@ -17,10 +17,10 @@
     <string name="dat_ve">Đặt vé</string>
 
     <string name="login">Đăng nhập</string>
-    <string name="DontHaveAccountYet">Bạn chưa có tài khoản?</string>
+    <string name="DontHaveAccountYet">Chưa có tài khoản?</string>
     <string name="tvLogin">Đăng nhập</string>
     <string name="forgottenPassword">Quên mật khẩu?</string>
-    <string name="tvRegister">Đăng ký ngay!</string>
+    <string name="tvRegister">Đăng ký!</string>
 
     <!--    fb required-->
     <string name="facebook_application_id">1234</string>

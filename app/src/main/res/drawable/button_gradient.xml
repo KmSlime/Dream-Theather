@@ -16,7 +16,7 @@
         android:right="7dp"
         />
     <size
-        android:width="150dp"
+        android:width="50dp"
         android:height="25dp"
         />
 </shape>

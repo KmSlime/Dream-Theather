@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dream.dreamtheather.Model.InputValidatorHelper;
+import com.dream.dreamtheather.Model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,8 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.joda.time.*;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -136,6 +139,32 @@ public class Register extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        calAge();
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkValidate()) {
+                    Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (checkPassConfirm()) {
+                        if(emailValidate()){
+                            if(checkPhoneNum()){
+                                if(pickdate) {
+
+                                    signUp();
+
+                                } else Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                }
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void calAge(){
         //date of birth
         dateSetListener1 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -169,79 +198,82 @@ public class Register extends AppCompatActivity {
                 }
             }
         };
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkValidate()) {
-                    Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (checkPassConfirm()) {
-                        if(emailValidate()){
-                            if(checkPhoneNum()){
-                                if(pickdate) {
-                                    createFireStore();
-                                } else Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                }
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
-    public void createFireStore(){
+    public void addNewUser(){
+        Users user = new Users();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         //get all values
-        String userName = edtAuthor_Name.getText().toString().trim();
+        String fullName = edtAuthor_Name.getText().toString().trim();
         String email = edtRegisterEmail.getText().toString().trim();
-        String passWord = edtRegisterPassword.getText().toString().trim();
         String phoneNum = edtPhoneNum.getText().toString().trim();
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(selectedId);
         String gender = radioButton.getText().toString();
-        Log.d("gender: ", gender);
+        Log.i("gender: ", gender);
 
-        Map<String, Object> User = new HashMap<>();
-        User.put("loyaltyPoint", 0);
-        User.put("address","chưa có");
-        User.put("avaUrl", "chưa có");
-        User.put("balance",0);
-        User.put("email", email);
-        User.put("birthDay", dateOfBirth);
-        User.put("fullName", userName);
-        User.put("gender", gender);
-        User.put("idTicket",null);
-        User.put("phoneNumber",phoneNum);
-        User.put("userType","Khách");
+        ArrayList<Integer> idTicket = new ArrayList<>();
 
-        firebaseAuth.createUserWithEmailAndPassword(email, passWord)
+        user.setFullName(fullName);
+        user.setAddress("chưa có");
+        user.setBalance(0);
+        user.setBirthDay(dateOfBirth);
+        user.setAvaUrl("chưa có");
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNum);
+        user.setUserType("Khách");
+        user.setGender(gender);
+        user.setIdTicket(idTicket);
+        user.setLoyaltyPoint(0);
+
+
+//                            Map<String, Object> User = new HashMap<>();
+//                            User.put("loyaltyPoint", 0);
+//                            User.put("address","chưa có");
+//                            User.put("avaUrl", "chưa có");
+//                            User.put("balance",0);
+//                            User.put("email", email);
+//                            User.put("birthDay", dateOfBirth);
+//                            User.put("fullName", userName);
+//                            User.put("gender", gender);
+//                            User.put("idTicket",null);
+//                            User.put("phoneNumber",phoneNum);
+//                            User.put("userType","Khách");
+
+        createFireStore(user);
+
+    }
+
+    public void createFireStore(Users user){
+        //add to firestore
+        firebaseFirestore.collection("user_info").document(firebaseUser.getUid()).set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(Register.this, "Thành công", Toast.LENGTH_SHORT).show();
+                        Log.d("test", "id:" + firebaseUser.getUid());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG", "Error adding document" + e.getMessage());
+            }
+        });
+    }
+
+    public void signUp(){
+
+        firebaseAuth.createUserWithEmailAndPassword(edtRegisterEmail.getText().toString().trim(), edtRegisterPassword.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
 
-                            firebaseUser = firebaseAuth.getCurrentUser();
-                            final String userID = firebaseUser.getUid();
-                            User.put("userID", userID);
+                            addNewUser();
 
-                            //add to firestore
-                            firebaseFirestore.collection("user_info").document(userID).set(User)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(Register.this, "Thành công", Toast.LENGTH_SHORT).show();
-                                            Log.d("test", "id:" + userID);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("TAG", "Error adding document" + e.getMessage());
-                                }
-                            });
-
+                            Log.d("TAG", "thành công");
                             //send noti to email
                             firebaseUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -254,6 +286,7 @@ public class Register extends AppCompatActivity {
                                     Log.d("Thất bại:", "Không gửi được email" + e.getMessage());
                                 }
                             });
+
                             SuccessfulRegister();
                         }
                         else {
@@ -322,7 +355,6 @@ public class Register extends AppCompatActivity {
     public void SuccessfulRegister(){
         Toast.makeText(Register.this, "Tạo tài khoản thành công", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(Register.this, UserProfile.class);
-//        intent.putExtra("email", edtRegisterEmail.getText().toString());
         startActivity(intent);
         finish();
     }

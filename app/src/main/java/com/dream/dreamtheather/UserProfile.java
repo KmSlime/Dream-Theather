@@ -43,6 +43,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 
 public class UserProfile extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -99,20 +101,12 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions).build();
 
-
-
-    }
-
-    private void gotoLoginAcitivity() {
-        startActivity(new Intent(UserProfile.this, Login.class));
-        finish();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
 
     public void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()) {
@@ -156,6 +150,9 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
         }
     }
 
+    public void updateUser(){
+        Toast.makeText(UserProfile.this, "Chưa có chức năng này!!", Toast.LENGTH_SHORT).show();
+    }
 
     public void DisplayUser(){
 
@@ -176,27 +173,7 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
                 Log.e("TAG", "Error: " + e.getMessage());
             }
         });
-//
-//        firebaseFirestore.collection("user_info").whereEqualTo("userID", userID)
-//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    for(QueryDocumentSnapshot document : task.getResult()){
-//
-//
-//                    }
-//                }else{
-//                    Toast.makeText(UserProfile.this, "Lỗi", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//            }
-//        });
     }
-
 
     @Override
     public void onStart() {
@@ -204,11 +181,19 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
 
         DisplayUser();
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateUser();
+            }
+        });
+
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 gotoLoginAcitivity();
+
 //                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
 //                    @Override
 //                    public void onResult(@NonNull Status status) {
@@ -237,5 +222,11 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
     }
 
     public void BackToMain(View view) {
+        startActivity(new Intent(UserProfile.this, MainActivity.class));
+    }
+
+    private void gotoLoginAcitivity() {
+        startActivity(new Intent(UserProfile.this, Login.class));
+        finish();
     }
 }

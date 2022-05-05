@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -92,14 +93,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
 
-        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent, SIGN_IN);
-            }
-        });
-
     }
 
     public void btnRegister(View view) {
@@ -137,7 +130,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
             }
         });
-
         passWordResetDialog.create().show();
     }
 
@@ -153,7 +145,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(result.isSuccess()) {
-                startActivity(new Intent(Login.this, UserProfile.class)); // sau này sẽ sửa dòng này
+                startActivity(new Intent(Login.this, UserProfile.class));
+                Log.i("TAG", result.getSignInAccount().getId());
                 finish();
             } else Toast.makeText(this, "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG).show();
         }
@@ -177,16 +170,35 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 //        return false;
 //    }
 
+    public void SignIn(){
+        firebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString(), edtPassword.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Login.this, UserProfile.class)); // sau này sẽ sửa dòng này
+                            finish();
+                        }else{
+                            Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        //get data login from register
-        Intent getIntent = getIntent();
-        String user = getIntent.getStringExtra("edtRegisterEmail");
-        String psd = getIntent.getStringExtra("RegisterPassword");
-        edtUsername.setText(user);
-        edtPassword.setText(psd);
+        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+//                startActivityForResult(intent, SIGN_IN);
+                Toast.makeText(Login.this, "Chức năng này hiện đang lỗi!!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,20 +207,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.VISIBLE);
                 } else {
-                    firebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString(), edtPassword.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(Login.this, UserProfile.class)); // sau này sẽ sửa dòng này
-                                    finish();
-                                }else{
-                                    Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
+                    SignIn();
                 }
             }
         });
