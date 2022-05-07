@@ -16,6 +16,7 @@ import com.dream.dreamtheather.Fragment.HomeTabFragment;
 import com.dream.dreamtheather.Fragment.TheatherFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,9 +24,13 @@ public class MainActivity extends AppCompatActivity {
             BOOKING = R.id.navigation_Booking,
             FAV = R.id.navigation_favorites,
             ACCOUNT = R.id.navigation_account ;
-    
+
+    public FirebaseFirestore mDb;
+
     private BottomNavigationView bottom_navigation;
     private ActionBar toolBar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        mDb = FirebaseFirestore.getInstance();
 
     }
 

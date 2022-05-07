@@ -66,7 +66,7 @@ public class AccountTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = (View) inflater.inflate(R.layout.fragment_account_tab, container, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_account_tab, container, false);
         initView(view);
 
         return view;
@@ -101,8 +101,7 @@ public class AccountTabFragment extends Fragment {
     private void initView(View view) {
 
         View decorView = getActivity().getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        int uiOptions = /*View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |*/ View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
         imgAvata = view.findViewById(R.id.imgAvata);

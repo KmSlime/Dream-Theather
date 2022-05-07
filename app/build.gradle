@@ -104,4 +104,11 @@ dependencies {
     //img round
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Replacing findViewByID
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
 }
