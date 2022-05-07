@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -66,10 +67,17 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
     Users users;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
 
         imgAvata = findViewById(R.id.imgAvata);
         btnBack = findViewById(R.id.btnBack);
@@ -228,5 +236,9 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
     private void gotoLoginAcitivity() {
         startActivity(new Intent(UserProfile.this, Login.class));
         finish();
+    }
+
+    public void ChangeAvatar(View view) {
+        Toast.makeText(UserProfile.this, "Đây là chức năng thay đổi avt, hiện tại chức năng này chưa có", Toast.LENGTH_SHORT).show();
     }
 }

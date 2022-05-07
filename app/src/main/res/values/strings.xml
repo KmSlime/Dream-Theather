@@ -2,8 +2,8 @@
     <string name="app_name">DreamTheater</string>
     <!--    add-->
     <string name="title_home">Home</string>
-    <string name="title_reservations">Reservations</string>
-    <string name="title_favorites">Favorites</string>
+    <string name="title_reservations">Booking</string>
+    <string name="title_favorites">Yêu thích</string>
     <string name="swipeButtonText">SWIPE TO RESERVE</string>
     <string name="movieTitle">Title</string>
     <string name="movieTime">13:30</string>
@@ -32,6 +32,7 @@
     <string name="user_Name">Tên đăng nhập</string>
     <string name="Confirm_Password">Nhập lại Password</string>
     <string name="Input_PhoneNum">Số điện thoại của bạn?</string>
+    <string name="title_account">Tài khoản</string>
 
 
     <string-array name="genres_array">
@@ -45,6 +46,8 @@
         <item>Documentary</item>
 
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

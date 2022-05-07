@@ -72,6 +72,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
 
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
