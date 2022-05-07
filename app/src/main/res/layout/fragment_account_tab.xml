@@ -10,17 +10,16 @@
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
         android:orientation="horizontal">
 
         <ImageView
             android:onClick="BackToMain"
             android:id="@+id/btnBack"
-            android:layout_width="35dp"
-            android:layout_height="75dp"
-            android:paddingTop="28dp"
-            android:paddingBottom="28dp"
+            android:layout_width="50dp"
+            android:paddingVertical="15dp"
+            android:layout_height="?attr/actionBarSize"
             app:srcCompat="@drawable/ic_back_button"
             android:contentDescription="Back" />
 
@@ -40,7 +39,7 @@
     <ScrollView
         app:layout_constraintVertical_chainStyle="packed"
         android:id="@+id/scrollView"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -310,7 +309,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="Cập nhật"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:background="@drawable/button_save"
@@ -329,7 +328,7 @@
                     android:layout_height="match_parent"
                     android:text="Đăng xuất"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/white"
                     android:background="@drawable/button_save"
                     android:layout_weight="1"/>
