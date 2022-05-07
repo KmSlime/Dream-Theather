@@ -69,8 +69,8 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.txt_name) TextView txtName;
-        @BindView(R.id.txt_rating) TextView txtRating;
+        @BindView(R.id.tvName) TextView txtName;
+        @BindView(R.id.tvRating) TextView txtRating;
 
         @BindView(R.id.type_linear_layout)
         LinearLayout mTypeParent;
