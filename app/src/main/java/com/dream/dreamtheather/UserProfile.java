@@ -231,6 +231,7 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
 
     public void BackToMain(View view) {
         startActivity(new Intent(UserProfile.this, MainActivity.class));
+        finish();
     }
 
     private void gotoLoginAcitivity() {
@@ -240,5 +241,10 @@ public class UserProfile extends AppCompatActivity implements GoogleApiClient.On
 
     public void ChangeAvatar(View view) {
         Toast.makeText(UserProfile.this, "Đây là chức năng thay đổi avt, hiện tại chức năng này chưa có", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -182,7 +182,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this, UserProfile.class)); // sau này sẽ sửa dòng này
+                            startActivity(new Intent(Login.this, MainActivity.class)); // sau này sẽ sửa dòng này
                             finish();
                         }else{
                             Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();

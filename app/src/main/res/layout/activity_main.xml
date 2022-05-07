@@ -15,7 +15,7 @@
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            class=".Fragment.HomeFragment"
+            android:name="com.dream.dreamtheather.Fragment.HomeTabFragment"
             android:id="@+id/FragmentHomeTab"/>
 
     </LinearLayout>
