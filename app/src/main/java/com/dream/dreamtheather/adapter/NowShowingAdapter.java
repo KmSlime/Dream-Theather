@@ -52,7 +52,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_movie_nowshowing_tab, parent, false);
+        View view = inflater.inflate(R.layout.item_movie_card, parent, false);
 
         return new ItemHolder(view);
     }

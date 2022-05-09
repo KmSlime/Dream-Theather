@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_future_film.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_home_tab.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_now_showing.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_spotlight.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_card.xml" value="0.5486725663716814" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.4835924006908463" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/menu/navigation.xml" value="0.25416666666666665" />
