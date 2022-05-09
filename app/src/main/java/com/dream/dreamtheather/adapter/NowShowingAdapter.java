@@ -96,7 +96,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
             txtName.setText(movie.getTitle());
 
-            // holder.txtRating.setText(mData.get(position).getRating().toString());
+            txtRating.setText(String.valueOf(movie.getRate()));
 
             List<String> types = movie.getType();
             mTypeParent.removeAllViews();

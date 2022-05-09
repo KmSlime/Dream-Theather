@@ -51,6 +51,7 @@
     <string name="director">Đạo diễn: </string>
     <string name="cast">Diễn viên: </string>
     <string name="movieName">Tên phim</string>
+    <string name="book">Đặt vé</string>
 
 
 </resources>

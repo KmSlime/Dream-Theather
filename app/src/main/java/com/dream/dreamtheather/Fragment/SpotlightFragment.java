@@ -16,6 +16,7 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.adapter.NowShowingAdapter;
+import com.dream.dreamtheather.adapter.SpotlightAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +37,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     @BindView(R.id.rv_film)
     RecyclerView mRecyclerView;
 
-    NowShowingAdapter mAdapter;
+    SpotlightAdapter mAdapter;
 
     FirebaseFirestore db;
 
@@ -44,7 +45,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_now_showing, container, false);
+        View view = inflater.inflate(R.layout.fragment_spotlight, container, false);
         return view;
     }
 
@@ -57,7 +58,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new NowShowingAdapter(getActivity());
+        mAdapter = new SpotlightAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         refreshData();
     }
