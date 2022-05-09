@@ -64,7 +64,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     }
 
     public void refreshData() {
-        db.collection("now_showing")
+        db.collection("feature_movie")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
@@ -83,7 +83,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
             Collections.sort(mM, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie m1, Movie m2) {
-                    return (int) (m1.getRate() - m2.getRate());
+                    return (int) (m2.getRate() - m1.getRate());
                 }
             });
             if(mAdapter!=null)
