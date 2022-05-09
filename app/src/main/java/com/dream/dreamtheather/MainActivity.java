@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -21,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     private static final int HOME = R.id.navigation_home,
-            BOOKING = R.id.navigation_Booking,
             FAV = R.id.navigation_favorites,
             ACCOUNT = R.id.navigation_account ;
 
@@ -54,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeTabFragment();
                         loadFragment(fragment);
                         return true;
-                    case BOOKING:
-                        fragment = new BookingFragment();
-                        loadFragment(fragment);
-                        return true;
                     case FAV :
                         fragment = new TheatherFragment();
                         loadFragment(fragment);
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             };
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.FragmentHomeTab, fragment);
@@ -88,4 +85,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

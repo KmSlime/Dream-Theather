@@ -7,11 +7,6 @@
         android:icon="@drawable/ic_home_black_24dp" />
 
     <item
-        android:id="@+id/navigation_Booking"
-        android:title="@string/title_reservations"
-        android:icon="@drawable/ic_confirmation_number_black_24dp" />
-
-    <item
         android:id="@+id/navigation_favorites"
         android:title="@string/title_favorites"
         android:icon="@drawable/ic_favorite_black_24dp" />

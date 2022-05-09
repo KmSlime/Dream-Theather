@@ -2,6 +2,7 @@ package com.dream.dreamtheather.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dream.dreamtheather.Fragment.MovieDetail;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
@@ -52,7 +55,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_movie_nowshowing_tab, parent, false);
+        View view = inflater.inflate(R.layout.item_movie_card, parent, false);
 
         return new ItemHolder(view);
     }
@@ -89,14 +92,13 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
         @OnClick(R.id.panel)
         void clickPanel() {
-            if(mContext instanceof MainActivity)
-                ((MainActivity) mContext).getSupportFragmentManager();
+            ((MainActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
         }
         public void bind(Movie movie) {
 
             tvName.setText(movie.getTitle());
 
-            // holder.txtRating.setText(mData.get(position).getRating().toString());
+            txtRating.setText(String.valueOf(movie.getRate()));
 
             List<String> types = movie.getType();
             mTypeParent.removeAllViews();
@@ -123,5 +125,6 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
                     .apply(requestOptions)
                     .into(image);
         }
+
     }
 }

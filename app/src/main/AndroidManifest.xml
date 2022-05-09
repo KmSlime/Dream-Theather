@@ -69,7 +69,17 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".SearchResultsActivity"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+    </activity>
     </application>
 
 </manifest>
