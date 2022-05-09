@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/splash_bg"
     tools:context=".Login">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,33 +20,32 @@
         app:layout_constraintStart_toStartOf="@+id/LoginForm"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/LoginForm"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:gravity="center"
         app:layout_constraintVertical_chainStyle="packed">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/movie_pop_corn"/>
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/popcorn"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Dream Theather"
-            app:fontFamily="@font/postnobillsjaffna_extrabold"
+            app:fontFamily="@font/pacifico_regular"
             android:layout_marginTop="10dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:textColor="@color/heavy_yellow"/>
+            android:textSize="35dp"
+            android:textColor="@color/blue"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="Hệ thống rạp chiếu phim hiện đại toàn cầu"
-            android:textColor="@color/titleColor"
+            android:text="Nơi trải nghiệm phim tốt nhất cho bạn"
+            android:textColor="@color/black"
             android:textSize="20dp"
             app:fontFamily="@font/postnobillsjaffna_extrabold" />
     </LinearLayout>
@@ -59,7 +58,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +83,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <EditText
-            android:hint="Username"
+            android:hint="Email"
             android:id="@+id/edtUsername"
             android:drawableLeft="@drawable/ic_baseline_person_24"
             android:textSize="15dp"

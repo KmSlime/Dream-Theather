@@ -1,5 +1,6 @@
 package com.dream.dreamtheather.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dream.dreamtheather.R;
@@ -25,8 +28,8 @@ public class HomeTabFragment extends Fragment implements SearchView.OnQueryTextL
 
     String[] tabArray = {
             "Spotlight",
-            "Now Showing",
-            "Upcoming"};
+            "Đang chiếu",
+            "Sắp chiếu"};
 
     TabLayout tabLayout;
     ViewPager2 viewPager;

@@ -1,16 +1,9 @@
 <resources>
     <string name="app_name">DreamTheater</string>
     <!--    add-->
-    <string name="title_home">Home</string>
-    <string name="title_reservations">Booking</string>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_theather">Rạp</string>
     <string name="title_favorites">Yêu thích</string>
-    <string name="swipeButtonText">SWIPE TO RESERVE</string>
-    <string name="movieTitle">Title</string>
-    <string name="movieTime">13:30</string>
-    <string name="no_reservations_msg_header">No reservations yet</string>
-    <string name="no_favorites_msg_header">No favorites yet</string>
-    <string name="no_favorites_msg_body">Tap the heart icon on a film to add it to your favorites list.</string>
-    <string name="no_reservations_msg_body">Tap the RESERVE button on a film to make a reservation.</string>
 
     <string name="test_introduction_film">Lần đầu tiên trong lịch sử điện ảnh của Người Nhện, thân phận người hàng xóm thân thiện bị lật mở, khiến trách nhiệm làm một Siêu Anh Hùng xung đột với cuộc sống bình thường và đặt người anh quan tâm nhất vào tình thế nguy hiểm. Khi anh nhờ đến giúp đỡ của Doctor Strange để khôi phục lại bí mật, phép thuật đã gây ra lỗ hổng thời không, giải phóng những ác nhân mạnh mẽ nhất từng đối đầu với Người Nhện từ mọi vũ trụ. Bây giờ, Peter sẽ phải vượt qua thử thách lớn nhất của mình, nó sẽ thay đổi không chỉ tương lai của chính anh mà còn là tương lai của cả Đa Vũ Trụ.</string>
     <string name="test_title_film">NGƯỜI NHỆN KHÔNG CÒN NHÀ</string>
@@ -52,10 +45,10 @@
     <string name="cast">Diễn viên: </string>
     <string name="movieName">Tên phim</string>
     <string name="book">Đặt vé</string>
-    <string name="book_now">Book now</string>
-    <string name="content_string" translatable="false">Trở lại sau 6 năm, anh chàng hậu đậu Ralph và người bạn đồng hành Vanelllope rời khỏi thế giới game thùng nhỏ bé để khám phá thế giới Internet rộng lớn. Mục đích duy nhất của cả hai là tìm cách cứu lấy trò chơi Sugar Rush của Vanellope khỏi nguy cơ bị huỷ hoại. Thế nhưng, Vanellope nhận ra đây mới chính là nơi dành cho cô, trong khi đó Ralph lại lo sợ liệu anh có đánh mất người bạn duy nhất của mình</string>
+    <string name="book_now">Đặt vé ngay</string>
+    <string name="content_string" translatable="false">descrip</string>
     <string name="booking">Booking</string>
-    <string name="search_hint">Tim phim</string>
-    <string name="search_title">Search</string>
+    <string name="search_hint">Tìm phim</string>
+    <string name="search_title">Tìm kiếm</string>
 
 </resources>

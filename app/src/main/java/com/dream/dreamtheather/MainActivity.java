@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     private static final int HOME = R.id.navigation_home,
-            FAV = R.id.navigation_favorites,
+            THEATHER = R.id.navigation_theather,
             ACCOUNT = R.id.navigation_account ;
 
     public FirebaseFirestore mDb;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeTabFragment();
                         loadFragment(fragment);
                         return true;
-                    case FAV :
+                    case THEATHER :
                         fragment = new TheatherFragment();
                         loadFragment(fragment);
                         return true;
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override

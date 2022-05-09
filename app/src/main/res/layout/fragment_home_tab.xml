@@ -4,29 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".Fragment.HomeTabFragment"
-    android:background="@color/black">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            
-            <androidx.viewpager2.widget.ViewPager2
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/"
-            
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/rv_film"
-                />
-        
-        </LinearLayout>
-
-</FrameLayout>
-=======
     android:orientation="vertical"
     tools:context=".Fragment.HomeTabFragment">
 
@@ -41,22 +18,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Trending"
+            app:title="Dream"
             app:titleTextColor="@color/black">
 
             <SearchView
                 android:id="@+id/searchView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:iconifiedByDefault="true"
-                android:queryHint="Search" />
+                android:searchIcon="@drawable/ic_search"
+                android:queryHint="Tìm kiếm"
+                android:backgroundTint="@color/white"/>
         </androidx.appcompat.widget.Toolbar>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/black"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/black"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
@@ -64,4 +48,3 @@
         android:layout_height="match_parent" />
 
 </LinearLayout>
->>>>>>> 74d628f2a56938532e46391127eea7cf4a41dd76
