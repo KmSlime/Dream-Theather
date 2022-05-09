@@ -39,14 +39,13 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
 
     SpotlightAdapter mAdapter;
 
-    FirebaseFirestore db;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_spotlight, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_spotlight, container, false);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        db = ((MainActivity)getActivity()).mDb;
+        firebaseFirestore = ((MainActivity)getActivity()).mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -64,7 +63,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     }
 
     public void refreshData() {
-        db.collection("feature_movie")
+        firebaseFirestore.collection("feature_movie")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);

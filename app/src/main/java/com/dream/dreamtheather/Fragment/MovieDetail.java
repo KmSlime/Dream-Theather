@@ -1,5 +1,7 @@
 package com.dream.dreamtheather.Fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,8 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,11 +53,11 @@ public class MovieDetail extends Fragment {
 
     @OnClick(R.id.play_panel)
     void doSomething() {
-        //getMainActivity().presentFragment(WebViewFragment.newInstance(mMovie.getTrailerYoutube()));
+//        requireActivity().presentFragment(WebViewFragment.newInstance(mMovie.getTrailerYoutube()));
 
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//        i.setData(Uri.parse(mMovie.getTrailerYoutube()+"?autoplay=1"));
-//        startActivity(i);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(mMovie.getTrailerYoutube()+"?autoplay=1"));
+        startActivity(i);
     }
 
     @OnClick(R.id.book_now_button)

@@ -93,10 +93,10 @@
             android:textColor="#607D8B"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tvName"
-            app:layout_constraintTop_toTopOf="@id/txt_director" />
+            app:layout_constraintTop_toTopOf="@id/tvDirector" />
 
         <TextView
-            android:id="@+id/txt_director"
+            android:id="@+id/tvDirector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

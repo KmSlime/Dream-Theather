@@ -17,10 +17,10 @@
         android:adjustViewBounds="true"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/pha_dao_tga"
         app:layout_constraintStart_toStartOf="parent"
 
-        android:src="@drawable/pha_dao_tga" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/gradient"
@@ -189,6 +189,7 @@
         android:background="@drawable/gradient_black_to_transparent"
         app:layout_constraintTop_toBottomOf="@id/book_now_text_view"
         android:alpha="0"/>
+
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="65dp"
