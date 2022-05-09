@@ -169,7 +169,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     @OnClick(R.id.movie_panel)
     void goToMovieDetail(){
         if(mMovie!=null) {
-            new MainActivity().loadFragment(MovieDetail.newInstance(mMovie));
+            ((MainActivity)getActivity()).loadFragment(MovieDetail.newInstance(mMovie));
         }
     }
     void getData() {

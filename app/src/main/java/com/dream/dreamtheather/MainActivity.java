@@ -21,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity {
 
     private static final int HOME = R.id.navigation_home,
-            BOOKING = R.id.navigation_Booking,
             FAV = R.id.navigation_favorites,
             ACCOUNT = R.id.navigation_account ;
 
@@ -52,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case HOME :
                         fragment = new HomeTabFragment();
-                        loadFragment(fragment);
-                        return true;
-                    case BOOKING:
-                        fragment = new BookingFragment();
                         loadFragment(fragment);
                         return true;
                     case FAV :
