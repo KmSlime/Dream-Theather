@@ -69,7 +69,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvName) TextView txtName;
+        @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.tvRating) TextView txtRating;
 
         @BindView(R.id.type_linear_layout)
@@ -94,7 +94,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
         }
         public void bind(Movie movie) {
 
-            txtName.setText(movie.getTitle());
+            tvName.setText(movie.getTitle());
 
             // holder.txtRating.setText(mData.get(position).getRating().toString());
 
