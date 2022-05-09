@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dream.dreamtheather.Fragment.BookingFragment;
+import com.dream.dreamtheather.Fragment.MovieDetail;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
@@ -115,15 +117,15 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
         @Override
         public void onClick(View v) {
             if(mContext instanceof MainActivity) {
-                ((MainActivity) mContext).getSupportFragmentManager();
+                ((MainActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
             }
         }
-//
-//        @OnClick(R.id.book)
-//        void goToBook() {
-//            if(mContext instanceof MainActivity) {
-//                ((MainActivity) mContext).presentFragment(BookingFragment.newInstance(mData.get(getAdapterPosition())));
-//            }
-//        }
+
+        @OnClick(R.id.book)
+        void goToBook() {
+            if(mContext instanceof MainActivity) {
+                ((MainActivity) mContext).loadFragment(BookingFragment.newInstance(mData.get(getBindingAdapterPosition())));
+            }
+        }
     }
 }
