@@ -25,6 +25,7 @@ import com.dream.dreamtheather.Model.DateShowTime;
 import com.dream.dreamtheather.Model.DetailShowTime;
 import com.dream.dreamtheather.Model.ShowTime;
 import com.dream.dreamtheather.Model.Ticket;
+import com.dream.dreamtheather.Model.UserInfo;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.adapter.ChooseSeatAdapter;
@@ -39,7 +40,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -120,7 +120,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
         });
         onViewCreated(view);
     }
-    private Users mUserInfo;
+    private UserInfo mUserInfo;
     private void getUserInfo() {
         String id = mUser.getUid();
 
@@ -129,7 +129,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        mUserInfo= documentSnapshot.toObject(Users.class);
+                        mUserInfo= documentSnapshot.toObject(UserInfo.class);
                        seeHowMuchMoney();
                     }
                 });
