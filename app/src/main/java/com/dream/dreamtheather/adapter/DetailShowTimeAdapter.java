@@ -105,9 +105,9 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     boolean check2Date(Date one, String two) throws ParseException {
        Date d2 = dateFormat.parse(two);
-    //    Log.d(TAG, "check2Date: d1 is " + one.toString());
-   //     Log.d(TAG, "check2Date: d2 is "+d2.toString());
-    //    Log.d(TAG, "check2Date: result : "+one.equals(d2));
+        Log.d(TAG, "check2Date: d1 is " + one.toString());
+        Log.d(TAG, "check2Date: d2 is "+d2.toString());
+        Log.d(TAG, "check2Date: result : "+one.equals(d2));
        return compareTwoDates(one,d2);
     }
 

@@ -186,7 +186,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     }
     FirebaseFirestore mDb;
     void refreshData() {
-        // mDb.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
+       // mDb.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
         mDb.collection("show_time").whereEqualTo("movieID",mMovie.getId()).addSnapshotListener(this);
     }
 

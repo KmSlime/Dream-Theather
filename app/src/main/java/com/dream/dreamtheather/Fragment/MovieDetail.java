@@ -48,7 +48,7 @@ public class MovieDetail extends Fragment {
 
     @OnClick(R.id.play_panel)
     void doSomething() {
-        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie.getTrailerYoutube()));
+        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie));
     }
 
     @OnClick(R.id.book_now_button)
