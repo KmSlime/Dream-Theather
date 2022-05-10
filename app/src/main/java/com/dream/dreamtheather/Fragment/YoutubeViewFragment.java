@@ -35,6 +35,8 @@ public class YoutubeViewFragment extends Fragment {
     String mURL;
     String mID;
 
+    Movie movie = new Movie();
+
     @BindView(R.id.youtube_player_view)
     YouTubePlayerView mYouTubePlayerView;
 
@@ -129,11 +131,9 @@ public class YoutubeViewFragment extends Fragment {
 
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Toast.makeText(this.getActivity(), "landscape", Toast.LENGTH_SHORT).show();
             Log.v(TAG,"screen is landscape");
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
              Log.v(TAG,"screen is portrait");
-//            Toast.makeText(this.getActivity(), "portrait", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -53,7 +53,7 @@ public class UpcomingFragment extends Fragment implements OnCompleteListener<Que
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        db = ((MainActivity)getActivity()).mDb;
+        db = ((MainActivity)getActivity()).firebaseFirestore;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

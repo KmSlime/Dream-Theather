@@ -12,7 +12,6 @@
 <!--    <color name="colorPrimary">@android:color/white</color>-->
 <!--    <color name="colorPrimaryDark">@android:color/black</color>-->
     <color name="colorAccent">#D43732</color>
-    <color name="a_white">#F5F5F5</color>
     <item name="FlatWhite" type="color">#F5F5F5</item>
     <color name="focus_color">#FF0B19</color>
     <color name="panel_background">#090909</color>

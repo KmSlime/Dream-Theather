@@ -171,7 +171,7 @@
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_marginBottom="8dp"
-                                android:src="@drawable/movie_img2" />
+                                android:src="@drawable/movie_img" />
 
                             <TextView
                                 android:layout_width="64dp"
@@ -246,7 +246,7 @@
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_marginBottom="8dp"
-                                android:src="@drawable/movie_img2" />
+                                android:src="@drawable/movie_img" />
 
                             <TextView
                                 android:layout_width="64dp"
@@ -321,7 +321,7 @@
                                 android:layout_width="64dp"
                                 android:layout_height="64dp"
                                 android:layout_marginBottom="8dp"
-                                android:src="@drawable/movie_img2" />
+                                android:src="@drawable/movie_img" />
 
                             <TextView
                                 android:layout_width="64dp"

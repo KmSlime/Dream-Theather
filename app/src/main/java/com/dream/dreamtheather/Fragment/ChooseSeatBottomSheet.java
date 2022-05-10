@@ -73,7 +73,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     private DateShowTime mDateShowTime;
     private DetailShowTime mDetailShowTime;
     private FirebaseUser mUser;
-    private FirebaseFirestore mDb;
+    private FirebaseFirestore firebaseFirestore;
 
     private void init(ShowTime showTime, int datePos, int timePos) {
         mShowTime = showTime;
@@ -138,16 +138,20 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     private void getUserInfo() {
         String id = mUser.getUid();
 
-        DocumentReference userGet = mDb.collection("user_info").document(id);
+        DocumentReference userGet = firebaseFirestore.collection("user_info").document(id);
         userGet.get()
                 .addOnSuccessListener(documentSnapshot -> {
                     mUserInfo = documentSnapshot.toObject(UserInfo.class);
                     seeHowMuchMoney();
                 });
+<<<<<<< HEAD
         mDb.collection("database_info")
                 .document("show_time_info").get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
+=======
+        firebaseFirestore.collection("database_info").document("show_time_info").get().addOnCompleteListener(this).addOnFailureListener(this);
+>>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
     }
 
     private int mBalance = 0;
@@ -159,8 +163,13 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     private void onViewCreated(View view) {
         ButterKnife.bind(this, view);
         mAdapter = new ChooseSeatAdapter(getActivity());
+<<<<<<< HEAD
         mDb = ((MainActivity) getActivity()).mDb;
         mUser = ((MainActivity) getActivity()).user;
+=======
+        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
+        mUser = ((MainActivity)getActivity()).user;
+>>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
         getUserInfo();
 
         mAdapter.setRowAndColumn(mDetailShowTime.getSeatColumnNumber(),
@@ -333,7 +342,11 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
     private void upTicketNumber(Ticket t) {
         mNextTicketID++;
+<<<<<<< HEAD
         mDb.collection("database_info").document("show_time_info").update("ticket_count", mNextTicketID).addOnCompleteListener(task -> checkSuccess()).addOnFailureListener(e -> fail());
+=======
+        firebaseFirestore.collection("database_info").document("show_time_info").update("ticket_count",mNextTicketID).addOnCompleteListener(task ->checkSuccess()).addOnFailureListener(e -> fail());
+>>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
     }
 
     private void fail() {
@@ -347,6 +360,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
             list.set(i, true);
         }
 
+<<<<<<< HEAD
         mDb.collection("show_time").document(mShowTime.getID() + "").set(mShowTime).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
     }
 
@@ -355,6 +369,15 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
                 .document(t.getID() + "")
                 .set(t).addOnSuccessListener(aVoid -> checkSuccess())
                 .addOnFailureListener(e -> fail());
+=======
+        firebaseFirestore.collection("show_time").document(mShowTime.getID()+"").set(mShowTime).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+    }
+
+    private void saveTicket(Ticket t) {
+
+       firebaseFirestore.collection("ticket").document(t.getID()+"").set(t).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+
+>>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
     }
 
     private void checkSuccess() {
@@ -368,11 +391,16 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
     private void saveTicketToUserInfo(Ticket t) {
         mUserInfo.getIdTicket().add(t.getID());
+<<<<<<< HEAD
         mUserInfo.setBalance(mBalance - mPriceValue);
         mDb.collection("user_info")
                 .document(mUser.getUid()).set(mUserInfo)
                 .addOnSuccessListener(aVoid -> checkSuccess())
                 .addOnFailureListener(e -> fail());
+=======
+        mUserInfo.setBalance(mBalance-mPriceValue);
+        firebaseFirestore.collection("user_info").document(mUser.getUid()).set(mUserInfo).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+>>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
     }
 
     @Override

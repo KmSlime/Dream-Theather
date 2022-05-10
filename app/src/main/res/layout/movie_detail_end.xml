@@ -19,7 +19,7 @@
         android:alpha="0.4"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        android:src="@drawable/pha_dao_tga"
+        android:src="@drawable/drstrang"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -38,7 +38,7 @@
         android:adjustViewBounds="true"
         android:padding="3dp"
         android:scaleType="fitXY"
-        android:src="@drawable/pha_dao_tga"
+        android:src="@drawable/drstrang"
         app:layout_constraintBottom_toTopOf="@id/divider1"
         app:layout_constraintStart_toEndOf="@+id/back_button"
         app:layout_constraintTop_toTopOf="parent" />

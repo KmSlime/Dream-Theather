@@ -10,6 +10,18 @@
     app:layoutDescription="@xml/movie_detail_animation"
     android:theme="@style/AppTheme.AppBarOverlay">
 
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+<!--        android:id="@+id/youtube_fragment"/>-->
+
+    <FrameLayout
+        android:id="@+id/youtube_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/back_image_view"
         android:layout_width="match_parent"
@@ -17,7 +29,7 @@
         android:adjustViewBounds="true"
         android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        android:src="@drawable/pha_dao_tga"
+        android:src="@drawable/drstrang"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +54,7 @@
         android:background="@drawable/white_rounded"
         android:padding="3dp"
         android:scaleType="fitXY"
-        android:src="@drawable/pha_dao_tga"
+        android:src="@drawable/drstrang"
         app:layout_constraintBottom_toTopOf="@id/divider1"
         app:layout_constraintStart_toStartOf="@+id/back_image_view" />
     <TextView

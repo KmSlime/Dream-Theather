@@ -109,7 +109,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        mDb = ((MainActivity)getActivity()).mDb;
+        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
         setupToolbar();
         bindMovie();
 
@@ -184,10 +184,12 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
             refreshData();
         }
     }
-    FirebaseFirestore mDb;
+
+    FirebaseFirestore firebaseFirestore;
+
     void refreshData() {
-       // mDb.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
-        mDb.collection("show_time").whereEqualTo("movieID",mMovie.getId()).addSnapshotListener(this);
+       // firebaseFirestore.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
+        firebaseFirestore.collection("show_time").whereEqualTo("movieID",mMovie.getId()).addSnapshotListener(this);
     }
 
     @Override

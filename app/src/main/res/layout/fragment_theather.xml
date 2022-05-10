@@ -3,15 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.TheatherFragment">
+    tools:context=".Fragment.TheatherFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cinema"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
-        android:textAlignment="center"
-        android:textSize="30sp"
+        android:background="@color/black"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/setting_label_color"
         android:textStyle="bold"
-        android:text="Theater Fragment" />
+        android:text="Opp!! Lỗi lỗi lỗi!!"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone" />
 
 </FrameLayout>

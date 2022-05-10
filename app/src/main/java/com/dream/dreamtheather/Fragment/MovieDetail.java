@@ -1,5 +1,9 @@
 package com.dream.dreamtheather.Fragment;
 
+import static com.google.android.youtube.player.YouTubePlayer.*;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,12 +23,17 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MovieDetail extends Fragment {
+public class MovieDetail extends Fragment{
     private static final String TAG = "MovieDetail";
     /** Phim nguồn cần xem chi tiết */
     Movie mMovie;
@@ -46,10 +57,18 @@ public class MovieDetail extends Fragment {
     @BindView(R.id.book_now_button)
     FloatingActionButton mBookNowButton;
 
+
+    private YouTubePlayer YPlayer;
+    private static final String YoutubeDeveloperKey = "AIzaSyAqBPhWLWnyGmVMH4oU4xD_SOaw7n4tVBs";
+    private static final int RECOVERY_DIALOG_REQUEST = 1;
+    private YouTubePlayerView youtube_fragment;
+
     @OnClick(R.id.play_panel)
     void doSomething() {
         ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie));
     }
+
+
 
     @OnClick(R.id.book_now_button)
     void goToBooking() {
@@ -59,6 +78,7 @@ public class MovieDetail extends Fragment {
     @OnClick(R.id.back_button)
     void dismiss() {
     }
+
 
     /**
      * Tạo Fragment Movie Detail để xem chi tiết một phim
@@ -72,10 +92,13 @@ public class MovieDetail extends Fragment {
         return md;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.movie_detail, container, false);
+
+
         return view;
     }
 
@@ -83,8 +106,8 @@ public class MovieDetail extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-
         bind(mMovie);
+
     }
     private void bind(Movie movie) {
         if(movie!=null) {

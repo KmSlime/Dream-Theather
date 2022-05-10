@@ -53,7 +53,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        firebaseFirestore = ((MainActivity)getActivity()).mDb;
+        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
