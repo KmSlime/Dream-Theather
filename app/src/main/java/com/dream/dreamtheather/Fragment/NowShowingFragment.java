@@ -54,7 +54,7 @@ public class NowShowingFragment extends Fragment implements OnCompleteListener<Q
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        db = ((MainActivity)getActivity()).mDb;
+        db = ((MainActivity)getActivity()).firebaseFirestore;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

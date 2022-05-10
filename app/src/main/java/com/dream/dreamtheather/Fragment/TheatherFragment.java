@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,58 +38,63 @@ import butterknife.ButterKnife;
 
 public class TheatherFragment extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
 
-    private static final String TAG ="CinemaTab";
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout swipeLayout;
 
+    @BindView(R.id.errorTextView)
+    TextView errorTextView;
 
-    @BindView(R.id.recycle_view)
+    @BindView(R.id.rv_cinema)
     RecyclerView rv_cinema;
 
     CinemaAdapter cinemaAdapter;
 
     FirebaseFirestore firebaseFirestore;
 
-
     public static TheatherFragment newInstance() {
         TheatherFragment fragment = new TheatherFragment();
         return fragment;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_now_showing,container,false);
+        return inflater.inflate(R.layout.fragment_theather,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onViewCreated: ");
+        Log.d("TAG", "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
-        fire = ((MainActivity)getActivity()).mDb;
+        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        rv_cinema.setLayoutManager(layoutManager);
 
-        mAdapter = new CinemaAdapter(getActivity());
-        mRecyclerView.setAdapter(mAdapter);
+        cinemaAdapter = new CinemaAdapter(getActivity());
+        rv_cinema.setAdapter(cinemaAdapter);
         swipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
     }
+
     public void refreshData() {
         swipeLayout.setRefreshing(true);
-        db.collection("showing_cinema")
+        firebaseFirestore.collection("showing_cinema")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
     }
+
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
         if(swipeLayout.isRefreshing())
             swipeLayout.setRefreshing(false);
 
-        mErrorTextView.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        errorTextView.setVisibility(View.GONE);
+        rv_cinema.setVisibility(View.VISIBLE);
 
         if (task.isSuccessful()) {
             QuerySnapshot querySnapshot = task.getResult();
@@ -99,20 +105,20 @@ public class TheatherFragment extends Fragment implements OnCompleteListener<Que
                 public int compare(Cinema o1, Cinema o2) {
                     return o1.getId() - o2.getId();
                 }});
-            if(mAdapter!=null)
-                mAdapter.setData(mM);
+            if(cinemaAdapter!=null)
+                cinemaAdapter.setData(mM);
 
         } else
-            Log.w(TAG, "Error getting documents.", task.getException());
+            Log.w("TAG", "Error getting documents.", task.getException());
     }
 
     @Override
     public void onFailure(@NonNull Exception e) {
-        Log.d(TAG, "onFailure");
+        Log.d("TAG", "onFailure");
         if(swipeLayout.isRefreshing())
             swipeLayout.setRefreshing(false);
 
-        mRecyclerView.setVisibility(View.GONE);
-        mErrorTextView.setVisibility(View.VISIBLE);
+        rv_cinema.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.VISIBLE);
     }
 }

@@ -27,12 +27,10 @@ public class MainActivity extends AppCompatActivity {
             THEATHER = R.id.navigation_theather,
             ACCOUNT = R.id.navigation_account ;
 
-    public FirebaseFirestore mDb;
+    public FirebaseFirestore firebaseFirestore;
     public FirebaseUser user;
 
     private BottomNavigationView bottom_navigation;
-    private ActionBar toolBar;
-
 
 
     @Override
@@ -40,12 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolBar = getSupportActionBar();
-
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mDb = FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
     }
 

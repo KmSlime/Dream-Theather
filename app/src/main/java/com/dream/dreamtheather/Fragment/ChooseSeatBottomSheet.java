@@ -74,7 +74,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
     private DateShowTime mDateShowTime;
     private DetailShowTime mDetailShowTime;
     private FirebaseUser mUser;
-    private FirebaseFirestore mDb;
+    private FirebaseFirestore firebaseFirestore;
 
     private void init( ShowTime showTime, int datePos, int timePos) {
         mShowTime = showTime;
@@ -124,7 +124,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
     private void getUserInfo() {
         String id = mUser.getUid();
 
-        DocumentReference userGet = mDb.collection("user_info").document(id);
+        DocumentReference userGet = firebaseFirestore.collection("user_info").document(id);
         userGet.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -133,7 +133,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
                        seeHowMuchMoney();
                     }
                 });
-        mDb.collection("database_info").document("show_time_info").get().addOnCompleteListener(this).addOnFailureListener(this);
+        firebaseFirestore.collection("database_info").document("show_time_info").get().addOnCompleteListener(this).addOnFailureListener(this);
     }
     private int mBalance = 0;
     private void seeHowMuchMoney(){
@@ -143,7 +143,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
     private void onViewCreated(View view) {
         ButterKnife.bind(this,view);
         mAdapter = new ChooseSeatAdapter(getActivity());
-        mDb = ((MainActivity)getActivity()).mainfirebaseFirestore;
+        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
         mUser = ((MainActivity)getActivity()).user;
         getUserInfo();
 
@@ -302,7 +302,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
 
     private void upTicketNumber(Ticket t) {
         mNextTicketID++;
-        mDb.collection("database_info").document("show_time_info").update("ticket_count",mNextTicketID).addOnCompleteListener(task ->checkSuccess()).addOnFailureListener(e -> fail());
+        firebaseFirestore.collection("database_info").document("show_time_info").update("ticket_count",mNextTicketID).addOnCompleteListener(task ->checkSuccess()).addOnFailureListener(e -> fail());
     }
     private void fail(){
         cancelled = true;
@@ -314,12 +314,12 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
             list.set(i,true);
         }
 
-        mDb.collection("show_time").document(mShowTime.getID()+"").set(mShowTime).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+        firebaseFirestore.collection("show_time").document(mShowTime.getID()+"").set(mShowTime).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
     }
 
     private void saveTicket(Ticket t) {
 
-       mDb.collection("ticket").document(t.getID()+"").set(t).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+       firebaseFirestore.collection("ticket").document(t.getID()+"").set(t).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
 
     }
     private void checkSuccess() {
@@ -333,7 +333,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
     private void saveTicketToUserInfo(Ticket t) {
         mUserInfo.getIdTicket().add(t.getID());
         mUserInfo.setBalance(mBalance-mPriceValue);
-        mDb.collection("user_info").document(mUser.getUid()).set(mUserInfo).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
+        firebaseFirestore.collection("user_info").document(mUser.getUid()).set(mUserInfo).addOnSuccessListener(aVoid -> checkSuccess()).addOnFailureListener(e -> fail());
     }
 
     @Override
