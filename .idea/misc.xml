@@ -96,13 +96,24 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_test.xml" value="0.15885416666666666" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/custom_video_player_ui.xml" value="0.18489583333333334" />
+<<<<<<< HEAD
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/film_picked.xml" value="0.18489583333333334" />
+=======
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/film_picked.xml" value="0.264" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_account_tab.xml" value="0.25416666666666665" />
+>>>>>>> ac90bb78eab28cd87565fc542712ff44ef408ed8
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_booking.xml" value="0.24010416666666667" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_home_tab.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_theather.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/layout_news_and_promo.xml" value="0.18489583333333334" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/movie_detail.xml" value="0.24909420289855072" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/movie_detail_body.xml" value="0.264" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/movie_detail_end.xml" value="0.24909420289855072" />
+>>>>>>> ac90bb78eab28cd87565fc542712ff44ef408ed8
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/test_template.xml" value="0.3619791666666667" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/toolbar.xml" value="0.2" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/menu/navigation.xml" value="0.25416666666666665" />

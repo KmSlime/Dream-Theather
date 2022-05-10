@@ -73,13 +73,13 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
     public class ItemHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tvName) TextView tvName;
-        @BindView(R.id.tvRating) TextView txtRating;
+        @BindView(R.id.tvRating) TextView tvRating;
 
         @BindView(R.id.type_linear_layout)
         LinearLayout mTypeParent;
 
-        @BindView(R.id.txt_director) TextView txtDirector;
-        @BindView(R.id.txt_actors) TextView txtCast;
+        @BindView(R.id.tvDirector) TextView tvDirector;
+        @BindView(R.id.txt_actors) TextView tvCast;
         @BindView(R.id.img)
         ImageView image;
         @BindView(R.id.panel) View panel;
@@ -98,7 +98,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
             tvName.setText(movie.getTitle());
 
-            txtRating.setText(String.valueOf(movie.getRate()));
+            tvRating.setText(String.valueOf(movie.getRate()));
 
             List<String> types = movie.getType();
             mTypeParent.removeAllViews();
@@ -116,8 +116,8 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
                     }
             }
 
-            txtDirector.setText(movie.getDirector());
-            txtCast.setText(movie.getCast());
+            tvDirector.setText(movie.getDirector());
+            tvCast.setText(movie.getCast());
 
             RequestOptions requestOptions = new RequestOptions().override(image.getWidth());
             Glide.with(mContext)
