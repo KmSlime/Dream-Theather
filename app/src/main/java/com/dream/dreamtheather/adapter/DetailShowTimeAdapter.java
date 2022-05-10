@@ -29,11 +29,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAdapter.ItemHolder> {
-    private static final String TAG ="DetailShowTimeAdapter";
+    private static final String TAG = "DetailShowTimeAdapter";
 
     public DetailShowTimeAdapter(Context context) {
         mContext = context;
     }
+
     private Context mContext;
     private ArrayList<ShowTime> mData = new ArrayList<>();
     private ArrayList<ShowTime> mFoundData = new ArrayList<>();
@@ -49,7 +50,7 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
     public static boolean compareTwoDates(Date startDate, Date endDate) {
         Date sDate = getZeroTimeDate(startDate);
         Date eDate = getZeroTimeDate(endDate);
-        return sDate.compareTo(eDate)==0;
+        return sDate.compareTo(eDate) == 0;
     }
 
     private static Date getZeroTimeDate(Date date) {
@@ -62,28 +63,35 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
         date = calendar.getTime();
         return date;
     }
-    public interface OnTimeClickListener{
-        void onTimeClick(ShowTime showTime, int datePos, int timePos) ;
+
+    public interface OnTimeClickListener {
+        void onTimeClick(ShowTime showTime, int datePos, int timePos);
+
         void onNoResult();
     }
+
     private OnTimeClickListener mListener;
+
     public void setOnTimeClickListener(OnTimeClickListener listener) {
         mListener = listener;
     }
+
     private void getDatePos() {
         mFoundData.clear();
         mFoundPos.clear();
-        if(mDateQuery!=null) {
+        if (mDateQuery != null) {
             for (int i = 0; i < mData.size(); i++) {
                 ShowTime s = mData.get(i);
                 ArrayList<DateShowTime> mDateTime = s.getDateShowTime();
-                for(int j=0;j<mDateTime.size();j++) {
+                for (int j = 0; j < mDateTime.size(); j++) {
                     boolean b = false;
                     try {
-                        b = check2Date(mDateQuery,mDateTime.get(j).getDate());
-                        Log.d(TAG, "getDatePos: date is "+mDateTime.get(j).getDate()+", it is "+b);
-
-                    } catch (ParseException ignore) {}
+                        String cinemaDate = mDateTime.get(j).getDate();
+                        if (!cinemaDate.isEmpty())
+                            b = check2Date(mDateQuery, cinemaDate);
+                        Log.d(TAG, "getDatePos: date is " + cinemaDate + ", it is - " + b);
+                    } catch (ParseException ignore) {
+                    }
 
                     if (b) {
                         // found
@@ -96,24 +104,26 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
         }
     }
 
-    boolean check2StringDate(String one,String two) throws ParseException {
+    boolean check2StringDate(String one, String two) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date d1 = dateFormat.parse(one);
         Date d2 = dateFormat.parse(two);
         return d1.equals(d2);
     }
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
     boolean check2Date(Date one, String two) throws ParseException {
-       Date d2 = dateFormat.parse(two);
-    //    Log.d(TAG, "check2Date: d1 is " + one.toString());
-   //     Log.d(TAG, "check2Date: d2 is "+d2.toString());
-    //    Log.d(TAG, "check2Date: result : "+one.equals(d2));
-       return compareTwoDates(one,d2);
+        Date d2 = dateFormat.parse(two);
+        Log.d(TAG, "check2Date: d1 is " + one.toString());
+        Log.d(TAG, "check2Date: d2 is " + d2.toString());
+        Log.d(TAG, "check2Date: result : " + one.equals(d2));
+        return compareTwoDates(one, d2);
     }
 
     public void setData(List<ShowTime> data) {
         mData.clear();
-        if(data!=null)
+        if (data != null)
             mData.addAll(data);
         getDatePos();
         notifyDataSetChanged();
@@ -147,21 +157,22 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
         @BindView(R.id.expand)
         View mExpandLayout;
 
-        @BindView(R.id.type_movie) TextView mTypeMovie;
+        @BindView(R.id.type_movie)
+        TextView mTypeMovie;
         @BindView(R.id.flow_layout)
         FlowLayout mFlowLayout;
 
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
 
         void bind(ShowTime showTime) {
             mCinema.setText(showTime.getCinemaName());
-            int foundPos =mFoundPos.get(getBindingAdapterPosition());
-            if(foundPos!=-1) {
+            int foundPos = mFoundPos.get(getBindingAdapterPosition());
+            if (foundPos != -1) {
                 itemView.setVisibility(View.VISIBLE);
                 DateShowTime date = showTime.getDateShowTime().get(foundPos);
                 ArrayList<DetailShowTime> details = date.getDetailShowTimes();
@@ -171,8 +182,8 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
                     TextView time = (TextView) LayoutInflater.from(itemView.getContext()).inflate(R.layout.time_text_view, mFlowLayout, false);
                     time.setText(detail.getTime());
                     time.setTag(R.id.savedValue1, getBindingAdapterPosition());
-                    time.setTag(R.id.savedValue2,foundPos);
-                    time.setTag(R.id.savedValue3,i);
+                    time.setTag(R.id.savedValue2, foundPos);
+                    time.setTag(R.id.savedValue3, i);
                     time.setOnClickListener(this);
                     mFlowLayout.addView(time);
                 }
@@ -184,7 +195,7 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
 
         @OnClick({R.id.minus, R.id.cinema_name})
         void expandOrCollapse() {
-            if(mExpandLayout.getVisibility()==View.GONE) {
+            if (mExpandLayout.getVisibility() == View.GONE) {
                 mExpandLayout.setVisibility(View.VISIBLE);
                 mMinus.setImageResource(R.drawable.minus);
             } else {
@@ -198,12 +209,13 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
         public void onClick(View v) {
             // Cần chỉ ra phần tử ShowTime nào, Thuộc DateShowTime nào, thuộc DetailShowTime nào
             Log.d(TAG, "onClick");
-            if(v.getTag(R.id.savedValue1) instanceof Integer) {
+            if (v.getTag(R.id.savedValue1) instanceof Integer) {
                 int showPos = (int) v.getTag(R.id.savedValue1);
                 int datePos = (int) v.getTag(R.id.savedValue2);
                 int timePos = (int) v.getTag(R.id.savedValue3);
-                Log.d(TAG, "onClick: showPos = "+showPos+", datePos = "+datePos+", timePos = "+timePos);
-                if(mListener!=null) mListener.onTimeClick(mFoundData.get(showPos),datePos,timePos);
+                Log.d(TAG, "onClick: showPos = " + showPos + ", datePos = " + datePos + ", timePos = " + timePos);
+                if (mListener != null)
+                    mListener.onTimeClick(mFoundData.get(showPos), datePos, timePos);
             }
         }
     }

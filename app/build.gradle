@@ -120,4 +120,6 @@ dependencies {
     //Youtube Android Player API Jar dependency
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    //MK Loader
+    implementation 'com.tuyenmonkey:mkloader:1.4.0'
 }

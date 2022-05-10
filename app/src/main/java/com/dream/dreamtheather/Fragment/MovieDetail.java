@@ -65,11 +65,7 @@ public class MovieDetail extends Fragment{
 
     @OnClick(R.id.play_panel)
     void doSomething() {
-
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//        i.setData(Uri.parse(mMovie.getTrailerYoutube()+"?autoplay=1"));
-//        startActivity(i);
-        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie.getTrailerYoutube()));
+        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie));
     }
 
 

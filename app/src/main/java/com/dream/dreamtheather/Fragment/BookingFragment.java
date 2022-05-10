@@ -186,7 +186,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     }
     FirebaseFirestore mDb;
     void refreshData() {
-        // mDb.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
+       // mDb.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
         mDb.collection("show_time").whereEqualTo("movieID",mMovie.getId()).addSnapshotListener(this);
     }
 
@@ -214,7 +214,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 
     @Override
     public void onTimeClick(ShowTime showTime, int datePos, int timePos) {
-        //ChooseSeatBottomSheet.newInstance(getMainActivity(),showTime,datePos,timePos);
+        ((MainActivity)getActivity()).loadFragment(ChooseSeatBottomSheet.newInstance(((MainActivity)getActivity()),showTime,datePos,timePos));
     }
 
     @Override

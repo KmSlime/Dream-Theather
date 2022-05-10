@@ -18,6 +18,7 @@ import com.dream.dreamtheather.Fragment.HomeTabFragment;
 import com.dream.dreamtheather.Fragment.TheatherFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             ACCOUNT = R.id.navigation_account ;
 
     public FirebaseFirestore mDb;
+    public FirebaseUser user;
 
     private BottomNavigationView bottom_navigation;
     private ActionBar toolBar;

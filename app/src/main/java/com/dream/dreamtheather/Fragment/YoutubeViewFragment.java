@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 
 public class YoutubeViewFragment extends Fragment {
     public static final String TAG = "YoutubeViewFrag";
+    Movie mMovie;
     String mURL;
     String mID;
 
@@ -39,9 +40,9 @@ public class YoutubeViewFragment extends Fragment {
     @BindView(R.id.youtube_player_view)
     YouTubePlayerView mYouTubePlayerView;
 
-    public static Fragment newInstance(String url) {
+    public static Fragment newInstance(Movie movie) {
         YoutubeViewFragment fragment = new YoutubeViewFragment();
-        fragment.mURL = url;
+        fragment.mMovie = movie;
         return fragment;
     }
 
@@ -49,7 +50,6 @@ public class YoutubeViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_youtube, container, false);
-
         return view;
     }
 
@@ -62,24 +62,35 @@ public class YoutubeViewFragment extends Fragment {
 
     public void initViews() {
         getLifecycle().addObserver(mYouTubePlayerView);
+        defaultPlayerUI();
+        addListener();
+    }
+
+    public void addListener() {
         mYouTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(getYoutubeVideoID(mURL), 0);
+                loadVideo(youTubePlayer, mMovie);
             }
         });
-        defaultPlayerUI();
     }
 
-    public String getYoutubeVideoID(String mURL) {
-        Pattern pattern = Pattern.compile(
-                "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
-                Pattern.CASE_INSENSITIVE);
+    public void loadVideo (YouTubePlayer youTubePlayer, Movie movie){
+        mURL = movie.getTrailerYoutube();
+        mID = getYoutubeVideoID(mURL);
+        if(!mID.isEmpty())
+            youTubePlayer.loadVideo(mID, 0);
+    }
+
+    public String getYoutubeVideoID(@NonNull String mURL) {
+        String videoId  = "";
+        String regex = "http(?:s)?:\\/\\/(?:m.)?(?:www\\.)?youtu(?:\\.be\\/|be\\.com\\/(?:watch\\?(?:feature=youtu.be\\&)?v=|v\\/|embed\\/|user\\/(?:[\\w#]+\\/)+))([^&#?\\n]+)";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(mURL);
-        if (matcher.matches()) {
-            mID = matcher.group(1);
+        if(matcher.find()){
+            videoId  = matcher.group(1);
         }
-        return mID;
+        return mID = videoId;
     }
 
     public void defaultPlayerUI() {
