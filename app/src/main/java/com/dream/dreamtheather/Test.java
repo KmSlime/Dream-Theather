@@ -26,18 +26,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiCo
 
 public class Test extends AppCompatActivity {
 
-    private LinearLayout appbar;
     private YouTubePlayerView youTubePlayerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.film_picked);
+        setContentView(R.layout.fragment_youtube);
         initViews();
         initYoutubeView();
     }
 
     private void initViews() {
-        appbar = findViewById(R.id.appbar);
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
     }

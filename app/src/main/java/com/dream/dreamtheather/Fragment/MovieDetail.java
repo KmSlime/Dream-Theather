@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebViewFragment;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,8 +28,6 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
-
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +69,7 @@ public class MovieDetail extends Fragment{
 //        Intent i = new Intent(Intent.ACTION_VIEW);
 //        i.setData(Uri.parse(mMovie.getTrailerYoutube()+"?autoplay=1"));
 //        startActivity(i);
+        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie.getTrailerYoutube()));
     }
 
 
@@ -83,7 +81,6 @@ public class MovieDetail extends Fragment{
 
     @OnClick(R.id.back_button)
     void dismiss() {
-        //getMainActivity().dismiss();
     }
 
 

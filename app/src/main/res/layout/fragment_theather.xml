@@ -5,13 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.TheatherFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cinema"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:text="Theater Fragment" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

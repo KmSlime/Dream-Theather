@@ -160,7 +160,7 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
 
         void bind(ShowTime showTime) {
             mCinema.setText(showTime.getCinemaName());
-            int foundPos =mFoundPos.get(getAdapterPosition());
+            int foundPos =mFoundPos.get(getBindingAdapterPosition());
             if(foundPos!=-1) {
                 itemView.setVisibility(View.VISIBLE);
                 DateShowTime date = showTime.getDateShowTime().get(foundPos);
@@ -170,7 +170,7 @@ public class DetailShowTimeAdapter extends RecyclerView.Adapter<DetailShowTimeAd
                     DetailShowTime detail = details.get(i);
                     TextView time = (TextView) LayoutInflater.from(itemView.getContext()).inflate(R.layout.time_text_view, mFlowLayout, false);
                     time.setText(detail.getTime());
-                    time.setTag(R.id.savedValue1, getAdapterPosition());
+                    time.setTag(R.id.savedValue1, getBindingAdapterPosition());
                     time.setTag(R.id.savedValue2,foundPos);
                     time.setTag(R.id.savedValue3,i);
                     time.setOnClickListener(this);

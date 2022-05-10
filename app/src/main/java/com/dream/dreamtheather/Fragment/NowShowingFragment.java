@@ -72,7 +72,6 @@ public class NowShowingFragment extends Fragment implements OnCompleteListener<Q
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-
         mRecyclerView.setVisibility(View.VISIBLE);
 
         if (task.isSuccessful()) {
