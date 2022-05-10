@@ -10,6 +10,18 @@
     app:layoutDescription="@xml/movie_detail_animation"
     android:theme="@style/AppTheme.AppBarOverlay">
 
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+<!--        android:id="@+id/youtube_fragment"/>-->
+
+    <FrameLayout
+        android:id="@+id/youtube_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
     <ImageView
         android:id="@+id/back_image_view"
         android:layout_width="match_parent"
