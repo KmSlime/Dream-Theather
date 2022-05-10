@@ -50,6 +50,10 @@
     <string name="booking">Booking</string>
     <string name="search_hint">Tìm phim</string>
     <string name="search_title">Tìm kiếm</string>
+    <string name="your_balanced_is">"Your balanced is "</string>
+    <string name="it_is_not_enough">₫, it\'s not enough</string>
+    <string name="screen">Screen</string>
+    <string name="sending_data">Sending data …</string>
 
 
 </resources>

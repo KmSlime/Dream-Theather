@@ -214,7 +214,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 
     @Override
     public void onTimeClick(ShowTime showTime, int datePos, int timePos) {
-        //ChooseSeatBottomSheet.newInstance(getMainActivity(),showTime,datePos,timePos);
+        ((MainActivity)getActivity()).loadFragment(ChooseSeatBottomSheet.newInstance(((MainActivity)getActivity()),showTime,datePos,timePos));
     }
 
     @Override

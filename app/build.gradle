@@ -115,4 +115,7 @@ dependencies {
 
     //flow layout
     implementation 'com.nex3z:flow-layout:1.3.3'
+
+    //MK Loader
+    implementation 'com.tuyenmonkey:mkloader:1.4.0'
 }
