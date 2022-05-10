@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             THEATHER = R.id.navigation_theather,
             ACCOUNT = R.id.navigation_account ;
 
-    public FirebaseFirestore firebaseFirestore;
+    public FirebaseFirestore mDb;
     public FirebaseUser user;
     FirebaseAuth mAuth;
     MyPrefs myPrefs;
@@ -50,15 +50,11 @@ public class MainActivity extends AppCompatActivity {
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
-<<<<<<< HEAD
         mDb = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         user = mAuth.getCurrentUser();
         myPrefs = new MyPrefs(this);
-=======
-        firebaseFirestore = FirebaseFirestore.getInstance();
->>>>>>> 0c5140b059449ea301819b178bebe15ed4286866
 
         getUserType();
     }
