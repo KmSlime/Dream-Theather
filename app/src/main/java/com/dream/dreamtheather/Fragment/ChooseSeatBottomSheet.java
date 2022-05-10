@@ -143,7 +143,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment implements 
     private void onViewCreated(View view) {
         ButterKnife.bind(this,view);
         mAdapter = new ChooseSeatAdapter(getActivity());
-        mDb = ((MainActivity)getActivity()).mDb;
+        mDb = ((MainActivity)getActivity()).mainfirebaseFirestore;
         mUser = ((MainActivity)getActivity()).user;
         getUserInfo();
 

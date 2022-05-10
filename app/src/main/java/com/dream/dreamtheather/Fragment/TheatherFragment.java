@@ -28,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,83 +37,82 @@ import butterknife.ButterKnife;
 
 public class TheatherFragment extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
 
-    TextView tvCinemaName;
+    private static final String TAG ="CinemaTab";
 
+
+    @BindView(R.id.recycle_view)
+    RecyclerView rv_cinema;
 
     CinemaAdapter cinemaAdapter;
 
     FirebaseFirestore firebaseFirestore;
 
-    @BindView(R.id.rv_cinema)
-    RecyclerView rv_cinema;
+
+    public static TheatherFragment newInstance() {
+        TheatherFragment fragment = new TheatherFragment();
+        return fragment;
+    }
 
     @Nullable
-    @BindView(R.id.tvAddressCinema)
-    TextView tvAddressCinema;
-
-    @BindView(R.id.tvHotline)
-    TextView tvHotline;
-
-    @BindView(R.id.img)
-    ImageView img;
-
-    @BindView(R.id.itemCinema)
-    ConstraintLayout itemCinema;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_theather, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_now_showing,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
 
-        ButterKnife.bind(this, view);
-
-        firebaseFirestore = ((MainActivity)getActivity()).mDb;
+        fire = ((MainActivity)getActivity()).mDb;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-        rv_cinema.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        cinemaAdapter = new CinemaAdapter(getActivity());
-        rv_cinema.setAdapter(cinemaAdapter);
+        mAdapter = new CinemaAdapter(getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+        swipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
-
     }
-
-    private void refreshData() {
-        firebaseFirestore.collection("cinema_list")
+    public void refreshData() {
+        swipeLayout.setRefreshing(true);
+        db.collection("showing_cinema")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
     }
-
-    public void bind(Cinema cinema){
-        tvCinemaName.setText(cinema.getName());
-        tvHotline.setText(cinema.getHotline());
-        tvAddressCinema.setText(cinema.getAddress());
-        Glide.with(getContext()).load(cinema.getImageUrl()).error(R.drawable.yourname).into(img);
-    }
-
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-        rv_cinema.setVisibility(View.VISIBLE);
+
+        if(swipeLayout.isRefreshing())
+            swipeLayout.setRefreshing(false);
+
+        mErrorTextView.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
 
         if (task.isSuccessful()) {
             QuerySnapshot querySnapshot = task.getResult();
 
-            List<Cinema> cinemaList  = querySnapshot.toObjects(Cinema.class);
+            List<Cinema> mM = querySnapshot.toObjects(Cinema.class);
+            Collections.sort(mM, new Comparator<Cinema>() {
+                @Override
+                public int compare(Cinema o1, Cinema o2) {
+                    return o1.getId() - o2.getId();
+                }});
+            if(mAdapter!=null)
+                mAdapter.setData(mM);
 
-            if(cinemaAdapter!=null)
-                cinemaAdapter.setData(cinemaList);
-        }
+        } else
+            Log.w(TAG, "Error getting documents.", task.getException());
     }
 
     @Override
     public void onFailure(@NonNull Exception e) {
-        Log.d("TAG", "onFailure");
-        rv_cinema.setVisibility(View.GONE);
+        Log.d(TAG, "onFailure");
+        if(swipeLayout.isRefreshing())
+            swipeLayout.setRefreshing(false);
+
+        mRecyclerView.setVisibility(View.GONE);
+        mErrorTextView.setVisibility(View.VISIBLE);
     }
 }
