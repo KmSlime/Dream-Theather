@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "359747608446",
+    "firebase_url": "https://dreamtheather-1647802109369-default-rtdb.firebaseio.com",
     "project_id": "dreamtheather-1647802109369",
     "storage_bucket": "dreamtheather-1647802109369.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "359747608446-t2ldr498dnmil1qaub8o0627cob2ua3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dream.dreamtheather",
+            "certificate_hash": "c6855007d497af8b29397d339044e504da64c8f5"
+          }
+        },
         {
           "client_id": "359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com",
           "client_type": 3

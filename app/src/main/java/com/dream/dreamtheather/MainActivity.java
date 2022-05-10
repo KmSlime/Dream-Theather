@@ -6,19 +6,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.dream.dreamtheather.Fragment.AccountTabFragment;
 import com.dream.dreamtheather.Fragment.BookingFragment;
 import com.dream.dreamtheather.Fragment.HomeTabFragment;
 import com.dream.dreamtheather.Fragment.TheatherFragment;
+import com.dream.dreamtheather.Model.UserInfo;
+import com.dream.dreamtheather.data.MyPrefs;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     public FirebaseFirestore mDb;
     public FirebaseUser user;
+    FirebaseAuth mAuth;
+    MyPrefs myPrefs;
 
     private BottomNavigationView bottom_navigation;
     private ActionBar toolBar;
-
 
 
     @Override
@@ -46,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         mDb = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
+        user = mAuth.getCurrentUser();
+        myPrefs = new MyPrefs(this);
+
+        getUserType();
     }
 
     private final NavigationBarView.OnItemSelectedListener mOnNavigationItemSelectedListener
@@ -87,4 +101,33 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public void restartHomeScreen() {
+        Intent intent = new Intent(this,MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void getUserType(){
+        if(myPrefs.getIsSignIn()){
+            String id = user.getUid();
+
+            DocumentReference userGet = mDb.collection("user_info").document(id);
+            userGet.get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        UserInfo info = documentSnapshot.toObject(UserInfo.class);
+                        if(!info.getUserType().matches("")){
+                            myPrefs.setIsAdmin(true);
+                        }
+                        else{
+                            myPrefs.setIsAdmin(false);
+                        }
+                    })
+                    .addOnFailureListener(f -> {
+                        Toast.makeText(MainActivity.this,"Có vấn đề khi gọi Firebase",Toast.LENGTH_LONG).show();
+                    });
+        }
+        else{
+            myPrefs.setIsAdmin(false);
+        }
+    }
 }

@@ -54,6 +54,26 @@
     <string name="it_is_not_enough">₫, it\'s not enough</string>
     <string name="screen">Screen</string>
     <string name="sending_data">Sending data …</string>
+    <string name="server_client_id">359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
+
+    //Message
+    <string name="signin_success">Sign-in Successfully</string>
+    <string name="signin_cancel">Sign-in Canceled</string>
+    <string name="signin_error">Sign-in Failed</string>
+    <string name="signup_success">Sign-up Successfully</string>
+    <string name="is_updating">Updating...</string>
+    <string name="profile_updated">Profile updated</string>
+
+    //Error
+    <string name="fullname_empty">Full Name cannot be blank</string>
+    <string name="email_empty">Email cannot be blank</string>
+    <string name="email_invalid">Invalid Email</string>
+    <string name="password_empty">Password cannot be blank</string>
+    <string name="password_length">"Password must be at least 6 characters long"</string>
+    <string name="retype_empty">Retype password cannot be blank</string>
+    <string name="retype_match">Retype and password do not match</string>
+    <string name="terms_confirm">Please read and confirm our Terms and Privacy</string>
+    <string name="mail_fail">Mail was not sent due to some problems.</string>
 
 
 </resources>

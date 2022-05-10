@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,92 +17,171 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
+import com.dream.dreamtheather.Model.UserInfo;
+import com.dream.dreamtheather.data.MyPrefs;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    private static final String TAG = "Login";
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
-    //ánh xạ
-    ImageButton btnEyeShow;
-    EditText edtPassword, edtUsername;
-    Button btnLoginFacebook, btnLoginEmail, btnLogin;
-    ProgressBar progressBar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    //google auth
-    private GoogleApiClient googleApiClient;
-    private static final int SIGN_IN = 1;
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    // Write a message to the firebase database
-    FirebaseAuth firebaseAuth;
+    private static final String TAG = "LogInActivity";
+    private static final int RC_SIGN_IN = 9001;
+    private static final int
+            LOGIN = R.id.btnLogin,
+            GOOGLE = R.id.btnLoginGoogle,
+            FACEBOOK = R.id.btnLoginFacebook;
 
+    GoogleSignInClient mGoogleSignInClient;
 
+    CallbackManager mCallbackManager;
+
+    FirebaseAuth mAuth;
+    FirebaseFirestore mDb;
+
+    //store user info to local storage
+    MyPrefs myPrefs;
+
+    @BindView(R.id.edtUsername)      EditText edtUsername;
+    @BindView(R.id.edtPassword)      EditText edtPassword;
+    @BindView(R.id.btnEyeShow)       ImageButton btnEyeShow;
+    @BindView(R.id.btnLoginFacebook) Button btnLoginFacebook;
+    @BindView(R.id.btnLoginGoogle)   Button btnLoginGoogle;
+    @BindView(R.id.btnLogin)         Button btnLogin;
+    @BindView(R.id.progressBar)      ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
-        edtPassword = findViewById(R.id.edtPassword);
-        edtUsername = findViewById(R.id.edtUsername);
+        initEventButton();
+        initialFireBase();
+        initialPrefs();
+        initGoogleApi();
+    }
 
-        //Img btn
-        btnEyeShow = findViewById(R.id.btnEyeShow);
-        btnLoginEmail = findViewById(R.id.btnLoginEmail);
-        btnLoginFacebook = findViewById(R.id.btnLoginFacebook);
-        btnLogin = findViewById(R.id.btnLogin);
 
-        progressBar = findViewById(R.id.progressBar);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        //firebase
-//        database = FirebaseDatabase.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signOut();
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(TAG, "Is Sign In? : " + myPrefs.getIsSignIn());
+        if(myPrefs.getIsSignIn())
+            gotoMain();
+    }
 
-        btnEyeShow.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        return true;
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case LOGIN:
+                if (checkValidate()) {
+                    Toast.makeText(Login.this, "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    SignIn();
                 }
-                return false;
-            }
-        });
+                break;
+            case GOOGLE:
+                signInGoogle();
+                break;
+            case FACEBOOK:
+                signInFacebook();
+                break;
+        }
 
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+    }
 
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
+    private boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                return true;
+            case MotionEvent.ACTION_UP:
+                edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                return true;
+        }
+        return false;
+    }
+
+
+    private void initEventButton() {
+        btnEyeShow.setOnTouchListener(this::onTouch);
+        btnLogin.setOnClickListener(this);
+        btnLoginGoogle.setOnClickListener(this);
+        btnLoginFacebook.setOnClickListener(this);
+    }
+
+    private void initialFireBase() {
+        mAuth = FirebaseAuth.getInstance();
+        mDb = FirebaseFirestore.getInstance();
+    }
+
+    private void initialPrefs() {
+        myPrefs = new MyPrefs(this);
+        if (myPrefs.getIsRememberMe()) {
+            String[] acc = myPrefs.getAccount();
+            edtUsername.setText(acc[0]);
+            edtPassword.setText(acc[1]);
+        }
+    }
+
+    private void initGoogleApi() {
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestProfile()
+                .requestIdToken(getString(R.string.server_client_id))
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
 
     public void btnRegister(View view) {
         startActivity(new Intent(this, Register.class));
+        finish();
     }
 
     public void ResetPass(View view) {
@@ -118,7 +196,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mail = resetMail.getText().toString();
-                firebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(Login.this, "Đã gửi link reset về email của bạn", Toast.LENGTH_SHORT).show();
@@ -140,86 +218,267 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         passWordResetDialog.create().show();
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+    private void signInGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SIGN_IN)
-        {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()) {
-                startActivity(new Intent(Login.this, UserProfile.class));
-                Log.i("TAG", result.getSignInAccount().getId());
-                finish();
-            } else Toast.makeText(this, "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG).show();
+    private void handleSignInResult(Task<GoogleSignInAccount> task) {
+        try {
+            if (task.isSuccessful()) {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+
+                Toast.makeText(this, "Đăng nhập với Google thành công!", Toast.LENGTH_LONG).show();
+                gotoMain();
+
+            } else {
+                Toast.makeText(this, "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG).show();
+            }
+        } catch (ApiException ex) {
+            // Google Sign In failed, update UI appropriately
+            Log.v(TAG, "Google sign in failed", ex);
+            // ...
         }
+
     }
 
-    public boolean checkValidate(){
-        if (edtUsername.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty())
-        {
+    private void gotoMain() {
+        startActivity(new Intent(Login.this, MainActivity.class));
+        finish();
+    }
+
+    public boolean checkValidate() {
+        if (edtUsername.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty()) {
             return true;
         }
         return false;
     }
-//
-//    public boolean IsRegister(){
-//        Intent getIntent = getIntent();
-//        if (edtUsername.getText().toString().compareTo(getIntent.getStringExtra("RegisterUser")) == 0
-//                && edtPassword.getText().toString().compareTo(getIntent.getStringExtra("RegisterPassword")) == 0)
-//        {
-//            return true;
-//        }
-//        return false;
-//    }
 
-    public void SignIn(){
-        firebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString(), edtPassword.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void SignIn() {
+        String email = Objects.requireNonNull(edtUsername).getText().toString().trim();
+        String password = Objects.requireNonNull(edtPassword).getText().toString().trim();
+        String[] acc = {email, password};
+        myPrefs.setAccount(acc);
+
+        if (validateAccount(email, password)) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        myPrefs.setIsSignIn(true);
+                        Toast.makeText(Login.this, "Đăng nhập email thành công", Toast.LENGTH_SHORT).show();
+                        gotoMain();
+                    } else {
+                        Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                });
+        }
+    }
+
+    private boolean validateAccount(String email, String password) {
+        Boolean validate = true;
+
+        if (email.isEmpty()) {
+            edtUsername.setError(getString(R.string.email_empty));
+            validate = false;
+        } else if (!isValidEmail(email)) {
+            edtUsername.setError(getString(R.string.email_invalid));
+            validate = false;
+        } else {
+            edtUsername.setError(null);
+        }
+
+        if (password.isEmpty()) {
+            edtUsername.setError(null);
+            edtPassword.setError(getString(R.string.password_empty));
+            validate = false;
+        } else if (password.length() < 6) {
+            edtUsername.setError(null);
+            edtPassword.setError(getString(R.string.password_length));
+            validate = false;
+        } else {
+            edtPassword.setError(null);
+        }
+
+        return validate;
+    }
+
+    public boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider
+                .getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        myPrefs.setIsSignIn(false);
+                        // If sign in fails, display a message to the user.
+                        Log.v(TAG, "signInWithCredential:failure", task.getException());
+                        Toast.makeText(Login.this, "Xác thực không thành công!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Login.this, "Xác thực thành công!", Toast.LENGTH_LONG).show();
+                        Log.v(TAG, "signInWithCredential:success - " + account.getEmail());
+                        myPrefs.setIsSignIn(true);
+                        checkIfFirstTimeSignIn();
+                    }
+                })
+                .addOnFailureListener(task -> {
+                    Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_LONG).show();
+                    Log.v(TAG, "last log - error - Authentication Failed- " + account.getEmail());
+                });
+    }
+
+    private void signInFacebook() {
+        mCallbackManager = CallbackManager.Factory.create();
+
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut();
+        }
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("Success", "Login");
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(Login.this, R.string.signin_cancel, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(Login.this, R.string.signin_error + exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this, MainActivity.class)); // sau này sẽ sửa dòng này
-                            finish();
-                        }else{
-                            Toast.makeText(Login.this, "Lỗi đăng nhập: " + task.getException(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.VISIBLE);
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            Toast.makeText(getBaseContext(), R.string.signin_success, Toast.LENGTH_SHORT).show();
+                            myPrefs.setIsSignIn(true);
+                            checkIfFirstTimeSignIn();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(getBaseContext(), R.string.signin_error, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void checkIfFirstTimeSignIn() {
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        btnLoginEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-//                startActivityForResult(intent, SIGN_IN);
-                Toast.makeText(Login.this, "Chức năng này hiện đang lỗi!!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkValidate()) {
-                    Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.VISIBLE);
+        DocumentReference docRef = mDb.collection("user_info").document(user.getUid());
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Log.v(TAG, "DocumentSnapshot data: " + document.getData());
+                    UserInfo info = new UserInfo();
+                    info = document.toObject(UserInfo.class);
+                    updateOldUser(info, user);
+//                        MainActivity.restartHomeScreen();
                 } else {
-                    SignIn();
+                    Log.v(TAG, "No such document");
+                    UserInfo info = new UserInfo();
+                    addNewUser(info, user);
+//                        ((MainActivity)getActivity()).restartHomeScreen();
                 }
+            } else {
+                Log.v(TAG, "get failed with ", task.getException());
             }
         });
-
     }
+
+    //for insert/update collection user_info
+    private void addNewUser(UserInfo info, FirebaseUser user) {
+        String fullname = "";
+        if (user.getDisplayName() != null && !user.getDisplayName().matches("")) {
+            fullname = user.getDisplayName();
+        }
+
+        if (user.getPhotoUrl() != null) {
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        } else {
+            info.setAvaUrl("");
+        }
+
+        info.setUserType("Khách");
+        info.setId(user.getUid());
+        info.setFullName(fullname);
+        if (user.getEmail() == null) {
+            info.setEmail("");
+        } else {
+            info.setEmail(user.getEmail());
+        }
+        info.setBirthDay("");
+        info.setGender("");
+        info.setPhoneNumber(user.getPhoneNumber());
+        info.setAddress("");
+        info.setBalance(10000);
+        ArrayList<Integer> idTicket = new ArrayList<>();
+        info.setIdTicket(idTicket);
+
+        Log.v(TAG, "New User Created");
+
+        sendUserInfo(info);
+    }
+
+    private void updateOldUser(UserInfo info, FirebaseUser user) {
+        String fullname = "";
+        if (user.getDisplayName() != null && !user.getDisplayName().matches("")) {
+            fullname = user.getDisplayName();
+        }
+
+        if (user.getPhotoUrl() != null) {
+            info.setAvaUrl(user.getPhotoUrl().toString());
+        } else {
+            info.setAvaUrl("");
+        }
+
+        info.setFullName(fullname);
+        if (user.getEmail() == null) {
+            info.setEmail("");
+        } else {
+            info.setEmail(user.getEmail());
+        }
+
+        Log.v(TAG, "User Updated");
+
+        sendUserInfo(info);
+    }
+
+    private void sendUserInfo(UserInfo info) {
+        mDb.collection("user_info").document(info.getId())
+                .set(info)
+                .addOnSuccessListener(aVoid -> {
+                    Log.w(TAG, "addUserToDatabase:success");
+                })
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "addUserToDatabase:failure", e);
+                });
+    }
+
 }
 
 

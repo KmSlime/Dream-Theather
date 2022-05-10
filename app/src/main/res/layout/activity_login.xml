@@ -247,7 +247,7 @@
                 android:weightSum="1"
                 >
                 <com.developer.gbuttons.GoogleSignInButton
-                    android:id="@+id/btnLoginEmail"
+                    android:id="@+id/btnLoginGoogle"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="Đăng nhập Google"

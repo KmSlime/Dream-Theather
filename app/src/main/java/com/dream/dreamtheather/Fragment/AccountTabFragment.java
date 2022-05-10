@@ -1,6 +1,8 @@
 package com.dream.dreamtheather.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,9 +24,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dream.dreamtheather.Login;
 import com.dream.dreamtheather.MainActivity;
+import com.dream.dreamtheather.Model.UserInfo;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.UserProfile;
+import com.dream.dreamtheather.data.MyPrefs;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -40,199 +44,147 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.protobuf.StringValue;
 import com.makeramen.roundedimageview.RoundedImageView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AccountTabFragment extends Fragment {
 
-    private ImageView btnBack;
-    private RoundedImageView imgAvata;
-    private TextView tvBalance, tvLoyaltyPoint;
-    private EditText edtAddress, edtPhoneNum, edtBirthDay, edtEmail, edtUserFullName;
-    private Button btnSignOut, btnSave;
-    private RadioGroup rad_group_gender;
-    private RadioButton radioFemale, radioMale, radioButton;
+    private static final String TAG ="AccountTab";
+    MyPrefs myPrefs;
+    FirebaseFirestore mDb;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
+    public static AccountTabFragment newInstance() {
+        AccountTabFragment fragment = new AccountTabFragment();
+        return fragment;
+    }
 
-    private GoogleApiClient googleApiClient;
-    private GoogleSignInOptions googleSignInOptions;
+    @BindView(R.id.btnBack)             ImageView btnBack;
+    @BindView(R.id.imgAvata)            RoundedImageView imgAvatar;
+    @BindView(R.id.tvBalance)           TextView tvBalance;
+    @BindView(R.id.tvLoyaltyPoint)      TextView tvLoyaltyPoint;
+    @BindView(R.id.edtAddress)          EditText edtAddress;
+    @BindView(R.id.edtPhoneNum)         EditText edtPhoneNum;
+    @BindView(R.id.edtBirthDay)         EditText edtBirthDay;
+    @BindView(R.id.edtEmail)            EditText edtEmail;
+    @BindView(R.id.edtUserFullName)     EditText edtUserFullName;
+    @BindView(R.id.btnSignOut)          Button btnSignOut;
+    @BindView(R.id.btnSave)             Button btnSave;
+    @BindView(R.id.rad_group_gender)    RadioGroup rad_group_gender;
+    @BindView(R.id.radioFemale)         RadioButton radioFemale;
+    @BindView(R.id.radioMale)           RadioButton radioMale;
 
-    FirebaseFirestore firebaseFirestore;
-    FirebaseAuth firebaseAuth;
-    public static FirebaseUser firebaseUser;
-    Users users;
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_account_tab, container, false);
-        initView(view);
-
-        return view;
+    @OnClick(R.id.btnSignOut)
+    void signOut() {
+        mAuth.signOut();
+        myPrefs.setIsSignIn(false);
+        myPrefs.setIsAdmin(false);
+        Log.v(TAG,"sign out");
+        getUserInfo();
+//        updateSignInOutUI();
+        gotoLoginActivity();
+//        ((MainActivity)getActivity()).restartHomeScreen();
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initGoogleSignIn();
-        boolean isInit = googleApiClient.isConnected();
-        if(googleApiClient != null) {
-            if(isInit) {
-                googleApiClient.stopAutoManage(getActivity());
-                googleApiClient.disconnect();
-                Log.v("AccountFrag"," Already connect");
-            }
-            else {
-                Log.v("AccountFrag", " First connect");
-            }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_account_tab, container, false);
+    }
 
-        }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
+
+        myPrefs = new MyPrefs(getContext());
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mDb = ((MainActivity)getActivity()).mDb;
+
+        Log.v(TAG,"Load view Account");
+
+        getUserInfo();
+        updateSignInOutUI();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-        googleApiClient.stopAutoManage(getActivity());
-        googleApiClient.disconnect();
     }
 
-    private void initView(View view) {
-
-        View decorView = getActivity().getWindow().getDecorView();
-        int uiOptions = /*View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |*/ View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-
-        imgAvata = view.findViewById(R.id.imgAvata);
-        btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(this::BackToMain);
-
-        tvBalance = view.findViewById(R.id.tvBalance);
-        tvLoyaltyPoint = view.findViewById(R.id.tvLoyaltyPoint);
-
-        edtAddress = view.findViewById(R.id.edtAddress);
-        edtPhoneNum = view.findViewById(R.id.edtPhoneNum);
-        edtBirthDay = view.findViewById(R.id.edtBirthDay);
-        edtEmail = view.findViewById(R.id.edtEmail);
-        edtUserFullName = view.findViewById(R.id.edtUserFullName);
-
-        btnSignOut = view.findViewById(R.id.btnSignOut);
-        btnSave = view.findViewById(R.id.btnSave);
-
-        rad_group_gender = view.findViewById(R.id.rad_group_gender);
-        radioFemale = view.findViewById(R.id.radioFemale);
-        radioMale = view.findViewById(R.id.radioMale);
-
-        //fire cloud
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        //model
-        users = new Users();
-
-    }
-
-    private void initGoogleSignIn(){
-
-        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(),this::onConnectionFailed)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions).build();
-    }
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.v("AccountFrag", "Connect Failed");
-    }
     @Override
     public void onStart() {
         super.onStart();
-
-
-        DisplayUser();
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateUser();
-            }
-        });
-
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                gotoLoginAcitivity();
-
-//                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-//                    @Override
-//                    public void onResult(@NonNull Status status) {
-//                        if(status.isSuccess()) gotoLoginAcitivity();
-//                        else Toast.makeText(UserProfile.this, "Đăng xuất thất bại!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-            }
-        });
-
-        OptionalPendingResult<GoogleSignInResult> optionalPendingResult = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if(optionalPendingResult.isDone())
-        {
-            GoogleSignInResult result = optionalPendingResult.get();
-            handleSignInResult(result);
-        }else
-        {
-            optionalPendingResult.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult result) {
-                    handleSignInResult(result);
-                }
-            });
-        }
-
-    }
-
-    public void handleSignInResult(GoogleSignInResult result){
-        if(result.isSuccess()) {
-            GoogleSignInAccount account = result.getSignInAccount();
-
-//            tvUserNameOfAcount.setText(account.getDisplayName());
-//            tvEmailOfAcount.setText(account.getEmail());
-//            tvHoTenOfAcount.setText(account.getDisplayName());
-//
-//            Picasso.get().load(account.getPhotoUrl()).placeholder(R.mipmap.ic_launcher).into(imageAvt);
-//        }else{
-//            gotoLoginAcitivity();
-        }
     }
 
 
-    public void setValueUser(){
-        String avt = users.getAvaUrl();
-        String testURL = "https://www.bootdey.com/img/Content/avatar/avatar5.png";
-        if(avt.equals("chưa có")) {
-            avt = testURL;
+    private void getUserInfo(){
+        user = ((MainActivity)getActivity()).user;
+        if (user != null) {
+            Log.v(TAG,"Info User: " + user.getDisplayName());
+            Log.v(TAG,"Info User: " + user.getEmail());
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
+
+            if(photoUrl == null){
+                Glide.with(this)
+                        .load(R.drawable.movie_boy)
+                        .into(imgAvatar);
+            }
+            else{
+                Glide.with(this)
+                        .load(Uri.parse(photoUrl.toString()))
+                        .into(imgAvatar);
+            }
+
+
+            if(name == null || name.matches("")){
+                edtEmail.setText(email);
+            }
+            else{
+                edtUserFullName.setText(name);
+            }
         }
-        Glide.with(getActivity())
-                .load(avt)
-                .error(R.drawable.error)
-                .placeholder(R.drawable.movie_boy)
-                .into(imgAvata);
+        else{
+            edtUserFullName.setText("@anonymous");
+            Glide.with(this)
+                    .load(R.drawable.movie_pop_corn)
+                    .into(imgAvatar);
+        }
+    }
 
-        tvBalance.setText(String.valueOf(users.getBalance()));
-        tvLoyaltyPoint.setText(String.valueOf(users.getLoyaltyPoint()));
-
-        edtUserFullName.setText(users.getFullName());
-        edtAddress.setText(users.getAddress());
-        edtPhoneNum.setText(users.getPhoneNumber());
-        edtBirthDay.setText(users.getBirthDay());
-        edtEmail.setText(users.getEmail());
-
-        String gender = users.getGender().trim().toLowerCase();
-
-        if(gender.equals(radioMale.getText().toString().toLowerCase())){
-            radioMale.toggle();
-        }else if(gender.equals(radioFemale.getText().toString().toLowerCase())){
-            radioFemale.toggle();
+    private void updateSignInOutUI(){
+        if(myPrefs.getIsSignIn()){
+//            mAddAccountButton.hide();
+//            mSuggestion.setVisibility(View.GONE);
+//            btnSignout.setVisibility(View.VISIBLE);
+//            mProfileDetail.setVisibility(View.VISIBLE);
+//            mProfileDetailNext.setVisibility(View.VISIBLE);
+//            if(!myPrefs.getIsAdmin()){
+//                mControlCenter.setVisibility(View.GONE);
+//                mControlCenterNext.setVisibility(View.GONE);
+//            }
+//            else{
+//                mControlCenter.setVisibility(View.VISIBLE);
+//                mControlCenterNext.setVisibility(View.VISIBLE);
+//            }
+        }
+        else{
+//            mAddAccountButton.show();
+//            mSuggestion.setVisibility(View.VISIBLE);
+//            btnSignout.setVisibility(View.GONE);
+//            mProfileDetail.setVisibility(View.GONE);
+//            mProfileDetailNext.setVisibility(View.GONE);
+//            mControlCenter.setVisibility(View.GONE);
+//            mControlCenterNext.setVisibility(View.GONE);
         }
     }
 
@@ -242,16 +194,16 @@ public class AccountTabFragment extends Fragment {
 
     public void DisplayUser(){
 
-        firebaseUser = firebaseAuth.getCurrentUser();
-        String userID = firebaseUser.getUid();
+        user = mAuth.getCurrentUser();
+        String userID = user.getUid();
 
-        DocumentReference userGet = firebaseFirestore.collection("user_info").document(userID);
+        DocumentReference userGet = ((MainActivity)getActivity()).mDb.collection("user_info").document(userID);
         userGet.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                users =documentSnapshot.toObject(Users.class);
-
-                setValueUser();
+//                users =documentSnapshot.toObject(Users.class);
+//
+//                setValueUser();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -262,12 +214,13 @@ public class AccountTabFragment extends Fragment {
     }
 
 
+    @OnClick(R.id.btnBack)
     public void BackToMain(View view) {
         startActivity(new Intent(getActivity(), MainActivity.class));
         getActivity().finish();
     }
 
-    private void gotoLoginAcitivity() {
+    private void gotoLoginActivity() {
         startActivity(new Intent(getActivity(), Login.class));
         getActivity().finish();
     }
