@@ -1,5 +1,6 @@
 package com.dream.dreamtheather.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dream.dreamtheather.FilmPickedActivity;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
@@ -49,11 +51,9 @@ public class MovieDetail extends Fragment {
 
     @OnClick(R.id.play_panel)
     void doSomething() {
-        //getMainActivity().presentFragment(WebViewFragment.newInstance(mMovie.getTrailerYoutube()));
-
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//        i.setData(Uri.parse(mMovie.getTrailerYoutube()+"?autoplay=1"));
-//        startActivity(i);
+        ((MainActivity)getActivity()).loadFragment(YoutubeViewFragment.newInstance(mMovie.getTrailerYoutube()));
+//        Intent intent = new Intent(this.getContext(),FilmPickedActivity.class);
+//        getActivity().startActivity(intent);
     }
 
     @OnClick(R.id.book_now_button)
@@ -63,7 +63,6 @@ public class MovieDetail extends Fragment {
 
     @OnClick(R.id.back_button)
     void dismiss() {
-        //getMainActivity().dismiss();
     }
 
     /**

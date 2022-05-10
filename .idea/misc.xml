@@ -3,6 +3,44 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/gradient_bg.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/gradient_black_to_transparent.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/round_ripple_drawable.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/round_ripple_drawable_dark.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/screen_rectangle.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/translucent_round.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable-v24/transparent_to_black_gradient.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/black_rounded_big_alpha.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/button_gradient.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_search.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/neon_glow_effect.xml" value="0.168" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/splash_bg.xml" value="0.186" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout-land/fragment_youtube.xml" value="0.28541666666666665" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_login.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_main.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_register.xml" value="0.4090909090909091" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_search_result.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_splash_screen.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/booking.xml" value="0.5" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/booking_v2.xml" value="0.33" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/film_picked.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_booking.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_future_film.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_home_tab.xml" value="0.2883625128733265" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_now_showing.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_spotlight.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_youtube.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_cinema_booking.xml" value="0.25" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_card.xml" value="0.5486725663716814" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.4835924006908463" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_spotlight.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/movie_detail.xml" value="0.18" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/movie_detail_body.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/movie_detail_end.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/time_text_view.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/menu/navigation.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/menu/options_menu.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/xml/movie_detail_animation.xml" value="0.1734375" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/menu/navigation.xml" value="0.25416666666666665" />
@@ -54,31 +92,20 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_register.xml" value="0.264" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_search_result.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_test.xml" value="0.15885416666666666" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/custom_video_player_ui.xml" value="0.18489583333333334" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/film_picked.xml" value="0.18489583333333334" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_account_tab.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_booking.xml" value="0.24010416666666667" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_future_film.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_home_tab.xml" value="0.264" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_now_showing.xml" value="0.25416666666666665" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_spotlight.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_theather.xml" value="0.25416666666666665" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_cinema_booking.xml" value="0.25416666666666665" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_date_booking.xml" value="0.25416666666666665" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_card.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.264" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_spotlight.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/layout_news_and_promo.xml" value="0.18489583333333334" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/movie_detail_end.xml" value="0.24909420289855072" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/test_template.xml" value="0.3619791666666667" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/toolbar.xml" value="0.2" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/menu/navigation.xml" value="0.25416666666666665" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/menu/options_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
