@@ -85,7 +85,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
         mTitle.setText(CinemaName);
 
-        db = ((MainActivity)getActivity()).mDb;
+        db = ((MainActivity)getActivity()).firebaseFirestore;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 

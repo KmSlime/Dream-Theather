@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Ticket;
 import com.dream.dreamtheather.R;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
 public class PurchaseScreen extends Fragment {
 
     Ticket mTicket;
-
+    FirebaseUser user;
     public static PurchaseScreen newInstance(Ticket t) {
         PurchaseScreen p = new PurchaseScreen();
         p.mTicket = t;
@@ -54,7 +55,8 @@ public class PurchaseScreen extends Fragment {
     @BindView(R.id.time) TextView mTime;
     @BindView(R.id.price) TextView mPrice;
     void setContent() {
-//        mUser.setText(user.getDisplayName());
+        user = ((MainActivity)getActivity()).user;
+        mUser.setText(user.getDisplayName());
         mMovie.setText(mTicket.getMovieName());
         mCinema.setText(mTicket.getCinemaName());
         mRoom.setText(mTicket.getRoom()+"");

@@ -222,5 +222,6 @@
     <color name="MediumBlue">#0000CD</color>
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
+    <color name="a_white">#FFFFFF</color>
 
 </resources>

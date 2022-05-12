@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/now_showing_for_cinema.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/ticket_print.xml" value="0.1734375" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DoAJavaResource/app/src/main/res/menu/navigation.xml" value="0.25416666666666665" />

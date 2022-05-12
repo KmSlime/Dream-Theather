@@ -105,7 +105,7 @@ public class AccountTabFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mDb = ((MainActivity)getActivity()).mDb;
+        mDb = ((MainActivity)getActivity()).firebaseFirestore;
 
         Log.v(TAG,"Load view Account");
 
@@ -197,7 +197,8 @@ public class AccountTabFragment extends Fragment {
         user = mAuth.getCurrentUser();
         String userID = user.getUid();
 
-        DocumentReference userGet = ((MainActivity)getActivity()).mDb.collection("user_info").document(userID);
+        DocumentReference userGet = ((MainActivity)getActivity()).firebaseFirestore
+                .collection("user_info").document(userID);
         userGet.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

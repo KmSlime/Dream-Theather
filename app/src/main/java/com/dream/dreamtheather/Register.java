@@ -270,7 +270,10 @@ public class Register extends AppCompatActivity {
 
     public void signUp(){
 
-        firebaseAuth.createUserWithEmailAndPassword(edtRegisterEmail.getText().toString().trim(), edtRegisterPassword.getText().toString().trim())
+        firebaseAuth
+                .createUserWithEmailAndPassword(
+                        edtRegisterEmail.getText().toString().trim(),
+                        edtRegisterPassword.getText().toString().trim())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

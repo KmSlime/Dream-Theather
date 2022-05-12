@@ -76,6 +76,8 @@
     <string name="mail_fail">Mail was not sent due to some problems.</string>
 
     <string name="thumbnail_image_view_desc">Youtube Video thumbnail image view</string>
+    <string name="director_string">Đạo diễn</string>
+    <string name="cast_string">Diễn viên:</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">
