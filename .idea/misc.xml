@@ -13,8 +13,10 @@
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_account_tab.xml" value="0.5" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_booking.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_home_tab.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_spotlight.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_card.xml" value="0.13333333333333333" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.1" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_spotlight.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_spotlight.xml" value="0.22" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/now_showing_for_cinema.xml" value="0.25" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/send_new_movie.xml" value="0.22" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/ticket_print.xml" value="0.1734375" />

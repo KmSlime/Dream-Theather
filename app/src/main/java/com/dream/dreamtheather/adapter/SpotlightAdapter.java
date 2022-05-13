@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.ItemHolder> {
-    private static final String TAG ="HomeChildAdapter";
+    private static final String TAG = "HomeChildAdapter";
 
     private List<Movie> mData = new ArrayList<>();
     Context mContext;
@@ -35,19 +35,20 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
     public SpotlightAdapter(Context context) {
         mContext = context;
     }
+
     public void setData(List<Movie> data) {
         mData.clear();
-        if (data !=null) {
+        if (data != null) {
             mData.addAll(data);
         }
         notifyDataSetChanged();
     }
 
     public void addData(List<Movie> data) {
-        if(data!=null) {
+        if (data != null) {
             int posBefore = mData.size();
             mData.addAll(data);
-            notifyItemRangeInserted(posBefore,data.size());
+            notifyItemRangeInserted(posBefore, data.size());
         }
     }
 
@@ -55,7 +56,7 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        return new ItemHolder(inflater.inflate(R.layout.item_movie_spotlight,viewGroup,false));
+        return new ItemHolder(inflater.inflate(R.layout.item_movie_spotlight, viewGroup, false));
     }
 
     @Override
@@ -75,13 +76,17 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
         @BindView(R.id.title)
         TextView mTitle;
 
-        @BindView(R.id.note_text) TextView mNote;
-        @BindView(R.id.rate) TextView mRate;
+        @BindView(R.id.note_text)
+        TextView mNote;
+        @BindView(R.id.rate)
+        TextView mRate;
+
         public ItemHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
+
         public String upperCaseAllFirst(String value) {
 
             char[] array = value.toCharArray();
@@ -102,7 +107,7 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
         private void bind(Movie movie) {
             String title = movie.getTitle().toLowerCase();
             title = upperCaseAllFirst(title);
-            Log.d(TAG, "bind: " +title);
+            Log.d(TAG, "bind: " + title);
             mTitle.setText(upperCaseAllFirst(title));
             mNote.setText(movie.getOpeningDay());
             mRate.setText(String.format("%s", movie.getRate()));
@@ -116,14 +121,14 @@ public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.Item
 
         @Override
         public void onClick(View v) {
-            if(mContext instanceof MainActivity) {
+            if (mContext instanceof MainActivity) {
                 ((MainActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
             }
         }
 
         @OnClick(R.id.book)
         void goToBook() {
-            if(mContext instanceof MainActivity) {
+            if (mContext instanceof MainActivity) {
                 ((MainActivity) mContext).loadFragment(BookingFragment.newInstance(mData.get(getBindingAdapterPosition())));
             }
         }
