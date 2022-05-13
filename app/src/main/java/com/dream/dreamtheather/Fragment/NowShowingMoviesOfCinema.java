@@ -1,14 +1,23 @@
 package com.dream.dreamtheather.Fragment;
 
+import static android.content.Intent.ACTION_PICK;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +46,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
     private static final String TAG ="ShowingMoviesOfCinema";
     private ArrayList<Integer> mMovies;
     private String CinemaName;
+    private String hotline;
 
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
@@ -53,20 +63,26 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
     @BindView(R.id.recycle_view)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.btnCall)
+    ImageButton btnCall;
+
     NowShowingAdapter mAdapter;
 
     FirebaseFirestore db;
 
     @OnClick(R.id.back_button)
     void back() {
-//        getActivity().dismiss();
+        super.getActivity().onBackPressed();
     }
 
-    public static NowShowingMoviesOfCinema newInstance(ArrayList<Integer> Movies, String CinemaName) {
+    public static NowShowingMoviesOfCinema newInstance(ArrayList<Integer> Movies,
+                                                       String CinemaName,
+                                                       String hotline) {
         NowShowingMoviesOfCinema fragment = new NowShowingMoviesOfCinema();
 
         fragment.mMovies = Movies;
         fragment.CinemaName = CinemaName;
+        fragment.hotline = hotline;
 
         return fragment;
     }
@@ -151,6 +167,31 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
         } else
             Log.w(TAG, "Error getting documents.", task.getException());
+    }
+
+    @OnClick(R.id.btnCall)
+    public void callCinema(){
+//        int permissionCheck = ContextCompat
+//                .checkSelfPermission(getContext(),Manifest.permission.CALL_PHONE);
+//
+//        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat
+//                    .requestPermissions(getActivity(),new String[]{Manifest.permission.CALL_PHONE}, 123);
+//        } else {
+//            startActivity(new Intent(Intent.ACTION_CALL).setData(Uri.parse("tel:12345678901")));
+//        }
+
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+ hotline));
+        Log.v(TAG,"complete intent");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+
+        }
     }
 
     @Override

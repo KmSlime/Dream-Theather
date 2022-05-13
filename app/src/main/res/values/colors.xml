@@ -4,13 +4,10 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
     <!--    add-->
-<!--    <color name="colorPrimary">@android:color/white</color>-->
-<!--    <color name="colorPrimaryDark">@android:color/black</color>-->
     <color name="colorAccent">#D43732</color>
     <item name="FlatWhite" type="color">#F5F5F5</item>
     <color name="focus_color">#FF0B19</color>
@@ -27,8 +24,6 @@
 
     <color name="gold">#FFE200</color>
     <color name="heavy_gold">#FFAA00</color>
-<!--    <color name="yellow">#FF7D00</color>-->
-<!--    <color name="heavy_yellow">#FF3300</color>-->
     <color name="pink">#FF0042</color>
     <color name="pink_light_1">#ff0057</color>
     <color name="setting_label_color">#B8B8B8</color>
@@ -55,18 +50,15 @@
     <color name="opacity20">#33000000</color>
     <color name="colorPrimary">#f44e39</color>
     <color name="colorPrimaryDark">#f44e39</color>
-<!--    <color name="colorAccent">#EB3EF1</color>-->
     <color name="colorAccent3">#f44e39</color>
     <color name="black_color">#000000</color>
     <color name="gray_600">#e0e2e4</color>
     <color name="colorPrimary2">#1D1D1D</color>
-<!--    <color name="colorPrimaryDark">#000000</color>-->
     <color name="colorAccent2">#D81B60</color>
     <color name="titleColor">#F5821E</color>
     <color name="popUpColor">#66F5821E</color>
     <color name="heavy_yellow">#FF3300</color>
 
-    <!--    <color name="colorPrimaryDark">#1D0140</color>-->
     <color name="colorGreens">#2C4528</color>
     <!--    thêm-->
     <color name="yellow">#FFFF00</color>
@@ -98,7 +90,7 @@
     <color name="MistyRose">#FFE4E1</color>
     <color name="Bisque">#FFE4C4</color>
     <color name="Moccasin">#FFE4B5</color>
-    <color name="NavajoWhite">#FFDEAD</color>
+    <color name="NavacolorPrimaryVariantjoWhite">#FFDEAD</color>
     <color name="PeachPuff">#FFDAB9</color>
     <color name="Gold">#FFD700</color>
     <color name="Pink">#FFC0CB</color>

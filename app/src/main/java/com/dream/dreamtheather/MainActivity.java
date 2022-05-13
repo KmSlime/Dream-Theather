@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
             THEATHER = R.id.navigation_theather,
             ACCOUNT = R.id.navigation_account ;
 
+
     public FirebaseFirestore firebaseFirestore;
     public FirebaseUser user;
-    FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     MyPrefs myPrefs;
 
     private BottomNavigationView bottom_navigation;
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);

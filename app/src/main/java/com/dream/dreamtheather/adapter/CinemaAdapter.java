@@ -103,8 +103,14 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
         void clickPanel() {
             if(mListener!=null) mListener.onItemClick(cinemaList.get(getAdapterPosition()));
             else if(context instanceof MainActivity) {
-                ((MainActivity) context).loadFragment(NowShowingMoviesOfCinema.newInstance(
-                        cinemaList.get(getAdapterPosition()).getMovies(), cinemaList.get(getAdapterPosition()).getName()));
+                ((MainActivity) context)
+                        .loadFragment(
+                                NowShowingMoviesOfCinema
+                                        .newInstance(
+                                        cinemaList.get(getAdapterPosition()).getMovies(),
+                                        cinemaList.get(getAdapterPosition()).getName(),
+                                        cinemaList.get(getAdapterPosition()).getHotline()
+                                        ));
             }
         }
 

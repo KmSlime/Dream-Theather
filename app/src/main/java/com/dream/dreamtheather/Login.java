@@ -272,7 +272,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getInstance().getCurrentUser();
-                            mA
+
                             if (user.isEmailVerified()) {
                                 myPrefs.setIsSignIn(true);
                                 Toast.makeText(Login.this, "Đăng nhập email thành công", Toast.LENGTH_SHORT).show();

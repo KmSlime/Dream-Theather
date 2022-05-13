@@ -259,7 +259,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
         ticket.setPrice(mPriceValue);
         ticket.setUserUID(mUser.getUid());
         mTicket = ticket;
-        mSendingDialog = new BottomSheetDialog(getActivity());
+        mSendingDialog = new BottomSheetDialog(getContext());
 
         mSendingDialog.setContentView(R.layout.send_new_movie);
         mSendingDialog.setCancelable(false);
