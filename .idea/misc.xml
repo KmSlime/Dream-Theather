@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_calendar.xml" value="0.186" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_login.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_account_tab.xml" value="0.5" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.1" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/now_showing_for_cinema.xml" value="0.1" />

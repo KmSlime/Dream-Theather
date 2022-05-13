@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             userGet.get()
                     .addOnSuccessListener(documentSnapshot -> {
                         UserInfo info = documentSnapshot.toObject(UserInfo.class);
-                        if(!info.getUserType().matches("")){
+                        if(!info.getUserType().matches("Admin")){
                             myPrefs.setIsAdmin(true);
                         }
                         else{

@@ -272,10 +272,11 @@ public class AccountTabFragment extends Fragment {
     private void displayUserInfo(Users users) {
         String avt = users.getAvaUrl();
 
-        Glide.with(getActivity())
+        Glide.with(getContext())
                 .load(avt)
                 .error(R.drawable.default_avatar)
                 .placeholder(R.drawable.movie_boy)
+                .override(120,150)
                 .into(imgAvatar);
 
         tvBalance.setText(String.valueOf(users.getBalance()));
@@ -317,7 +318,7 @@ public class AccountTabFragment extends Fragment {
             Picasso.get()
                     .load(filePath.toString())
                     .config(Bitmap.Config.RGB_565)
-                    .fit()
+                    .resize(120,150)
                     .into(imgAvatar);
         }
         uploadImage();
@@ -394,7 +395,7 @@ public class AccountTabFragment extends Fragment {
             Log.v(TAG,"name     | old:"+    user_info.getFullName()     + "- new: "+fullName);
             user_info.setFullName(fullName);
         }
-        if(!curUser.getBirthDay().equals(dob)){
+        if(!curUser.getBirthDay().equalsIgnoreCase(dob)){
             Log.v(TAG,"dob      | old:"+    user_info.getBirthDay()     + "- new: "+dob);
             user_info.setBirthDay(dob);
         }
