@@ -119,4 +119,7 @@ dependencies {
 
     //MK Loader
     implementation 'com.tuyenmonkey:mkloader:1.4.0'
+
+    //firebase storage
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
 }

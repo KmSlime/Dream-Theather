@@ -46,7 +46,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:orientation="vertical"
             android:background="@color/black">
 
@@ -56,20 +55,46 @@
                 android:orientation="horizontal"
                 android:padding="15dp"
                 android:gravity="center">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imgAvata"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/movie_boy"
-                    android:adjustViewBounds="true"
-                    app:riv_border_color="@color/quite_red"
-                    app:riv_border_width="2dp"
-                    app:riv_corner_radius="5dp"
-                    app:riv_mutate_background="true"
-                    android:scaleType="fitCenter"
-                    android:onClick="ChangeAvatar"/>
+                    android:gravity="center_horizontal"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/imgAvata"
+                            android:layout_width="120dp"
+                            android:layout_height="150dp"
+                            android:adjustViewBounds="true"
+                            android:paddingHorizontal="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/default_avatar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_border_color="@color/quite_red"
+                            app:riv_border_width="2dp"
+                            app:riv_corner_radius="5dp"
+                            app:riv_mutate_background="false" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btnUploadAvatar"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/plus"
+                            app:borderWidth="0dp"
+                            app:fabCustomSize="40dp"
+                            app:layout_constraintBottom_toBottomOf="@id/imgAvata"
+                            app:layout_constraintEnd_toEndOf="@+id/imgAvata"
+                            app:layout_constraintStart_toStartOf="@+id/imgAvata" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_weight="2"
@@ -160,12 +185,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:singleLine="true"
                     android:paddingStart="10dp"
                     android:gravity="center|left"
                     android:layout_gravity="center|left"
                     android:background="@drawable/rounded_corner_without_border_dark"
                     android:textColor="@color/white"
-                    android:textSize="20dp"/>
+                    android:textSize="25dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -185,7 +211,7 @@
                     android:background="@drawable/rounded_corner_without_border_dark"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
                     android:inputType="textEmailAddress"
                     android:enabled="false"/>
 
@@ -197,18 +223,41 @@
                     android:textSize="20dp"
                     android:layout_marginBottom="10dp"/>
 
-                <EditText
-                    android:id="@+id/edtBirthDay"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="10dp"
-                    android:layout_gravity="center|left"
-                    android:background="@drawable/rounded_corner_without_border_dark"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    />
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edtBirthDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_marginEnd="50dp"
+                        android:background="@drawable/rounded_corner_without_border_dark"
+                        android:paddingStart="10dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:enabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btnDatePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|left"
+                        android:src="@drawable/ic_calendar"
+                        android:text="Date of Birth"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edtBirthDay"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -238,7 +287,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Nam"
-                        android:textSize="20dp"
+                        android:textSize="25dp"
                         android:textColor="@color/white"
                         />
                     <RadioButton
@@ -247,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Nữ"
-                        android:textSize="20dp"
+                        android:textSize="25dp"
                         android:textColor="@color/white"
                         />
 
@@ -272,7 +321,7 @@
                     android:background="@drawable/rounded_corner_without_border_dark"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
                     android:inputType="phone"/>
 
                 <TextView
@@ -293,7 +342,7 @@
                     android:background="@drawable/rounded_corner_without_border_dark"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="20dp"/>
+                    android:textSize="25dp"/>
 
             </LinearLayout>
 
@@ -308,7 +357,7 @@
                     android:id="@+id/btnSave"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Cập nhật"
+                    android:text="@string/update"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -320,13 +369,13 @@
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_gravity="center"
-                    android:layout_weight="1"/>
+                    android:layout_weight="0.2"/>
 
                 <Button
                     android:id="@+id/btnSignOut"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Đăng xuất"
+                    android:text="@string/log_out"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/white"

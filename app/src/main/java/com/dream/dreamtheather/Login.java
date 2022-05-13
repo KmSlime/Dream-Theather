@@ -393,13 +393,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    Log.v(TAG, "DocumentSnapshot data: " + document.getData());
-                    UserInfo info = new UserInfo();
-                    info = document.toObject(UserInfo.class);
+//                    Log.i(TAG, "DocumentSnapshot data: " + document.getData());
+                    UserInfo info = document.toObject(UserInfo.class);
                     updateOldUser(info, user);
 //                        MainActivity.restartHomeScreen();
                 } else {
-                    Log.v(TAG, "No such document");
+                    Log.i(TAG, "No such document");
                     UserInfo info = new UserInfo();
                     addNewUser(info, user);
 //                        ((MainActivity)getActivity()).restartHomeScreen();

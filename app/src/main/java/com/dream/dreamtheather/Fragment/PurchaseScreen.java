@@ -30,7 +30,7 @@ public class PurchaseScreen extends Fragment {
     }
     @OnClick(R.id.back_button)
     void back() {
-//        (MainActivity)getActivity().dismiss();
+        ((MainActivity) getActivity()).restartHomeScreen();
     }
 
     @Nullable

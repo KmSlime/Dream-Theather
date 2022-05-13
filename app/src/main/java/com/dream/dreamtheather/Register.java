@@ -153,13 +153,14 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     if (checkPassConfirm()) {
-                        if(emailValidate()){
-                            if(checkPhoneNum()){
-                                if(pickdate) {
+                        if (emailValidate()) {
+                            if (checkPhoneNum()) {
+                                if (pickdate) {
 
                                     signUp();
 
-                                } else Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
+                                } else
+                                    Toast.makeText(getApplicationContext(), "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -169,7 +170,7 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public void calAge(){
+    public void calAge() {
         //date of birth
         dateSetListener1 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -191,7 +192,9 @@ public class Register extends AppCompatActivity {
 
                     if (startDate <= endDate) {
                         Period period = new Period(startDate, endDate, PeriodType.yearMonthDay());
-                        int years = period.getYears(); int months = period.getMonths(); int days = period.getDays();
+                        int years = period.getYears();
+                        int months = period.getMonths();
+                        int days = period.getDays();
                         tvAge.setText("Tuổi: ");
                         tvDatepicked.setText(years + " tuổi " + months + " tháng " + days + " ngày");
                         pickdate = true;
@@ -205,7 +208,7 @@ public class Register extends AppCompatActivity {
         };
     }
 
-    public void addNewUser(){
+    public void addNewUser() {
         Users user = new Users();
         firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -233,42 +236,32 @@ public class Register extends AppCompatActivity {
         user.setIdTicket(idTicket);
         user.setLoyaltyPoint(0);
 
-
-//                            Map<String, Object> User = new HashMap<>();
-//                            User.put("loyaltyPoint", 0);
-//                            User.put("address","chưa có");
-//                            User.put("avaUrl", "chưa có");
-//                            User.put("balance",0);
-//                            User.put("email", email);
-//                            User.put("birthDay", dateOfBirth);
-//                            User.put("fullName", userName);
-//                            User.put("gender", gender);
-//                            User.put("idTicket",null);
-//                            User.put("phoneNumber",phoneNum);
-//                            User.put("userType","Khách");
-
         createFireStore(user);
 
     }
 
-    public void createFireStore(Users user){
+    public void createFireStore(Users user) {
         //add to firestore
-        firebaseFirestore.collection("user_info").document(firebaseUser.getUid()).set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(Register.this, "Thành công", Toast.LENGTH_SHORT).show();
-                        Log.d("test", "id:" + firebaseUser.getUid());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("TAG", "Error adding document" + e.getMessage());
+        firebaseFirestore
+            .collection("user_info")
+            .document(firebaseUser.getUid())
+            .set(user)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(Register.this, "Thành công", Toast.LENGTH_SHORT).show();
+                    Log.d("test", "id:" + firebaseUser.getUid());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("TAG", "Error adding document" + e.getMessage());
+                }
             }
-        });
+        );
     }
 
-    public void signUp(){
+    public void signUp() {
 
         firebaseAuth
                 .createUserWithEmailAndPassword(
@@ -277,7 +270,7 @@ public class Register extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
 
                             addNewUser();
 
@@ -296,13 +289,13 @@ public class Register extends AppCompatActivity {
                             });
 
                             SuccessfulRegister();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(Register.this, "Có gì đó không ổn", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.VISIBLE);
                         }
                     }
-                });
+                })
+                ;
     }
 
     public void BackToLogin(View view) {
@@ -310,57 +303,53 @@ public class Register extends AppCompatActivity {
         finish();
     }
 
-    public boolean checkValidate(){
+    public boolean checkValidate() {
         if (edtAuthor_Name.getText().toString().isEmpty() ||
                 edtRegisterPassword.getText().toString().isEmpty() ||
                 edtRegisterEmail.getText().toString().isEmpty() ||
                 edtRegisterPasswordConfirm.getText().toString().isEmpty() ||
                 edtAuthor_Name.getText().toString().isEmpty() ||
-                edtPhoneNum.getText().toString().isEmpty()){
+                edtPhoneNum.getText().toString().isEmpty()) {
             return true;
         }
         return false;
     }
 
-    public boolean emailValidate(){
-        if(inputValidatorHelper.isValidEmail(edtRegisterEmail.getText().toString())){
+    public boolean emailValidate() {
+        if (inputValidatorHelper.isValidEmail(edtRegisterEmail.getText().toString())) {
             return true;
-        } else{
+        } else {
             edtRegisterEmail.setError("Nhập sai định dạng email");
             edtRegisterEmail.requestFocus();
             return false;
         }
     }
 
-    public boolean checkPassConfirm(){
-        if(edtRegisterPassword.getText().length() < 6){
+    public boolean checkPassConfirm() {
+        if (edtRegisterPassword.getText().length() < 6) {
             edtRegisterPasswordConfirm.setError("Mật khẩu không được dưới 6 ký tự");
             edtRegisterPasswordConfirm.requestFocus();
             return false;
-        }else if (edtRegisterPassword.getText().toString().equals(edtRegisterPasswordConfirm.getText().toString()))
-        {
+        } else if (edtRegisterPassword.getText().toString().equals(edtRegisterPasswordConfirm.getText().toString())) {
             return true;
-        } else
-        {
+        } else {
             edtRegisterPasswordConfirm.setError("Mật khẩu không trùng nhau");
             edtRegisterPasswordConfirm.requestFocus();
             return false;
         }
     }
 
-    public boolean checkPhoneNum(){
-        if((edtPhoneNum.getText().length()>=8 && edtPhoneNum.getText().length()<=10))
-        {
+    public boolean checkPhoneNum() {
+        if ((edtPhoneNum.getText().length() >= 8 && edtPhoneNum.getText().length() <= 10)) {
             return true;
-        } else
-        {
+        } else {
             edtPhoneNum.setError("SĐT phải từ 8 đến 10 số!");
             edtPhoneNum.requestFocus();
             return false;
         }
     }
 
-    public void SuccessfulRegister(){
+    public void SuccessfulRegister() {
         Toast.makeText(Register.this, "Tạo tài khoản thành công", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(Register.this, UserProfile.class);
         startActivity(intent);

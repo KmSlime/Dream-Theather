@@ -16,9 +16,9 @@
     <string name="tvRegister">Đăng ký!</string>
 
     <!--    fb required-->
-    <string name="facebook_application_id">1234</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">56789</string>
+    <string name="facebook_application_id">7192728940769261</string>
+    <string name="fb_login_protocol_scheme">fb7192728940769261</string>
+    <string name="facebook_client_token">d1e00aa6bbe9653dc878caf9d90c965b</string>
 
     <string name="register">Đăng ký</string>
     <string name="what_is_your_name">Tên của bạn là gì?</string>
@@ -78,6 +78,8 @@
     <string name="thumbnail_image_view_desc">Youtube Video thumbnail image view</string>
     <string name="director_string">Đạo diễn</string>
     <string name="cast_string">Diễn viên:</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="update">Cập nhật</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">
