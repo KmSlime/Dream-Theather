@@ -3,6 +3,7 @@ package com.dream.dreamtheather.Fragment;
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,10 +58,16 @@ import butterknife.OnClick;
 
 public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
         implements ChooseSeatAdapter.OnSelectedChangedListener,
-        OnCompleteListener<DocumentSnapshot>, OnFailureListener {
+        OnCompleteListener<DocumentSnapshot>, OnFailureListener,
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = "ChooseSeatBottomSheet";
     private static final int DBS = com.google.android.material.R.id.design_bottom_sheet;
+
+    private String ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private String NUM = "123456789";
+    private int mPriceValue = 0;
+    private List<Integer> mSelects = new ArrayList<>();
 
     public static ChooseSeatBottomSheet newInstance(AppCompatActivity activity, ShowTime showTime, int datePos, int timePos) {
         ChooseSeatBottomSheet c = new ChooseSeatBottomSheet();
@@ -74,6 +81,20 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     private DetailShowTime mDetailShowTime;
     private FirebaseUser mUser;
     private FirebaseFirestore mDb;
+
+
+    @BindView(R.id.recycle_view)
+    RecyclerView mRecyclerView;
+    ChooseSeatAdapter mAdapter;
+    @BindView(R.id.seat_list)
+    TextView mSeatList;
+
+    @BindView(R.id.price)
+    TextView mPrice;
+    @BindView(R.id.button)
+    Button mPayNow;
+    @BindView(R.id.alert)
+    TextView mAlert;
 
     private void init(ShowTime showTime, int datePos, int timePos) {
         mShowTime = showTime;
@@ -95,39 +116,8 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.getViewTreeObserver();
+        view.getViewTreeObserver().addOnGlobalLayoutListener(this);
         onViewCreated(view);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-
-        dialog.setOnShowListener(dialog1 -> {
-            BottomSheetDialog d = (BottomSheetDialog) dialog1;
-
-            FrameLayout bottomSheet = (FrameLayout) d.findViewById(DBS);
-
-            BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
-
-            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            behavior.setPeekHeight(-Tool.getNavigationHeight(requireActivity()));
-            behavior.setHideable(false);
-            behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                @Override
-                public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                    if (newState == STATE_COLLAPSED)
-                        ChooseSeatBottomSheet.this.dismiss();
-                }
-
-                @Override
-                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                }
-            });
-        });
-        return dialog;
     }
 
     private UserInfo mUserInfo;
@@ -158,7 +148,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
     private void onViewCreated(View view) {
         ButterKnife.bind(this, view);
-        mAdapter = new ChooseSeatAdapter(getActivity());
+        mAdapter = new ChooseSeatAdapter(getContext());
         mDb = ((MainActivity) getActivity()).firebaseFirestore;
         mUser = ((MainActivity) getActivity()).user;
 
@@ -172,28 +162,10 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
         mAdapter.setData(mDetailShowTime.getSeats());
     }
 
-    @BindView(R.id.recycle_view)
-    RecyclerView mRecyclerView;
-    ChooseSeatAdapter mAdapter;
-    @BindView(R.id.seat_list)
-    TextView mSeatList;
-
-    @BindView(R.id.price)
-    TextView mPrice;
-    @BindView(R.id.button)
-    Button mPayNow;
-    @BindView(R.id.alert)
-    TextView mAlert;
-
     @OnClick(R.id.toggleButton)
     void dismissThis() {
         dismiss();
     }
-
-    private String ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private String NUM = "123456789";
-    private int mPriceValue = 0;
-    private List<Integer> mSelects = new ArrayList<>();
 
     @Override
     public void onSelectedChanged(List<Integer> selects) {
@@ -273,6 +245,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     }
 
     private BottomSheetDialog mSendingDialog;
+
     boolean cancelled = false;
 
     void cancelSending() {
@@ -394,5 +367,27 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     @Override
     public void onFailure(@NonNull Exception e) {
 
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        BottomSheetDialog dialog = (BottomSheetDialog) getDialog();
+        FrameLayout bottomSheet = (FrameLayout) dialog.findViewById(DBS);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behavior.setPeekHeight(-Tool.getNavigationHeight(requireActivity()));
+        behavior.setHideable(false);
+        behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == STATE_COLLAPSED)
+                    ChooseSeatBottomSheet.this.dismiss();
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 }

@@ -43,8 +43,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BookingFragment extends Fragment implements EventListener<QuerySnapshot>, DateAdapter.OnSelectedChangedListener, DetailShowTimeAdapter.OnTimeClickListener {
-    private static final String TAG="BookingFragment";
+public class BookingFragment extends Fragment implements EventListener<QuerySnapshot>,
+        DateAdapter.OnSelectedChangedListener,
+        DetailShowTimeAdapter.OnTimeClickListener {
+    private static final String TAG = "BookingFragment";
 
     public static BookingFragment newInstance(Movie movie) {
         BookingFragment bf = new BookingFragment();
@@ -56,15 +58,20 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.movie_panel) View mMoviePanel;
+    @BindView(R.id.movie_panel)
+    View mMoviePanel;
     @BindView(R.id.image)
     ImageView mImage;
     @BindView(R.id.title)
     TextView mTitle;
-    @BindView(R.id.genre) TextView mGenre;
-    @BindView(R.id.duration) TextView mDuration;
-    @BindView(R.id.rate) TextView mRate;
-    @BindView(R.id.next) View mNext;
+    @BindView(R.id.genre)
+    TextView mGenre;
+    @BindView(R.id.duration)
+    TextView mDuration;
+    @BindView(R.id.rate)
+    TextView mRate;
+    @BindView(R.id.next)
+    View mNext;
 
     @BindView(R.id.date_recycler_view)
     RecyclerView mDateRecyclerView;
@@ -75,7 +82,8 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout mSwipeLayout;
 
-    @BindView(R.id.error) TextView mError;
+    @BindView(R.id.error)
+    TextView mError;
 
     DateAdapter mDateAdapter;
     DetailShowTimeAdapter mDetailShowTimeAdapter;
@@ -86,7 +94,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 //    }
 
     private void setupToolbar() {
-        if(getActivity() instanceof AppCompatActivity) {
+        if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
             final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -108,32 +116,39 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
-        firebaseFirestore = ((MainActivity)getActivity()).firebaseFirestore;
+        ButterKnife.bind(this, view);
+        firebaseFirestore = ((MainActivity) getActivity()).firebaseFirestore;
         setupToolbar();
         bindMovie();
 
-        Date date =  Calendar.getInstance().getTime();
+        Date date = Calendar.getInstance().getTime();
         String current = DateFormat.format("dd/MM/yyyy", date).toString();
-        Log.d(TAG, "onViewCreated: date "+current);
+        Log.d(TAG, "onViewCreated: date " + current);
 
-        mDateAdapter = new DateAdapter(getActivity());
+        mDateAdapter = new DateAdapter(getContext());
         mDateAdapter.setOnSelectedChangedListener(this);
-        mDetailShowTimeAdapter = new DetailShowTimeAdapter(getActivity());
+        mDetailShowTimeAdapter = new DetailShowTimeAdapter(getContext());
         mDetailShowTimeAdapter.setOnTimeClickListener(this);
 
         mDateRecyclerView.setAdapter(mDateAdapter);
         mCinemaRecyclerView.setAdapter(mDetailShowTimeAdapter);
 
-        mDateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        mCinemaRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        mDateRecyclerView
+                .setLayoutManager(new   LinearLayoutManager(getContext(),
+                                        LinearLayoutManager.HORIZONTAL,
+                                        false));
+        mCinemaRecyclerView
+                .setLayoutManager(new   LinearLayoutManager(getContext(),
+                                        LinearLayoutManager.VERTICAL,
+                                        false));
         createDataForDateAdapter();
         mSwipeLayout.setOnRefreshListener(this::getData);
         refreshData();
-
     }
+
     ArrayList<Date> mDateArray;
-    private void createDataForDateAdapter(){
+
+    private void createDataForDateAdapter() {
         Calendar calendar = Calendar.getInstance();
         mDateArray = new ArrayList<>();
         ArrayList<String> list = new ArrayList<>();
@@ -151,14 +166,14 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 
     @SuppressLint("DefaultLocale")
     private void bindMovie() {
-        if(mMovie==null) return;
+        if (mMovie == null) return;
         mTitle.setText(mMovie.getTitle());
         mGenre.setText(mMovie.getGenre());
         mDuration.setText(String.format("%d min", mMovie.getDuration()));
         mRate.setText(String.format("%s", mMovie.getRate()));
 
         RequestOptions requestOptions = new RequestOptions();
-        if(getContext()!=null) {
+        if (getContext() != null) {
             Glide.with(getContext())
                     .load(mMovie.getImageUrl())
                     .apply(requestOptions)
@@ -167,14 +182,15 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     }
 
     @OnClick(R.id.movie_panel)
-    void goToMovieDetail(){
-        if(mMovie!=null) {
-            ((MainActivity)getActivity()).loadFragment(MovieDetail.newInstance(mMovie));
+    void goToMovieDetail() {
+        if (mMovie != null) {
+            ((MainActivity) getActivity()).loadFragment(MovieDetail.newInstance(mMovie));
         }
     }
+
     void getData() {
         mSwipeLayout.setRefreshing(true);
-        if(mMovie==null) {
+        if (mMovie == null) {
             mSwipeLayout.setRefreshing(false);
             mError.setVisibility(View.VISIBLE);
         } else {
@@ -188,19 +204,19 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
     FirebaseFirestore firebaseFirestore;
 
     void refreshData() {
-       // firebaseFirestore.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
-        firebaseFirestore.collection("show_time").whereEqualTo("movieID",mMovie.getId()).addSnapshotListener(this);
+        // firebaseFirestore.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
+        firebaseFirestore.collection("show_time").whereEqualTo("movieID", mMovie.getId()).addSnapshotListener(this);
     }
 
     @Override
     public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
         mSwipeLayout.setRefreshing(false);
         mError.setVisibility(View.GONE);
-        if(e==null) {
-            if(queryDocumentSnapshots!=null) {
+        if (e == null) {
+            if (queryDocumentSnapshots != null) {
                 List<ShowTime> list = queryDocumentSnapshots.toObjects(ShowTime.class);
-                if(mDetailShowTimeAdapter!=null) mDetailShowTimeAdapter.setData(list);
-                Log.d(TAG, "onEvent: "+list.toString());
+                if (mDetailShowTimeAdapter != null) mDetailShowTimeAdapter.setData(list);
+                Log.d(TAG, "onEvent: " + list.toString());
             } else Log.d(TAG, "onEvent: null");
         } else {
             Log.d(TAG, "onEvent: Exception");
@@ -216,7 +232,7 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 
     @Override
     public void onTimeClick(ShowTime showTime, int datePos, int timePos) {
-        ((MainActivity)getActivity()).loadFragment(ChooseSeatBottomSheet.newInstance(((MainActivity)getActivity()),showTime,datePos,timePos));
+        ChooseSeatBottomSheet.newInstance(((MainActivity) getActivity()), showTime, datePos, timePos);
     }
 
     @Override
