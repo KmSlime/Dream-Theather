@@ -21,7 +21,8 @@
         android:src="@drawable/slide_up_down_icon_drawable"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/toggleButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Please choose your seats"
+        android:text="@string/please_choose_seat"
         android:gravity="center"
         android:padding="4dp"
         android:textStyle="bold"
@@ -83,8 +84,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text=""
         android:layout_marginTop="25dp"
+        android:paddingStart="0dp"
         android:paddingEnd="30dp"
-        android:gravity="center_horizontal|right"
+        android:gravity="center_horizontal|end"
         android:padding="5dp"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -95,10 +97,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:paddingStart="31dp"
+        android:paddingEnd="0dp"
         app:layout_constraintTop_toTopOf="@id/seat_list"
         app:layout_constraintBottom_toBottomOf="@id/seat_list"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Seats"
+        android:text="@string/seat_list"
         android:gravity="center"
         android:padding="5dp"
         android:textStyle="bold"
@@ -112,7 +115,8 @@
 
         app:layout_constraintStart_toStartOf="parent"
         android:paddingStart="30dp"
-        android:text="Total "
+        android:paddingEnd="0dp"
+        android:text="@string/total_payment"
         android:textSize="18sp"
         android:textColor="@color/setting_label_color"
         app:layout_constraintTop_toBottomOf="@id/seat_list"
@@ -126,13 +130,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/price_text"
         android:padding="10dp"
-        android:text="0 ₫"
+        android:text="@string/pay_amount"
         android:layout_marginEnd="20dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/FlatPurple"
         app:layout_constraintTop_toBottomOf="@id/seat_list"
-        android:gravity="center_horizontal|right"
+        android:gravity="center_horizontal|end"
         android:background="@drawable/line_bottom"/>
     <TextView
         android:id="@+id/alert"
@@ -148,7 +152,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:visibility="gone"
-        android:text="Your balanced is 1000 vnđ, it's not enough"/>
+        android:text="@string/not_enough_balance"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         android:layout_width="0dp"
@@ -163,5 +167,5 @@
         android:layout_marginTop="10dp"
         android:textColor="#666"
         android:textStyle="bold"
-        android:text="Pay now" />
+        android:text="@string/pay_now" />
 </androidx.constraintlayout.widget.ConstraintLayout>

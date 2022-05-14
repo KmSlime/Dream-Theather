@@ -131,4 +131,16 @@ dependencies {
 
     //firebase storage
     implementation 'com.google.firebase:firebase-storage:19.1.0'
+
+    //QR Gen
+    implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+
+    //QR Generator
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+
+    //QR code generator from zXing
+        implementation 'com.google.zxing:core:3.4.1'
+
+    //Permission Helper
+    implementation 'com.justadeveloper96.android:permissionhelper:1.1.2'
 }

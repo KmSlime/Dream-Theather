@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@android:color/black"
     android:clickable="true"
-    android:animateLayoutChanges="true"
     android:focusable="true">
+
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="65dp"
@@ -17,247 +18,338 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back_button" />
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toEndOf="@id/back_button"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="65dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/back_button"
-        android:text="Your Purchase"
-        android:maxLines="1"
         android:ellipsize="end"
         android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/your_purchase"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        app:layout_constraintBottom_toBottomOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
+    <ImageButton
+        android:id="@+id/btnShowQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:background="@color/fui_transparent"
+        android:src="@drawable/ic_qr_ios_glyph"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/back_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:overScrollMode="never">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:paddingBottom="50dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/user_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@string/Customer"
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user" />
+
+            <TextView
+                android:id="@+id/user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="@string/default_name"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/user_const"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/movie_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@string/title_movie"
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/movie"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/movie" />
+
+            <TextView
+                android:id="@+id/movie"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="@string/movie_name"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/movie_const"
+                app:layout_constraintTop_toBottomOf="@id/user" />
+
+            <TextView
+                android:id="@+id/cinema_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Rạp : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/cinema"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cinema" />
+
+            <TextView
+                android:id="@+id/cinema"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="CGV BEN LAI"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cinema_const"
+                app:layout_constraintTop_toBottomOf="@id/movie" />
+
+            <TextView
+                android:id="@+id/room_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Phòng : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/room"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/room" />
+
+            <TextView
+                android:id="@+id/room"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="1"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/room_const"
+                app:layout_constraintTop_toBottomOf="@id/cinema" />
+
+            <TextView
+                android:id="@+id/seat_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Ghế : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/seat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/seat" />
+
+            <TextView
+                android:id="@+id/seat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="A2 C3 H1"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/seat_const"
+                app:layout_constraintTop_toBottomOf="@id/room" />
+
+            <TextView
+                android:id="@+id/date_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Ngày chiếu : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/date" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="12/01/2019"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/date_const"
+                app:layout_constraintTop_toBottomOf="@id/seat" />
+
+            <TextView
+                android:id="@+id/time_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Giờ chiếu : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/time" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="12:30"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/time_const"
+                app:layout_constraintTop_toBottomOf="@id/date" />
+
+            <TextView
+                android:id="@+id/price_const"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="Tổng thanh toán : "
+                android:textColor="@color/setting_label_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/price"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/price" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="200000 vnd"
+                android:textAllCaps="true"
+                android:textColor="@color/FlatBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/price_const"
+                app:layout_constraintTop_toBottomOf="@id/time" />
+
+            <TextView
+                android:id="@+id/note_const"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/notiUser"
+                android:textColor="#555"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price" />
+
+            <TextView
+                android:id="@+id/tvNotiUseQR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/notiQR"
+                android:textColor="#555"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/note_const" />
+
+            <TextView
+                android:id="@+id/tvThankYou"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/dream_thank_you"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:fontFamily="@font/pacifico_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNotiUseQR" />
+
+            <ImageView
+                android:id="@+id/qrImg"
+                app:layout_constraintStart_toStartOf="@id/tvThankYou"
+                app:layout_constraintEnd_toEndOf="@+id/tvThankYou"
+                app:layout_constraintTop_toBottomOf="@+id/tvThankYou"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp">
-                <TextView
-                    android:id="@+id/user_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="User : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/user"
-                    app:layout_constraintBottom_toBottomOf="@id/user"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/user"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="LE DINH TRUNG"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/movie_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Movie : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/movie"
-                    app:layout_constraintBottom_toBottomOf="@id/movie"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/movie"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/user"
-                    app:layout_constraintStart_toEndOf="@id/movie_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="NGUOI NHEn"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/cinema_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Cinema : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/cinema"
-                    app:layout_constraintBottom_toBottomOf="@id/cinema"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/cinema"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/movie"
-                    app:layout_constraintStart_toEndOf="@id/cinema_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="CGV BEN LAI"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/room_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Room : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/room"
-                    app:layout_constraintBottom_toBottomOf="@id/room"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/room"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/cinema"
-                    app:layout_constraintStart_toEndOf="@id/room_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="1"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/seat_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Seat : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/seat"
-                    app:layout_constraintBottom_toBottomOf="@id/seat"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/seat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/room"
-                    app:layout_constraintStart_toEndOf="@id/seat_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="A2 C3 H1"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/date_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Date : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/date"
-                    app:layout_constraintBottom_toBottomOf="@id/date"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/seat"
-                    app:layout_constraintStart_toEndOf="@id/date_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="12/01/2019"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/time_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Time : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/time"
-                    app:layout_constraintBottom_toBottomOf="@id/time"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/date"
-                    app:layout_constraintStart_toEndOf="@id/time_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="8dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="12:30"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/price_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Price : "
-                    android:textColor="@color/setting_label_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/price"
-                    app:layout_constraintBottom_toBottomOf="@id/price"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/time"
-                    app:layout_constraintStart_toEndOf="@id/price_const"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="18dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/FlatBlue"
-                    android:text="200000 vnd"
-                    android:textAllCaps="true"/>
-                <TextView
-                    android:id="@+id/note_const"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:text="Bring your identity card to nearest cinema to recceice your tickets.Thank you"
-                    android:textColor="#555"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    app:layout_constraintTop_toBottomOf="@id/price"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+                android:src="@drawable/ic_qr_code"
+                />
+
+
+            <Button
+                android:id="@+id/btnSaveQR"
+                android:background="@drawable/button_gradient"
+                app:layout_constraintStart_toStartOf="@+id/qrImg"
+                app:layout_constraintEnd_toEndOf="@id/qrImg"
+                app:layout_constraintTop_toBottomOf="@id/qrImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="30dp"
+                android:text="Lưu mã QR"
+                android:textSize="20sp"
+                android:textColor="@color/AntiqueWhite"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

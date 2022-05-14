@@ -46,30 +46,30 @@
     <string name="movieName">Tên phim</string>
     <string name="book">Đặt vé</string>
     <string name="book_now">Đặt vé ngay</string>
-    <string name="content_string" translatable="false">descrip</string>
-    <string name="booking">Booking</string>
+    <string name="content_string" translatable="false">description</string>
+    <string name="booking">Đặt vé</string>
     <string name="search_hint">Tìm phim</string>
     <string name="search_title">Tìm kiếm</string>
-    <string name="your_balanced_is">"Your balanced is "</string>
-    <string name="it_is_not_enough">₫, it\'s not enough</string>
-    <string name="screen">Screen</string>
-    <string name="sending_data">Sending data …</string>
-    <string name="server_client_id">359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
+    <string name="your_balanced_is">"Tài khoản của bạn chỉ còn "</string>
+    <string name="it_is_not_enough">₫, it\'s không đủ để thanh toán</string>
+    <string name="screen">Màn hình</string>
+    <string name="sending_data">Đang đặt vé …</string>
+    <string name="server_client_id">359747608446–9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
 
     //Message
     <string name="signin_success">Sign-in Successfully</string>
     <string name="signin_cancel">Sign-in Canceled</string>
     <string name="signin_error">Sign-in Failed</string>
     <string name="signup_success">Sign-up Successfully</string>
-    <string name="is_updating">Updating...</string>
+    <string name="is_updating">Updating…</string>
     <string name="profile_updated">Profile updated</string>
 
     //Error
     <string name="fullname_empty">Full Name cannot be blank</string>
-    <string name="email_empty">Email cannot be blank</string>
-    <string name="email_invalid">Invalid Email</string>
-    <string name="password_empty">Password cannot be blank</string>
-    <string name="password_length">"Password must be at least 6 characters long"</string>
+    <string name="email_empty">Email không được bỏ trống</string>
+    <string name="email_invalid">Email không đúng</string>
+    <string name="password_empty">Mật khẩu không được để trống</string>
+    <string name="password_length">"Mật khẩu phải có tối thiểu 6 ký tự"</string>
     <string name="retype_empty">Retype password cannot be blank</string>
     <string name="retype_match">Retype and password do not match</string>
     <string name="terms_confirm">Please read and confirm our Terms and Privacy</string>
@@ -80,6 +80,21 @@
     <string name="cast_string">Diễn viên:</string>
     <string name="log_out">Đăng xuất</string>
     <string name="update">Cập nhật</string>
+    <string name="notiUser">Vui lòng đem theo vé điện tử này đến rạp để nhận vé hoặc check-in.</string>
+    <string name="notiQR">Hoặc tạo QR bằng nút phía trên.</string>
+    <string name="dream_thank_you">Dream Cinema xin cảm ơn</string>
+    <string name="your_purchase">Hóa đơn của bạn</string>
+    <string name="Customer">Người dùng :</string>
+    <string name="default_name">Tên người dùng</string>
+    <string name="title_movie">Phim :</string>
+    <string name="movie_name">Sample movie name</string>
+    <string name="please_choose_seat">Vui lòng chọn ghế</string>
+    <string name="pay_now">Thanh toán ngay</string>
+    <string name="seat_list">Ghế đã chọn:</string>
+    <string name="total_payment">Tổng tiền:</string>
+    <string name="pay_amount">0 ₫</string>
+    <string name="not_enough_balance">Tài khoản is 1000 vnđ, it\'s not enough</string>
+    <string name="watch_trailer">Xem trailer</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">
