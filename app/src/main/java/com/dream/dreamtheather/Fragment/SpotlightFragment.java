@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dream.dreamtheather.MainActivity;
@@ -71,6 +72,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     private void infinityLoopViewPager() {
 
         viewPager.registerOnPageChangeCallback(viewPagerCallback);
+        viewPager.setPageTransformer(pageTransformer);
     }
 
     final ViewPager2.OnPageChangeCallback viewPagerCallback =
@@ -85,22 +87,16 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
                     super.onPageSelected(position);
                     handler.removeMessages(0);
                     int itemCount = viewPager.getAdapter().getItemCount();
-                    int finalPosition = position;
-                    Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            viewPager.setCurrentItem((finalPosition + 1), true);
-                        }
+                    final int curPos = position;
+                    Runnable runnable = () -> {
+                        Log.v(TAG,"curPOS: " + curPos);
+                        if(curPos < itemCount)
+                            viewPager.setCurrentItem((curPos + 1), true);
+                        if(curPos == itemCount-1)
+                                viewPager.setCurrentItem(0, true);
                     };
 
-                    if(position < itemCount){
-                        Log.v(TAG,"viewpager spot: position"+ position);
-                        handler.postDelayed(runnable, DELAY_TIME);
-                    }
-                    else {
-                        Log.v(TAG,"end viewpager spot position: position"+ position);
-                        handler.removeMessages(0);
-                        position = -1;
+                    if (position < itemCount) {
                         handler.postDelayed(runnable, DELAY_TIME);
                     }
                 }
@@ -116,6 +112,36 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
                         handler.removeMessages(0);
                 }
             };
+
+
+
+    ViewPager2.PageTransformer pageTransformer = new ViewPager2.PageTransformer() {
+        @Override
+        public void transformPage(View page, float position) {
+            int pageWidth = viewPager.getMeasuredWidth() - viewPager.getPaddingLeft() - viewPager.getPaddingRight();
+            int pageHeight = viewPager.getHeight();
+            int paddingLeft = viewPager.getPaddingLeft();
+            float transformPos = (float) (page.getLeft() - (viewPager.getScrollX() + paddingLeft)) / pageWidth;
+
+            final float normalizedPosition = Math.abs(Math.abs(transformPos) - 1);
+            page.setAlpha(normalizedPosition + 0.5f);
+
+            int max = -pageHeight / 10;
+
+            if (transformPos < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                page.setTranslationY(0);
+            } else if (transformPos <= 1) { // [-1,1]
+                page.setTranslationY(max * (1 - Math.abs(transformPos)));
+
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                page.setTranslationY(0);
+            }
+
+        }
+    };
+
 
     public void refreshData() {
         firebaseFirestore.collection("feature_movie")
