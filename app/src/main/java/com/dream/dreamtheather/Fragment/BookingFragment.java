@@ -43,9 +43,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BookingFragment extends Fragment implements EventListener<QuerySnapshot>,
-        DateAdapter.OnSelectedChangedListener,
-        DetailShowTimeAdapter.OnTimeClickListener {
+public class BookingFragment extends Fragment
+                             implements EventListener<QuerySnapshot>,
+                                        DateAdapter.OnSelectedChangedListener,
+                                        DetailShowTimeAdapter.OnTimeClickListener {
     private static final String TAG = "BookingFragment";
 
     public static BookingFragment newInstance(Movie movie) {
@@ -87,11 +88,6 @@ public class BookingFragment extends Fragment implements EventListener<QuerySnap
 
     DateAdapter mDateAdapter;
     DetailShowTimeAdapter mDetailShowTimeAdapter;
-//
-//    @Override
-//    public int getPresentTransition() {
-//        return PresentStyle.SLIDE_LEFT;
-//    }
 
     private void setupToolbar() {
         if (getActivity() instanceof AppCompatActivity) {

@@ -298,7 +298,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
     void showTicketPrint() {
         dismiss();
-        ((MainActivity) getActivity()).loadFragment(PurchaseScreen.newInstance(mTicket));
+        ((MainActivity) getActivity()).loadFragment(PurchaseScreen.newInstance(mTicket, mUser));
     }
 
 
@@ -320,7 +320,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
     }
 
     private void saveShowTime(Ticket t) {
-        ArrayList<Boolean> list = mDetailShowTime.getSeats();
+        List<Boolean> list = mDetailShowTime.getSeats();
         for (int i : mSelects) {
             list.set(i, true);
         }

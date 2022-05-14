@@ -26,9 +26,10 @@ public class PurchaseScreen extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser user;
 
-    public static PurchaseScreen newInstance(Ticket t) {
+    public static PurchaseScreen newInstance(Ticket t, FirebaseUser user) {
         PurchaseScreen p = new PurchaseScreen();
         p.mTicket = t;
+        p.user = user;
         return p;
     }
     @OnClick(R.id.back_button)
@@ -46,8 +47,6 @@ public class PurchaseScreen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        mAuth = ((MainActivity)getActivity()).mAuth;
-        user = mAuth.getCurrentUser();
         setContent();
     }
     @BindView(R.id.user) TextView mUser;
@@ -59,7 +58,6 @@ public class PurchaseScreen extends Fragment {
     @BindView(R.id.time) TextView mTime;
     @BindView(R.id.price) TextView mPrice;
     void setContent() {
-
         mUser.setText(user.getDisplayName());
         mMovie.setText(mTicket.getMovieName());
         mCinema.setText(mTicket.getCinemaName());

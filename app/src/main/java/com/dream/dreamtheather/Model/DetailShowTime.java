@@ -3,6 +3,7 @@ package com.dream.dreamtheather.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Showtime chứa một mảng các ngày chiếu,
@@ -18,7 +19,7 @@ public class DetailShowTime {
     @SerializedName("price")
     private int mPrice;
     @SerializedName("seats")
-    private ArrayList<Boolean> mSeats;
+    private List<Boolean> mSeats;
     @SerializedName("seatRowNumber")
     private int mSeatRowNumber;
 
@@ -77,11 +78,11 @@ public class DetailShowTime {
         this.mPrice = mPrice;
     }
 
-    public ArrayList<Boolean> getSeats() {
+    public List<Boolean> getSeats() {
         return mSeats;
     }
 
-    public void setSeats(ArrayList<Boolean> mSeats) {
+    public void setSeats(List<Boolean> mSeats) {
         this.mSeats = mSeats;
     }
 

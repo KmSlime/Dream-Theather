@@ -14,15 +14,18 @@ import com.dream.dreamtheather.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.ItemHolder>{
-    private static final String TAG ="ChooseSeatAdapter";
+public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.ItemHolder> {
+    private static final String TAG = "ChooseSeatAdapter";
+
 
     public ChooseSeatAdapter(Context context) {
         mContext = context;
     }
-    private String ABC ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    private String ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private String NUM = "123456789";
-    private int mColumn = 5,mRow= 5;
+    private int mColumn = 5, mRow = 5;
+
     public void setRowAndColumn(int column, int row) {
         mColumn = column;
         mRow = row;
@@ -31,40 +34,48 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
     private ArrayList<Integer> mStateData = new ArrayList<>(); // -1 means used, 0 means blank, 1 means choosen
     private ArrayList<Boolean> mSeatData = new ArrayList<>();
     private ArrayList<Integer> mSelectedList = new ArrayList<>();
+    private List<Boolean> listSeatPerShowing ;
+
 
     public void setData(List<Boolean> data) {
         mSeatData.clear();
         mStateData.clear();
         mSelectedList.clear();
-        if(data!=null)
-        for (Boolean item :
-                data) {
-            mSeatData.add(item);
-            if(item)
-            mStateData.add(-1); else mStateData.add(0);
-        }
-
+        if (data != null)
+            listSeatPerShowing = data;
+            for (Boolean item :data) {
+                mSeatData.add(item);
+                if (item)
+                    mStateData.add(-1);
+                else mStateData.add(0);
+            }
+        notifyDataSetChanged();
     }
 
     private Context mContext;
+
     public interface OnSelectedChangedListener {
         void onSelectedChanged(List<Integer> selects);
     }
+
     private OnSelectedChangedListener mListener;
+
     public void setOnSelectedChangedListener(OnSelectedChangedListener listener) {
         mListener = listener;
     }
+
     private void addToSelectedList(int pos) {
         mSelectedList.add(pos);
-        mStateData.set(pos,1);
+        mStateData.set(pos, 1);
         notifyItemChanged(pos);
-        if(mListener!=null) mListener.onSelectedChanged(mSelectedList);
+        if (mListener != null) mListener.onSelectedChanged(mSelectedList);
     }
+
     private void removeFromSelectedList(int pos) {
         mSelectedList.remove((Integer) pos);
-        mStateData.set(pos,0);
+        mStateData.set(pos, 0);
         notifyItemChanged(pos);
-        if(mListener!=null) mListener.onSelectedChanged(mSelectedList);
+        if (mListener != null) mListener.onSelectedChanged(mSelectedList);
     }
 
     @NonNull
@@ -92,19 +103,20 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
             super(itemView);
             itemView.setOnClickListener(this);
         }
+
         public void bind(Integer state) {
 
             int pos = getAdapterPosition();
-            int myRow = pos /mRow;
-            int myColumn = pos%mColumn;
-           if(itemView instanceof TextView) {
-               String s =(""+ ABC.charAt(myRow))+NUM.charAt(myColumn);
-               ((TextView)itemView).setText(s);
-           }
+            int myRow = pos / mRow;
+            int myColumn = pos % mColumn;
+            if (itemView instanceof TextView) {
+                String s = ("" + ABC.charAt(myRow)) + NUM.charAt(myColumn);
+                ((TextView) itemView).setText(s);
+            }
 
-            if(state==-1) {
+            if (state == -1) {
                 itemView.setBackgroundResource(R.drawable.background_item_choose_seat_used);
-            } else if(state==0) {
+            } else if (state == 0) {
                 itemView.setBackgroundResource(R.drawable.background_item_choose_seat);
 
             } else {
@@ -115,11 +127,11 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
-            if(mStateData.get(pos)==0) {
+            if (mStateData.get(pos) == 0) {
                 // mean that blank
                 addToSelectedList(pos);
 
-            } else if(mStateData.get(pos)==1) {
+            } else if (mStateData.get(pos) == 1) {
                 // mean that choosen
                 removeFromSelectedList(pos);
             }
