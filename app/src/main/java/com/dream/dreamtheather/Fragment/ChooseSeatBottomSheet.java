@@ -298,7 +298,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
     void showTicketPrint() {
         dismiss();
-        ((MainActivity) getActivity()).loadFragment(PurchaseScreen.newInstance(mTicket, mUser));
+        ((MainActivity) getActivity()).loadFragment(PurchaseScreen.newInstance(mTicket, mUserInfo));
     }
 
 
