@@ -173,7 +173,7 @@ public class PurchaseScreen extends Fragment {
     }
 
     String inputValue;
-    final String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath() + "/";
+    final String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/";
     String imageNameScan;
     String filePathScan;
     Bitmap bitmap;
