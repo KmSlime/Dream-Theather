@@ -139,7 +139,7 @@ dependencies {
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
 
     //QR code generator from zXing
-        implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.google.zxing:core:3.4.1'
 
     //Permission Helper
     implementation 'com.justadeveloper96.android:permissionhelper:1.1.2'

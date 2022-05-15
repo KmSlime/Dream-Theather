@@ -201,7 +201,8 @@ public class BookingFragment extends Fragment
 
     void refreshData() {
         // firebaseFirestore.collection("cinema_list").whereArrayContains("movies",mMovie.getId()).addSnapshotListener(this);
-        firebaseFirestore.collection("show_time").whereEqualTo("movieID", mMovie.getId()).addSnapshotListener(this);
+        firebaseFirestore.collection("show_time").whereEqualTo("movieID", mMovie.getId())
+                .addSnapshotListener(this);
     }
 
     @Override
