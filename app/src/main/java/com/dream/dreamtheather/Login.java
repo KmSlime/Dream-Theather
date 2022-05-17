@@ -200,7 +200,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 //        startActivity(new Intent(this, ForgottenPassword.class));
         final EditText resetMail = new EditText(Login.this);
         final AlertDialog.Builder passWordResetDialog = new AlertDialog.Builder(Login.this);
-        passWordResetDialog.setTitle("Thay đổi mật khẩu?");
+        passWordResetDialog.setTitle("Quên mật khẩu?");
         passWordResetDialog.setMessage("Nhập email của bạn:");
         passWordResetDialog.setView(resetMail);
 
