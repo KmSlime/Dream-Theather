@@ -148,8 +148,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
 
         getUserInfo();
 
-        mAdapter.setRowAndColumn(mDetailShowTime.getSeatColumnNumber(),
-                                mDetailShowTime.getSeatRowNumber());
+        mAdapter.setRowAndColumn(mDetailShowTime.getSeatColumnNumber(),mDetailShowTime.getSeatRowNumber());
         mAdapter.setOnSelectedChangedListener(this);
         mRecyclerView.setAdapter(mAdapter);
         setLayoutManager();
@@ -278,7 +277,8 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
                 }, 2000);
                 s.setVisibility(View.VISIBLE);
                 s.startTickAnim();
-                setTextSending("You buy ticket successfully", getResources().getColor(R.color.FlatGreen));
+                setTextSending("Đặt mua vé thành công", R.color.FlatGreen);
+                setTextSending("Đang in vé", R.color.FlatGreen);
             }
         }
     }

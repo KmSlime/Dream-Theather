@@ -36,20 +36,18 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/a_white"/>
+
     <ImageButton
         android:id="@+id/btnCall"
-
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="28dp"
-        android:src="@drawable/ic_phone"
+        android:layout_marginEnd="15dp"
         android:background="@color/fui_transparent"
-        android:layout_marginRight="15dp"
-        app:layout_constraintTop_toTopOf="@id/title"
+        android:src="@drawable/ic_phone"
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintEnd_toEndOf="@+id/title"
-        />
+        app:layout_constraintTop_toTopOf="@id/title"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
@@ -97,4 +95,14 @@
         android:textSize="18sp"
         android:gravity="center"
         android:visibility="gone" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_pin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

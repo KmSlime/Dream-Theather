@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">DreamTheater</string>
     <!--    add-->
-    <string name="title_home">Trang chủ</string>
-    <string name="title_theather">Rạp</string>
+    <string name="title_home">TRANG CHỦ</string>
+    <string name="title_theather">LỊCH CHIẾU</string>
     <string name="title_favorites">Yêu thích</string>
+    <string name="title_personal">CÁ NHÂN</string>
 
     <string name="test_introduction_film">Lần đầu tiên trong lịch sử điện ảnh của Người Nhện, thân phận người hàng xóm thân thiện bị lật mở, khiến trách nhiệm làm một Siêu Anh Hùng xung đột với cuộc sống bình thường và đặt người anh quan tâm nhất vào tình thế nguy hiểm. Khi anh nhờ đến giúp đỡ của Doctor Strange để khôi phục lại bí mật, phép thuật đã gây ra lỗ hổng thời không, giải phóng những ác nhân mạnh mẽ nhất từng đối đầu với Người Nhện từ mọi vũ trụ. Bây giờ, Peter sẽ phải vượt qua thử thách lớn nhất của mình, nó sẽ thay đổi không chỉ tương lai của chính anh mà còn là tương lai của cả Đa Vũ Trụ.</string>
     <string name="test_title_film">NGƯỜI NHỆN KHÔNG CÒN NHÀ</string>
@@ -54,7 +55,8 @@
     <string name="it_is_not_enough">₫, it\'s không đủ để thanh toán</string>
     <string name="screen">Màn hình</string>
     <string name="sending_data">Đang đặt vé …</string>
-    <string name="server_client_id">359747608446–9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
+    <string name="server_client_idold">359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
+    <string name="server_client_id">359747608446-hevnr087e283h3v438c9eqq5sser41mi.apps.googleusercontent.com</string>
 
     //Message
     <string name="signin_success">Sign-in Successfully</string>
@@ -95,6 +97,17 @@
     <string name="pay_amount">0 ₫</string>
     <string name="not_enough_balance">Tài khoản is 1000 vnđ, it\'s not enough</string>
     <string name="watch_trailer">Xem trailer</string>
+    <string name="title_list_cinema">Danh sách rạp</string>
+    <string name="btn_back_description">Back</string>
+    <string name="sample_cinema_name">CGV Hùng Vương Plaza</string>
+    <string name="sample_address">Tầng 2, Thảo Điền Mall, 12 Quốc Hương, Phường Thảo Điền, Quận 2, TP. Hồ Chí Minh</string>
+    <string name="sample_phone">19006677</string>
+    <string name="ops">Opp!! Lỗi lỗi lỗi!!</string>
+    <string name="sample_movie_title">DOCTOR STRANGE - MULTI VERSE</string>
+    <string name="login_with_facebook">Đăng nhập bằng facebook</string>
+    <string name="splash_description">Hệ thống rạp chiếu phim hiện đại toàn cầu</string>
+    <string name="login_slogan">Nơi trải nghiệm phim tốt nhất cho bạn</string>
+    <string name="button_login_google">Đăng nhập Google</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">

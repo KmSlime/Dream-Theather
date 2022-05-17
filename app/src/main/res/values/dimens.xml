@@ -5,4 +5,8 @@
     <dimen name="web_size_portrait">200dp</dimen>
     <dimen name="margin_start_recycler_view">20dp</dimen>
     <dimen name="margin_end_recycler_view">20dp</dimen>
+
+    <dimen name="pageMargin">20dp</dimen>
+    <dimen name="offset">30dp</dimen>
+    <dimen name="pageMarginAndOffset">50dp</dimen>
 </resources>

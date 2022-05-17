@@ -35,8 +35,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TheatherFragment extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
+    private static final String TAG = "TheatherFragment";
 
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
@@ -46,6 +48,9 @@ public class TheatherFragment extends Fragment implements OnCompleteListener<Que
 
     @BindView(R.id.rv_cinema)
     RecyclerView rv_cinema;
+
+    @BindView(R.id.btnBackToHome)
+    ImageView btnBackToHome;
 
     CinemaAdapter cinemaAdapter;
 
@@ -65,7 +70,7 @@ public class TheatherFragment extends Fragment implements OnCompleteListener<Que
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.d("TAG", "onViewCreated: ");
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
 
@@ -99,26 +104,33 @@ public class TheatherFragment extends Fragment implements OnCompleteListener<Que
         if (task.isSuccessful()) {
             QuerySnapshot querySnapshot = task.getResult();
 
-            List<Cinema> mM = querySnapshot.toObjects(Cinema.class);
-            Collections.sort(mM, new Comparator<Cinema>() {
+            List<Cinema> getListShowingCinema = querySnapshot.toObjects(Cinema.class);
+            Collections.sort(getListShowingCinema, new Comparator<Cinema>() {
                 @Override
                 public int compare(Cinema o1, Cinema o2) {
                     return o1.getId() - o2.getId();
                 }});
             if(cinemaAdapter!=null)
-                cinemaAdapter.setData(mM);
+                cinemaAdapter.setData(getListShowingCinema);
 
         } else
-            Log.w("TAG", "Error getting documents.", task.getException());
+            Log.w(TAG, "Error getting documents.", task.getException());
     }
 
     @Override
     public void onFailure(@NonNull Exception e) {
-        Log.d("TAG", "onFailure");
+        Log.d(TAG, "onFailure");
         if(swipeLayout.isRefreshing())
             swipeLayout.setRefreshing(false);
 
         rv_cinema.setVisibility(View.GONE);
         errorTextView.setVisibility(View.VISIBLE);
+    }
+
+
+
+    @OnClick(R.id.btnBackToHome)
+    void BackToHome(){
+        getActivity().onBackPressed();
     }
 }

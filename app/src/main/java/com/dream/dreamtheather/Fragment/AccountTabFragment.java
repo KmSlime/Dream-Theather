@@ -2,8 +2,11 @@ package com.dream.dreamtheather.Fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -26,9 +29,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.dream.dreamtheather.Login;
@@ -36,6 +45,15 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.data.MyPrefs;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +69,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.Executor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,11 +82,17 @@ public class AccountTabFragment extends Fragment {
     private final int PICK_IMAGE_REQUEST = 22;
     private boolean isChangeValue = false;
     MyPrefs myPrefs;
+
+    FragmentActivity mActivity;
+    Context context;
+
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseStorage storage;
     StorageReference storageReference;
+
+    public static GoogleSignInClient mGoogleSignInClient;
 
     Users user_info, curUser;
 
@@ -77,6 +102,7 @@ public class AccountTabFragment extends Fragment {
 
     public static AccountTabFragment newInstance() {
         AccountTabFragment fragment = new AccountTabFragment();
+        fragment.mActivity = fragment.getActivity();
         return fragment;
     }
 
@@ -124,18 +150,18 @@ public class AccountTabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        myPrefs = new MyPrefs(getContext());
+        context = getContext();
+//        myPrefs = new MyPrefs(context);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseFirestore = ((MainActivity) getActivity()).firebaseFirestore;
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         getUserInfo();
-        addTextWatcher();
     }
 
     @Override
@@ -151,11 +177,37 @@ public class AccountTabFragment extends Fragment {
 
     @OnClick(R.id.btnSignOut)
     void signOut() {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        if(account != null)
+        {
+            googleSignOut();
+        }
         firebaseAuth.signOut();
-        myPrefs.setIsSignIn(false);
-        myPrefs.setIsAdmin(false);
-        Log.v(TAG, "sign out");
+//        myPrefs.setIsSignIn(false);
+//        myPrefs.setIsAdmin(false);
+        Log.v(TAG, "Sign Out Successful");
         gotoLoginActivity();
+    }
+
+    void googleSignOut() {
+        mGoogleSignInClient.asGoogleApiClient()
+                .stopAutoManage(mActivity);
+        mGoogleSignInClient
+                .signOut()
+                .addOnCompleteListener(
+                    task -> {
+                        if (task.isSuccessful()) {
+                            sendMessage("Đăng xuất thành công");
+                            gotoLoginActivity();
+                        } else {
+                            sendMessage("Có lỗi khi đăng xuất");
+                        }
+                    })
+                .addOnFailureListener(e -> sendMessage(e.getMessage()));
+    }
+
+    void sendMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.btnBack)
@@ -171,13 +223,16 @@ public class AccountTabFragment extends Fragment {
 
     @OnClick(R.id.btnSave)
     public void updateUser(View view) {
-        if(isChangeValue){
-            checkValueChangeForUserInfo();
+        checkValueChangeForUserInfo();
+        if (isChangeValue) {
             sendUserInfo(user_info);
         }
 
     }
+
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
     String dateOfBirth;
     private final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -187,14 +242,16 @@ public class AccountTabFragment extends Fragment {
             edtBirthDay.setText(dateOfBirth);
             Log.d(TAG, "after select date:" + dateOfBirth);
         }
-    };;
+    };
+    ;
 
     @OnClick(R.id.btnDatePicker)
-    public void pickBirthDay(View view){
+    public void pickBirthDay(View view) {
         Calendar calendar = Calendar.getInstance();
-        Date userDoB;
+        Date userDoB = new Date();
         try {
-            userDoB = format.parse(user_info.getBirthDay());
+            if(user_info.getBirthDay() != "")
+                userDoB = format.parse(user_info.getBirthDay());
             if (userDoB != null) {
                 calendar.setTime(userDoB);
             }
@@ -210,45 +267,12 @@ public class AccountTabFragment extends Fragment {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getWindow()
-                        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         datePickerDialog.show();
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            // Get the Uri of data
-            filePath = data.getData();
-            changeLocalAvatar();
-        }
-    }
-
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            isChangeValue = true;
-        }
-    };
-
-    private void  addTextWatcher(){
-        edtUserFullName.addTextChangedListener(textWatcher);
-        edtPhoneNum.addTextChangedListener(textWatcher);
-        edtBirthDay.addTextChangedListener(textWatcher);
     }
 
     private void getUserInfo() {
-        firebaseUser = ((MainActivity) getActivity()).user;
+        firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser != null) {
             firebaseUser = firebaseAuth.getCurrentUser();
             String userID = firebaseUser.getUid();
@@ -260,7 +284,7 @@ public class AccountTabFragment extends Fragment {
                 user_info = documentSnapshot.toObject(Users.class);
                 curUser = user_info;
                 displayUserInfo(user_info);
-            }).addOnFailureListener(e -> Log.e(TAG, "Error: failed to get user info with ID: "+ userID + " \nwith Error" + e.getMessage()));
+            }).addOnFailureListener(e -> Log.e(TAG, "Error: failed to get user info with ID: " + userID + " \nwith Error" + e.getMessage()));
         } else {
             edtUserFullName.setText("@anonymous");
             Glide.with(this)
@@ -276,7 +300,7 @@ public class AccountTabFragment extends Fragment {
                 .load(avt)
                 .error(R.drawable.default_avatar)
                 .placeholder(R.drawable.movie_boy)
-                .override(120,150)
+                .override(120, 150)
                 .into(imgAvatar);
 
         tvBalance.setText(String.valueOf(users.getBalance()));
@@ -299,8 +323,8 @@ public class AccountTabFragment extends Fragment {
     }
 
     private void gotoLoginActivity() {
-        startActivity(new Intent(getActivity(), Login.class));
-        getActivity().finish();
+        startActivity(new Intent(mActivity, Login.class));
+        mActivity.finish();
     }
 
     private void SelectImage() {
@@ -308,17 +332,27 @@ public class AccountTabFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,
-                "Select Image from here...")
-                , PICK_IMAGE_REQUEST);
+        pickedImageLauncher.launch(intent);
     }
+
+    ActivityResultLauncher<Intent> pickedImageLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Log.d(TAG, "requestCode: ");
+                    Log.d(TAG, "resultCode: " + result.getResultCode());
+                    filePath = result.getData().getData();
+                    changeLocalAvatar();
+                }
+            }
+    );
 
     private void changeLocalAvatar() {
         if (filePath != null) {
             Picasso.get()
                     .load(filePath.toString())
                     .config(Bitmap.Config.RGB_565)
-                    .resize(120,150)
+                    .resize(120, 150)
                     .into(imgAvatar);
         }
         uploadImage();
@@ -330,7 +364,7 @@ public class AccountTabFragment extends Fragment {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            File file= new File(filePath.getPath());
+            File file = new File(filePath.getPath());
 
             StorageReference ref = storageReference.
                     child("user-avatar/" + file.getName());
@@ -346,7 +380,7 @@ public class AccountTabFragment extends Fragment {
                                 ref.getDownloadUrl()
                                         .addOnSuccessListener(uri -> {
                                             this.avaURL = uri.toString();
-                                            Log.v(TAG,"Success choose: " + avaURL);
+                                            Log.v(TAG, "Success choose: " + avaURL);
                                             updateUserInfoAvatarUrl(avaURL);
                                         });
                             })
@@ -378,7 +412,7 @@ public class AccountTabFragment extends Fragment {
                 .show();
     }
 
-    private void checkValueChangeForUserInfo(){
+    private void checkValueChangeForUserInfo() {
         String fullName = edtUserFullName.getText().toString().trim();
         String dob = edtBirthDay.getText().toString().trim();
         String phoneNum = edtPhoneNum.getText().toString().trim();
@@ -386,30 +420,34 @@ public class AccountTabFragment extends Fragment {
         int radioButtonId = rad_group_gender.getCheckedRadioButtonId();
         radioButtonGender = getActivity().findViewById(radioButtonId);
         String gender = "Nam";
-        if(radioButtonGender != null)
-        {
+        if (radioButtonGender != null) {
             gender = radioButtonGender.getText().toString();
         }
         String address = edtAddress.getText().toString().trim();
-        if(!curUser.getFullName().equals(fullName)){
-            Log.v(TAG,"name     | old:"+    user_info.getFullName()     + "- new: "+fullName);
+        if (!curUser.getFullName().equals(fullName)) {
+            Log.v(TAG, "name     | old:" + user_info.getFullName() + "- new: " + fullName);
             user_info.setFullName(fullName);
+            isChangeValue = true;
         }
-        if(!curUser.getBirthDay().equalsIgnoreCase(dob)){
-            Log.v(TAG,"dob      | old:"+    user_info.getBirthDay()     + "- new: "+dob);
+        if (!curUser.getBirthDay().equalsIgnoreCase(dob)) {
+            Log.v(TAG, "dob      | old:" + user_info.getBirthDay() + "- new: " + dob);
             user_info.setBirthDay(dob);
+            isChangeValue = true;
         }
-        if(!curUser.getGender().equals(gender)){
-            Log.v(TAG,"gender   | old:"+    user_info.getGender()       + "- new: "+gender);
+        if (!curUser.getGender().equals(gender)) {
+            Log.v(TAG, "gender   | old:" + user_info.getGender() + "- new: " + gender);
             user_info.setGender(gender);
+            isChangeValue = true;
         }
-        if(!curUser.getPhoneNumber().equals(phoneNum)){
-            Log.v(TAG,"phone    | old:"+    user_info.getPhoneNumber()  + "- new: "+phoneNum);
+        if (!curUser.getPhoneNumber().equals(phoneNum)) {
+            Log.v(TAG, "phone    | old:" + user_info.getPhoneNumber() + "- new: " + phoneNum);
             user_info.setPhoneNumber(phoneNum);
+            isChangeValue = true;
         }
-        if(!curUser.getAddress().equals(address)){
-            Log.v(TAG,"address  | old:"+    user_info.getAddress()      + "- new: "+address);
+        if (!curUser.getAddress().equals(address)) {
+            Log.v(TAG, "address  | old:" + user_info.getAddress() + "- new: " + address);
             user_info.setAddress(address);
+            isChangeValue = true;
         }
     }
 
@@ -420,7 +458,7 @@ public class AccountTabFragment extends Fragment {
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(),
                             "Cập nhật thông tin thành công!",
-                                Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_SHORT).show();
                     Log.w(TAG, "addUserToDatabase:success");
                 })
                 .addOnFailureListener(e -> {
