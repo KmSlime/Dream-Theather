@@ -45,7 +45,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
@@ -62,8 +61,6 @@ import butterknife.ButterKnife;
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "LogInActivity";
-    private static final int RC_SIGN_IN = 9001;
-    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1; /* unique request id */
     private static final int
             LOGIN = R.id.btnLogin,
             GOOGLE = R.id.btnLoginGoogle,
@@ -165,15 +162,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mDb = FirebaseFirestore.getInstance();
     }
 
-    private void initialPrefs() {
-        myPrefs = new MyPrefs(this);
-        if (myPrefs.getIsRememberMe()) {
-            String[] acc = myPrefs.getAccount();
-            edtUsername.setText(acc[0]);
-            edtPassword.setText(acc[1]);
-        }
-    }
-
     private void initGoogleApi() {
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -204,30 +192,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         passWordResetDialog.setView(resetMail);
 
         passWordResetDialog
-            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String mail = resetMail.getText().toString();
-                mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(Login.this, "Đã gửi link reset về email của bạn", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Login.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String mail = resetMail.getText().toString();
+                        mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(Login.this, "Đã gửi link reset về email của bạn", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Login.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
-            }
-        });
         passWordResetDialog
-            .setNegativeButton("no", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-            }
-        });
+                    }
+                });
         passWordResetDialog.create().show();
     }
 
@@ -239,9 +227,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG, "Google: Already sign in with google before");
         } else {
             Log.d(TAG, "Google: Not log in with google, start intent to pick an account");
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            googleLauncher.launch(signInIntent);
+            startGoogleSignInIntent();
         }
+    }
+
+    private void startGoogleSignInIntent(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        googleLauncher.launch(signInIntent);
     }
 
     ActivityResultLauncher<Intent> googleLauncher
@@ -258,34 +250,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void handleSignInGoogleResult(Task<GoogleSignInAccount> task) {
         task
-        .addOnSuccessListener(this::firebaseAuthWithGoogle)
-        .addOnFailureListener(e -> Log.e(TAG, "Google: Failed Task login Google", e))
-        .addOnCompleteListener(
-            new OnCompleteListener<GoogleSignInAccount>() {
-                @Override
-                public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
-                    try {
-                        if (task.isSuccessful()) {
-                            GoogleSignInAccount account = task.getResult(ApiException.class);
-                            firebaseAuthWithGoogle(account);
-                            Toast.makeText(getBaseContext(),
-                                    "Đăng nhập với Google thành công!",Toast.LENGTH_LONG)
-                                    .show();
-                            gotoMain();
+                .addOnSuccessListener(this::firebaseAuthWithGoogle)
+                .addOnFailureListener(e -> Log.e(TAG, "Google: Failed Task login Google", e))
+                .addOnCompleteListener(
+                        taskResult -> {
+                            try {
+                                if (taskResult.isSuccessful()) {
+                                    GoogleSignInAccount account = taskResult.getResult(ApiException.class);
+                                    firebaseAuthWithGoogle(account);
+                                    Toast.makeText(getBaseContext(),
+                                            "Đăng nhập với Google thành công!", Toast.LENGTH_SHORT)
+                                            .show();
+                                    gotoMain();
 
-                        } else {
-                            Toast.makeText(getBaseContext(),
-                                    "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG)
-                                    .show();
+                                } else {
+                                    Toast.makeText(getBaseContext(),
+                                            "Đăng nhập với Google thất bại!", Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            } catch (ApiException ex) {
+                                // Google Sign In failed, update UI appropriately
+                                Log.e(TAG, "Google: Google sign in failed", ex);
+                                // ...
+                            }
                         }
-                    } catch (ApiException ex) {
-                        // Google Sign In failed, update UI appropriately
-                        Log.e(TAG, "Google: Google sign in failed", ex);
-                        // ...
-                    }
-                }
-            }
-        );
+                );
     }
 
     private void gotoMain() {
@@ -303,14 +292,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void SignIn() {
         String email = Objects.requireNonNull(edtUsername).getText().toString().trim();
         String password = Objects.requireNonNull(edtPassword).getText().toString().trim();
-        String[] acc = {email, password};
-//        myPrefs.setAccount(acc);
 
         if (validateAccount(email, password)) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getInstance().getCurrentUser();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                             if (user.isEmailVerified()) {
                                 myPrefs.setIsSignIn(true);
@@ -365,28 +352,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(task -> {
-                    Toast.makeText(Login.this, "Đăng nhập bằng Google thành công!", Toast.LENGTH_LONG).show();
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    MainActivity.user = user;
-                    MainActivity.mGoogleSignInClient = mGoogleSignInClient;
-                    checkIfFirstTimeSignIn();
-                    gotoMain();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_LONG).show();
-                    Log.e(TAG, "last log - error - Authentication Failed- " + account.getEmail());
-                })
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.v(TAG, "signInWithCredential - Google:failure", task.getException());
-                        Log.v(TAG, "signInWithCredential - Google:failure with Email: "+ account.getEmail());
-                    } else {
-                        Log.v(TAG, "signInWithCredential - Google:success - " + account.getEmail());
-                    }
-                })
-                ;
+            mAuth.signInWithCredential(credential)
+                    .addOnSuccessListener(task -> {
+                        Toast.makeText(Login.this, "Đăng nhập bằng Google thành công!", Toast.LENGTH_SHORT).show();
+                        MainActivity.user = mAuth.getCurrentUser();
+                        MainActivity.mGoogleSignInClient = mGoogleSignInClient;
+                        checkIfFirstTimeSignIn();
+                        gotoMain();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(Login.this, "Xác thực không thành công, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "last log - error - Authentication Failed- " + e.getMessage());
+                        Log.e(TAG, "last log - error - Authentication Failed- " + account.getEmail());
+                        startGoogleSignInIntent();
+                    })
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            Log.v(TAG, "signInWithCredential - Google:failure", task.getException());
+                            Log.v(TAG, "signInWithCredential - Google:failure with Email: " + account.getEmail());
+                        } else {
+                            Log.v(TAG, "signInWithCredential - Google:success - " + account.getEmail());
+                        }
+                    })
+            ;
     }
 
     private void signInFacebook() {
@@ -412,8 +400,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onError(FacebookException exception) {
-                        Log.v(TAG, "Facebook: Login Failed - cause:"+ exception.toString());
+                    public void onError(@NonNull FacebookException exception) {
+                        Log.v(TAG, "Facebook: Login Failed - cause:" + exception);
                         Toast.makeText(Login.this, R.string.signin_error + exception.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -424,24 +412,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.v(TAG, "signInWithCredential - Facebook: On Success Listener");
-                        Toast.makeText(Login.this, "Đăng nhập bằng Facebook Thành công", Toast.LENGTH_SHORT).show();
-//                        myPrefs.setIsSignIn(true);
-                        checkIfFirstTimeSignIn();
-                        gotoMain();
-                    }
+                .addOnSuccessListener(authResult -> {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.v(TAG, "signInWithCredential - Facebook: On Success Listener");
+                    Toast.makeText(Login.this, "Đăng nhập bằng Facebook Thành công", Toast.LENGTH_SHORT).show();
+                    checkIfFirstTimeSignIn();
+                    gotoMain();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // If sign in fails, display a message to the user.
-                        Log.v(TAG, "signInWithCredential - Facebook:On Failure Listener" + e.getMessage());
-                        Toast.makeText(Login.this, "Đăng nhập Facebook thất bại", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    // If sign in fails, display a message to the user.
+                    Log.v(TAG, "signInWithCredential - Facebook:On Failure Listener" + e.getMessage());
+                    Toast.makeText(Login.this, "Đăng nhập Facebook thất bại", Toast.LENGTH_SHORT).show();
                 })
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -479,7 +460,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //for insert/update collection user_info
     private void addNewUser(UserInfo info, FirebaseUser user) {
         String userProvider = user.getProviderId();
-        if(userProvider == FacebookAuthProvider.PROVIDER_ID){
+        if (userProvider.equals(FacebookAuthProvider.PROVIDER_ID)) {
             user.getProviderData().get(0).getDisplayName();
         }
 
@@ -506,7 +487,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         info.setBirthDay("");
         info.setGender("");
 
-        if(user.getPhoneNumber() == null)
+        if (user.getPhoneNumber() == null)
             info.setPhoneNumber("");
         else
             info.setPhoneNumber(user.getPhoneNumber());
@@ -535,7 +516,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             info.setAvaUrl("");
         }
 
-        if (info.getId() == null || info.getId() == "") {
+        if (info.getId() == null || info.getId().equals("")) {
             info.setId(user.getUid());
         }
         if (user.getEmail() == null) {
@@ -555,7 +536,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (info.getAddress() == null) {
             info.setAddress("");
         }
-        if(info.getBalance() <= 0)
+        if (info.getBalance() <= 0)
             info.setBalance(0);
 
         ArrayList<Integer> idTicket = new ArrayList<>();
@@ -573,12 +554,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         mDb.collection("user_info")
                 .document(info.getId())
                 .set(info)
-                .addOnSuccessListener(aVoid -> {
-                    Log.w(TAG, "addUserToDatabase:success");
-                })
-                .addOnFailureListener(e -> {
-                    Log.w(TAG, "addUserToDatabase:failure", e);
-                });
+                .addOnSuccessListener(aVoid -> Log.w(TAG, "addUserToDatabase:success"))
+                .addOnFailureListener(e -> Log.w(TAG, "addUserToDatabase:failure", e));
     }
 
 }
