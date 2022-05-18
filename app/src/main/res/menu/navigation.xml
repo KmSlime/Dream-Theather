@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_home"
         android:title="@string/title_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/icon_home"
+        app:showAsAction="ifRoom|withText"
         />
 
     <item
         android:id="@+id/navigation_theather"
         android:title="@string/title_theather"
-        android:icon="@drawable/ic_confirmation_number_black_24dp" />
+        android:icon="@drawable/movie"
+        app:showAsAction="ifRoom|withText"
+        />
 
     <item
         android:id="@+id/navigation_account"
         android:title="@string/title_personal"
-        android:icon="@drawable/ic_account_circle_dark" />
+        android:icon="@drawable/user"
+        app:showAsAction="ifRoom|withText"
+        />
 </menu>

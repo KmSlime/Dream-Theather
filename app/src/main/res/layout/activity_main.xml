@@ -15,8 +15,8 @@
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.dream.dreamtheather.Fragment.HomeTabFragment"
-            android:id="@+id/FragmentHomeTab"/>
+            android:id="@+id/FragmentHomeTab"
+            />
 
     </LinearLayout>
 
@@ -28,10 +28,10 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:menu="@menu/navigation"
-        app:itemIconSize="25dp"
+        app:itemIconSize="20dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemTextColor="@drawable/item_selector"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="labeled"
         />
 
 </LinearLayout>
