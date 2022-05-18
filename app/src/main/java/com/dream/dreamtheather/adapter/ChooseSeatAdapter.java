@@ -16,26 +16,25 @@ import java.util.List;
 
 public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.ItemHolder> {
     private static final String TAG = "ChooseSeatAdapter";
-
-
-    public ChooseSeatAdapter(Context context) {
-        mContext = context;
-    }
-
     private String ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private String NUM = "123456789";
     private int mColumn = 5, mRow = 5;
+
+    Context mContext;
+
+    ArrayList<Integer> mStateData = new ArrayList<>(); // -1 means used, 0 means blank, 1 means choosen
+    ArrayList<Boolean> mSeatData = new ArrayList<>();
+    ArrayList<Integer> mSelectedList = new ArrayList<>();
+    List<Boolean> listSeatPerShowing = new ArrayList<>();
+
+    public ChooseSeatAdapter(Context context) {
+        this.mContext = context;
+    }
 
     public void setRowAndColumn(int column, int row) {
         mColumn = column;
         mRow = row;
     }
-
-    private ArrayList<Integer> mStateData = new ArrayList<>(); // -1 means used, 0 means blank, 1 means choosen
-    private ArrayList<Boolean> mSeatData = new ArrayList<>();
-    private ArrayList<Integer> mSelectedList = new ArrayList<>();
-    private List<Boolean> listSeatPerShowing ;
-
 
     public void setData(List<Boolean> data) {
         mSeatData.clear();
@@ -52,7 +51,6 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
         notifyDataSetChanged();
     }
 
-    private Context mContext;
 
     public interface OnSelectedChangedListener {
         void onSelectedChanged(List<Integer> selects);
@@ -106,7 +104,7 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
 
         public void bind(Integer state) {
 
-            int pos = getAdapterPosition();
+            int pos = getBindingAdapterPosition();
             int myRow = pos / mRow;
             int myColumn = pos % mColumn;
             if (itemView instanceof TextView) {
@@ -126,7 +124,7 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.It
 
         @Override
         public void onClick(View v) {
-            int pos = getAdapterPosition();
+            int pos = getBindingAdapterPosition();
             if (mStateData.get(pos) == 0) {
                 // mean that blank
                 addToSelectedList(pos);

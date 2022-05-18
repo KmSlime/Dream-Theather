@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SpotlightAdapter extends RecyclerView.Adapter<SpotlightAdapter.ItemHolder> {
-    private static final String TAG = "HomeChildAdapter";
+    private static final String TAG = "SpotLightAdapter";
 
     private List<Movie> mData = new ArrayList<>();
     Context mContext;

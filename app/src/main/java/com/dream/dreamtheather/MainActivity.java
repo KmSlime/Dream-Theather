@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public FirebaseFirestore firebaseFirestore;
-    public FirebaseUser user;
+    public static FirebaseUser user;
     public FirebaseAuth mAuth;
     MyPrefs myPrefs;
 
@@ -59,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        myPrefs = new MyPrefs(this);
+//        myPrefs = new MyPrefs(this);
 
-//        getUserType();
     }
 
     private final NavigationBarView.OnItemSelectedListener mOnNavigationItemSelectedListener
@@ -108,27 +107,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getUserType(){
-        if(myPrefs.getIsSignIn()){
-            String id = user.getUid();
-
-            DocumentReference userGet = firebaseFirestore.collection("user_info").document(id);
-            userGet.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        UserInfo info = documentSnapshot.toObject(UserInfo.class);
-                        if(!info.getUserType().matches("Admin")){
-                            myPrefs.setIsAdmin(true);
-                        }
-                        else{
-                            myPrefs.setIsAdmin(false);
-                        }
-                    })
-                    .addOnFailureListener(f -> {
-                        Toast.makeText(MainActivity.this,"Có vấn đề khi gọi Firebase",Toast.LENGTH_LONG).show();
-                    });
-        }
-        else{
-            myPrefs.setIsAdmin(false);
-        }
-    }
 }

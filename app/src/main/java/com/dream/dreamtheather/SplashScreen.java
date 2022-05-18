@@ -22,8 +22,16 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE;
+        decorView.setSystemUiVisibility(uiOptions);
 
+        setContentView(R.layout.activity_splash_screen);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -66,11 +74,12 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                TextView swipeText = (TextView)findViewById(R.id.swipeSuggestionText);
 
-                //Slide TextView and set opacity to 100
-                swipeText.startAnimation(AnimationUtils.loadAnimation(SplashScreen.this, R.anim.right_to_left_swipe));
-                swipeText.animate().alpha(1f).setDuration(1000);
+//                TextView swipeText = (TextView)findViewById(R.id.swipeSuggestionText);
+//
+//                //Slide TextView and set opacity to 100
+//                swipeText.startAnimation(AnimationUtils.loadAnimation(SplashScreen.this, R.anim.right_to_left_swipe));
+//                swipeText.animate().alpha(1f).setDuration(1000);
                 gotoNextActivity();
             }
 

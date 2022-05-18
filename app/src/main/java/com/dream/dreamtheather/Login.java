@@ -1,5 +1,7 @@
 package com.dream.dreamtheather;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -25,6 +29,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.internal.CallbackManagerImpl;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -32,12 +37,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
@@ -55,12 +63,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "LogInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1; /* unique request id */
     private static final int
             LOGIN = R.id.btnLogin,
             GOOGLE = R.id.btnLoginGoogle,
             FACEBOOK = R.id.btnLoginFacebook;
 
-    GoogleSignInClient mGoogleSignInClient;
+    public GoogleSignInClient mGoogleSignInClient;
+    public GoogleSignInAccount account;
 
     CallbackManager mCallbackManager;
 
@@ -93,29 +103,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         initEventButton();
         initialFireBase();
-        initialPrefs();
-        initGoogleApi();
-//        initFacebookLogin();
+//        initialPrefs();
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.v(TAG, "Is Sign In? : " + myPrefs.getIsSignIn());
-        if (myPrefs.getIsSignIn())
-            gotoMain();
     }
 
     @Override
@@ -151,7 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         return false;
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
     private void initEventButton() {
         btnEyeShow.setOnTouchListener(this::onTouch);
         btnLogin.setOnClickListener(this);
@@ -176,13 +178,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private void initGoogleApi() {
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
                 .requestProfile()
-                .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
 
+    boolean checkAlreadyLoginWithGoogle() {
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        return account != null;
     }
 
     public void btnRegister(View view) {
@@ -198,7 +204,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         passWordResetDialog.setMessage("Nhập email của bạn:");
         passWordResetDialog.setView(resetMail);
 
-        passWordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        passWordResetDialog
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String mail = resetMail.getText().toString();
@@ -215,7 +222,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
             }
         });
-        passWordResetDialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
+        passWordResetDialog
+            .setNegativeButton("no", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -225,28 +233,59 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void signInGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        initGoogleApi();
+        boolean isSignIn = checkAlreadyLoginWithGoogle();
+        if (isSignIn) {
+            firebaseAuthWithGoogle(account);
+            Log.d(TAG, "Google: Already sign in with google before");
+        } else {
+            Log.d(TAG, "Google: Not log in with google, start intent to pick an account");
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            googleLauncher.launch(signInIntent);
+        }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> task) {
-        try {
-            if (task.isSuccessful()) {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+    ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Log.d(TAG, "Google: requestCode: ");
+                    Log.d(TAG, "Google: resultCode: " + result.getResultCode());
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                    handleSignInGoogleResult(task);
+                }
+            });
 
-                Toast.makeText(this, "Đăng nhập với Google thành công!", Toast.LENGTH_LONG).show();
-                gotoMain();
+    private void handleSignInGoogleResult(Task<GoogleSignInAccount> task) {
+        task
+        .addOnSuccessListener(this::firebaseAuthWithGoogle)
+        .addOnFailureListener(e -> Log.e(TAG, "Google: Failed Task login Google", e))
+        .addOnCompleteListener(
+            new OnCompleteListener<GoogleSignInAccount>() {
+                @Override
+                public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+                    try {
+                        if (task.isSuccessful()) {
+                            GoogleSignInAccount account = task.getResult(ApiException.class);
+                            firebaseAuthWithGoogle(account);
+                            Toast.makeText(getBaseContext(),
+                                    "Đăng nhập với Google thành công!",Toast.LENGTH_LONG)
+                                    .show();
+                            gotoMain();
 
-            } else {
-                Toast.makeText(this, "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getBaseContext(),
+                                    "Đăng nhập với Google thất bại!", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    } catch (ApiException ex) {
+                        // Google Sign In failed, update UI appropriately
+                        Log.e(TAG, "Google: Google sign in failed", ex);
+                        // ...
+                    }
+                }
             }
-        } catch (ApiException ex) {
-            // Google Sign In failed, update UI appropriately
-            Log.v(TAG, "Google sign in failed", ex);
-            // ...
-        }
-
+        );
     }
 
     private void gotoMain() {
@@ -325,27 +364,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider
-                .getCredential(account.getIdToken(), null);
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
+                .addOnSuccessListener(task -> {
+                    Toast.makeText(Login.this, "Đăng nhập bằng Google thành công!", Toast.LENGTH_LONG).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    MainActivity.user = user;
+                    checkIfFirstTimeSignIn();
+                    gotoMain();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "last log - error - Authentication Failed- " + account.getEmail());
+                })
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        myPrefs.setIsSignIn(false);
-                        // If sign in fails, display a message to the user.
-                        Log.v(TAG, "signInWithCredential:failure", task.getException());
-                        Toast.makeText(Login.this, "Xác thực không thành công!", Toast.LENGTH_LONG).show();
+                        Log.v(TAG, "signInWithCredential - Google:failure", task.getException());
+                        Log.v(TAG, "signInWithCredential - Google:failure with Email: "+ account.getEmail());
                     } else {
-                        Toast.makeText(Login.this, "Xác thực thành công!", Toast.LENGTH_LONG).show();
-                        Log.v(TAG, "signInWithCredential:success - " + account.getEmail());
-                        myPrefs.setIsSignIn(true);
-                        checkIfFirstTimeSignIn();
-                        gotoMain();
+                        Log.v(TAG, "signInWithCredential - Google:success - " + account.getEmail());
                     }
                 })
-                .addOnFailureListener(task -> {
-                    Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_LONG).show();
-                    Log.v(TAG, "last log - error - Authentication Failed- " + account.getEmail());
-                });
+                ;
     }
 
     private void signInFacebook() {
@@ -360,19 +400,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 .registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.v(TAG, "Success Login");
+                        Log.v(TAG, "Facebook: Success Login");
                         handleFacebookAccessToken(loginResult.getAccessToken());
                     }
 
                     @Override
                     public void onCancel() {
-                        Log.v(TAG, "Login Cancel");
+                        Log.v(TAG, "Facebook: Login Cancel");
                         Toast.makeText(Login.this, R.string.signin_cancel, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        Log.v(TAG, "Success Failed");
+                        Log.v(TAG, "Facebook: Login Failed - cause:"+ exception.toString());
                         Toast.makeText(Login.this, R.string.signin_error + exception.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -383,19 +423,32 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.v(TAG, "signInWithCredential - Facebook: On Success Listener");
+                        Toast.makeText(Login.this, "Đăng nhập bằng Facebook Thành công", Toast.LENGTH_SHORT).show();
+//                        myPrefs.setIsSignIn(true);
+                        checkIfFirstTimeSignIn();
+                        gotoMain();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // If sign in fails, display a message to the user.
+                        Log.v(TAG, "signInWithCredential - Facebook:On Failure Listener" + e.getMessage());
+                        Toast.makeText(Login.this, "Đăng nhập Facebook thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.v(TAG, "signInWithCredential:success");
-                        Toast.makeText(Login.this, R.string.signin_success, Toast.LENGTH_SHORT).show();
-                        myPrefs.setIsSignIn(true);
-                        checkIfFirstTimeSignIn();
-                        gotoMain();
+                        Log.v(TAG, "signInWithCredential - Facebook:success");
                     } else {
-                        myPrefs.setIsSignIn(false);
                         // If sign in fails, display a message to the user.
-                        Log.v(TAG, "signInWithCredential:failure", task.getException());
-                        Toast.makeText(Login.this, R.string.signin_error, Toast.LENGTH_SHORT).show();
+                        Log.v(TAG, "signInWithCredential - Facebook:failure", task.getException());
                     }
                 });
     }
@@ -424,10 +477,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     //for insert/update collection user_info
     private void addNewUser(UserInfo info, FirebaseUser user) {
+        String userProvider = user.getProviderId();
+        if(userProvider == FacebookAuthProvider.PROVIDER_ID){
+            user.getProviderData().get(0).getDisplayName();
+        }
+
         String fullname = "";
         if (user.getDisplayName() != null && !user.getDisplayName().matches("")) {
             fullname = user.getDisplayName();
         }
+        info.setFullName(fullname);
 
         if (user.getPhotoUrl() != null) {
             info.setAvaUrl(user.getPhotoUrl().toString());
@@ -437,17 +496,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         info.setUserType("Khách");
         info.setId(user.getUid());
-        info.setFullName(fullname);
         if (user.getEmail() == null) {
             info.setEmail("");
         } else {
             info.setEmail(user.getEmail());
         }
+
         info.setBirthDay("");
         info.setGender("");
-        info.setPhoneNumber((user.getPhoneNumber() != null) ? "" : user.getPhoneNumber());
+
+        if(user.getPhoneNumber() == null)
+            info.setPhoneNumber("");
+        else
+            info.setPhoneNumber(user.getPhoneNumber());
+
         info.setAddress("");
         info.setBalance(10000);
+
         ArrayList<Integer> idTicket = new ArrayList<>();
         info.setIdTicket(idTicket);
 
@@ -461,6 +526,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if (user.getDisplayName() != null && !user.getDisplayName().matches("")) {
             fullname = user.getDisplayName();
         }
+        info.setFullName(fullname);
 
         if (user.getPhotoUrl() != null) {
             info.setAvaUrl(user.getPhotoUrl().toString());
@@ -468,12 +534,34 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             info.setAvaUrl("");
         }
 
-        info.setFullName(fullname);
+        if (info.getId() == null || info.getId() == "") {
+            info.setId(user.getUid());
+        }
         if (user.getEmail() == null) {
             info.setEmail("");
         } else {
             info.setEmail(user.getEmail());
         }
+        if (info.getBirthDay() == null) {
+            info.setBirthDay("");
+        }
+        if (info.getGender() == null) {
+            info.setGender("");
+        }
+        if (info.getPhoneNumber() == null) {
+            info.setPhoneNumber("");
+        }
+        if (info.getAddress() == null) {
+            info.setAddress("");
+        }
+        if(info.getBalance() <= 0)
+            info.setBalance(0);
+
+        ArrayList<Integer> idTicket = new ArrayList<>();
+        if (info.getIdTicket() == null) {
+            info.setIdTicket(idTicket);
+        }
+        info.setUserType("Khách");
 
         Log.v(TAG, "User Updated");
 
@@ -481,7 +569,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void sendUserInfo(UserInfo info) {
-        mDb.collection("user_info").document(info.getId())
+        mDb.collection("user_info")
+                .document(info.getId())
                 .set(info)
                 .addOnSuccessListener(aVoid -> {
                     Log.w(TAG, "addUserToDatabase:success");

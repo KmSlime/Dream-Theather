@@ -10,14 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.dream.dreamtheather.Fragment.MovieDetail;
 import com.dream.dreamtheather.Fragment.NowShowingMoviesOfCinema;
-import com.dream.dreamtheather.Fragment.TheatherFragment;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Cinema;
 import com.dream.dreamtheather.R;
@@ -38,10 +34,12 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
         void onItemClick(Cinema cinema);
     }
 
-    private CinemaOnClickListener  mListener;
+    private CinemaOnClickListener mListener;
+
     public void setListener(CinemaOnClickListener listener) {
         mListener = listener;
     }
+
     public void removeListener() {
         mListener = null;
     }
@@ -53,7 +51,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
     public void setData(List<Cinema> cinemas) {
         cinemaList.clear();
-        if (cinemas !=null) {
+        if (cinemas != null) {
             cinemaList.addAll(cinemas);
         }
         notifyDataSetChanged();
@@ -61,13 +59,14 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
 
     public void addCinema(List<Cinema> cinemas) {
-        if(cinemas!=null) {
+        if (cinemas != null) {
             int posBefore = cinemaList.size();
             cinemaList.addAll(cinemas);
-            notifyItemRangeInserted(posBefore,cinemas.size());
+            notifyItemRangeInserted(posBefore, cinemas.size());
         }
     }
 
+    @NonNull
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -87,29 +86,34 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvCinemaName) TextView tvCinemaName;
-        @BindView(R.id.tvAddressCinema) TextView tvAddressCinema;
-        @BindView(R.id.tvHotline) TextView tvHotline;
-        @BindView(R.id.imageCinema) ImageView imageCinema;
+        @BindView(R.id.tvCinemaName)
+        TextView tvCinemaName;
+        @BindView(R.id.tvAddressCinema)
+        TextView tvAddressCinema;
+        @BindView(R.id.tvHotline)
+        TextView tvHotline;
+        @BindView(R.id.imageCinema)
+        ImageView imageCinema;
         @BindView(R.id.itemCinema)
         CardView itemCinema;
 
         public ItemHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         @OnClick(R.id.itemCinema)
         void clickPanel() {
-            if(mListener!=null) mListener.onItemClick(cinemaList.get(getAdapterPosition()));
-            else if(context instanceof MainActivity) {
+            if (mListener != null)
+                mListener.onItemClick(cinemaList.get(getBindingAdapterPosition()));
+            else if (context instanceof MainActivity) {
                 ((MainActivity) context)
                         .loadFragment(
                                 NowShowingMoviesOfCinema
                                         .newInstance(
-                                        cinemaList.get(getAdapterPosition()).getMovies(),
-                                        cinemaList.get(getAdapterPosition()).getName(),
-                                        cinemaList.get(getAdapterPosition()).getHotline()
+                                                cinemaList.get(getBindingAdapterPosition()).getMovies(),
+                                                cinemaList.get(getBindingAdapterPosition()).getName(),
+                                                cinemaList.get(getBindingAdapterPosition()).getHotline()
                                         ));
             }
         }
@@ -118,65 +122,20 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
 
             tvCinemaName.setText(cinema.getName());
 
-            if(context instanceof Activity) {
+            if (context instanceof Activity) {
                 LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             }
 
-
             String Address = cinema.getAddress();
-
-//            if (Address.length() >= 78) // Nhieu hon 78 ky tu thi nhung ky tu sau phai ghi bang ...
-//            {
-//                Address = Address.substring(0, Math.min(Address.length(), 78));
-//                Address += "...";
-//            }
 
             tvAddressCinema.setText(Address);
             tvHotline.setText(cinema.getHotline());
 
-            RequestOptions requestOptions = new RequestOptions().override(imageCinema.getWidth());
             Glide.with(context)
                     .load(cinema.getImageUrl())
-                    .apply(requestOptions)
+                    .placeholder(R.drawable.img_cinema)
+                    .error(R.drawable.img_cinema)
                     .into(imageCinema);
         }
     }
-
-//
-//
-//    public class ItemHolder extends RecyclerView.ViewHolder {
-//        @BindView(R.id.tvCinemaName)
-//        TextView tvCinemaName;
-//
-//        @BindView(R.id.tvAddressCinema)
-//        TextView tvAddressCinema;
-//
-//        @BindView(R.id.tvHotline)
-//        TextView tvHotline;
-//
-//        @BindView(R.id.img)
-//        ImageView img;
-//
-//        @BindView(R.id.itemCinema)
-//        ConstraintLayout itemCinema;
-//
-//
-//        public ItemHolder(@NonNull View itemView) {
-//            super(itemView);
-//            //ánh xạ trong này
-//
-//            ButterKnife.bind(this, itemView);
-//        }
-//
-//        @OnClick(R.id.itemCinema)
-//        public void clickCinema(){
-//        }
-//
-//        public void bind(Cinema cinema){
-//            tvCinemaName.setText(cinema.getName());
-//            tvHotline.setText(cinema.getHotline());
-//            tvAddressCinema.setText(cinema.getAddress());
-//            Glide.with(context).load(cinema.getImageUrl()).error(R.drawable.yourname).into(img);
-//        }
-//    }
 }
