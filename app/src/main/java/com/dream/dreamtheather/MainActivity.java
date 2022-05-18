@@ -20,6 +20,7 @@ import com.dream.dreamtheather.Fragment.HomeTabFragment;
 import com.dream.dreamtheather.Fragment.TheatherFragment;
 import com.dream.dreamtheather.Model.UserInfo;
 import com.dream.dreamtheather.data.MyPrefs;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseFirestore firebaseFirestore;
     public static FirebaseUser user;
     public FirebaseAuth mAuth;
-    MyPrefs myPrefs;
+    public static GoogleSignInClient mGoogleSignInClient;
 
     private BottomNavigationView bottom_navigation;
 

@@ -103,7 +103,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         initEventButton();
         initialFireBase();
-//        initialPrefs();
     }
 
 
@@ -245,7 +244,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
+    ActivityResultLauncher<Intent> googleLauncher
+            = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -304,7 +304,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String email = Objects.requireNonNull(edtUsername).getText().toString().trim();
         String password = Objects.requireNonNull(edtPassword).getText().toString().trim();
         String[] acc = {email, password};
-        myPrefs.setAccount(acc);
+//        myPrefs.setAccount(acc);
 
         if (validateAccount(email, password)) {
             mAuth.signInWithEmailAndPassword(email, password)
@@ -370,6 +370,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(Login.this, "Đăng nhập bằng Google thành công!", Toast.LENGTH_LONG).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     MainActivity.user = user;
+                    MainActivity.mGoogleSignInClient = mGoogleSignInClient;
                     checkIfFirstTimeSignIn();
                     gotoMain();
                 })

@@ -45,6 +45,7 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.data.MyPrefs;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -151,7 +152,6 @@ public class AccountTabFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         context = getContext();
-//        myPrefs = new MyPrefs(context);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -177,32 +177,42 @@ public class AccountTabFragment extends Fragment {
 
     @OnClick(R.id.btnSignOut)
     void signOut() {
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
-        if(account != null)
-        {
+        try {
+            firebaseAuth.signOut();
             googleSignOut();
+            Toast.makeText(getContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
+            gotoLoginActivity();
+            Log.v(TAG, "Sign Out Successful");
+        } catch (Exception e) {
+            Log.e(TAG, "onClick: Exception " + e.getMessage(), e);
         }
-        firebaseAuth.signOut();
-//        myPrefs.setIsSignIn(false);
-//        myPrefs.setIsAdmin(false);
-        Log.v(TAG, "Sign Out Successful");
-        gotoLoginActivity();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     void googleSignOut() {
-        mGoogleSignInClient.asGoogleApiClient()
-                .stopAutoManage(mActivity);
+        if(MainActivity.mGoogleSignInClient == null)
+            return;
+        else
+            mGoogleSignInClient = MainActivity.mGoogleSignInClient;
+        //if have google sign in client
         mGoogleSignInClient
                 .signOut()
                 .addOnCompleteListener(
-                    task -> {
-                        if (task.isSuccessful()) {
-                            sendMessage("Đăng xuất thành công");
-                            gotoLoginActivity();
-                        } else {
-                            sendMessage("Có lỗi khi đăng xuất");
-                        }
-                    })
+                        task -> {
+                            if (task.isSuccessful()) {
+                                sendMessage("Đăng xuất thành công");
+                            } else {
+                                sendMessage("Có lỗi khi đăng xuất");
+                            }
+                        })
+                .addOnSuccessListener(s -> {
+                    Log.d(TAG, "Sign Out Google Successful");
+                    gotoLoginActivity();
+                })
                 .addOnFailureListener(e -> sendMessage(e.getMessage()));
     }
 
@@ -250,7 +260,7 @@ public class AccountTabFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         Date userDoB = new Date();
         try {
-            if(user_info.getBirthDay() != "")
+            if (user_info.getBirthDay() != "")
                 userDoB = format.parse(user_info.getBirthDay());
             if (userDoB != null) {
                 calendar.setTime(userDoB);
@@ -323,8 +333,8 @@ public class AccountTabFragment extends Fragment {
     }
 
     private void gotoLoginActivity() {
-        startActivity(new Intent(mActivity, Login.class));
-        mActivity.finish();
+        startActivity(new Intent(getActivity(), Login.class));
+        getActivity().finish();
     }
 
     private void SelectImage() {
