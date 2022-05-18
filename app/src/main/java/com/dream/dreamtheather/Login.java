@@ -304,7 +304,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         String email = Objects.requireNonNull(edtUsername).getText().toString().trim();
         String password = Objects.requireNonNull(edtPassword).getText().toString().trim();
         String[] acc = {email, password};
-        myPrefs.setAccount(acc);
+//        myPrefs.setAccount(acc);
 
         if (validateAccount(email, password)) {
             mAuth.signInWithEmailAndPassword(email, password)
@@ -313,7 +313,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = mAuth.getInstance().getCurrentUser();
 
                             if (user.isEmailVerified()) {
-                                myPrefs.setIsSignIn(true);
+//                                myPrefs.setIsSignIn(true);
                                 Toast.makeText(Login.this, "Đăng nhập email thành công", Toast.LENGTH_SHORT).show();
                                 gotoMain();
                             } else {
