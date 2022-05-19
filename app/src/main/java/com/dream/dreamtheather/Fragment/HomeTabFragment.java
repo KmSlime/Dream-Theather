@@ -1,27 +1,34 @@
 package com.dream.dreamtheather.Fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dream.dreamtheather.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.youtube.player.internal.i;
+
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeTabFragment extends Fragment implements SearchView.OnQueryTextListener{
     private static final String TAG = "HomeTab";
@@ -31,10 +38,25 @@ public class HomeTabFragment extends Fragment implements SearchView.OnQueryTextL
             "Đang chiếu",
             "Sắp chiếu"};
 
+    @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+
+    @BindView(R.id.home_viewpager)
     ViewPager2 viewPager;
+
     ViewPagerAdapter viewPagerAdapter;
 
+
+    public HomeTabFragment newInstance(){
+        HomeTabFragment fragment = new HomeTabFragment();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
@@ -45,11 +67,13 @@ public class HomeTabFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPager = view.findViewById(R.id.pager);
-        viewPager.setAdapter(viewPagerAdapter);
-
+        Log.d(TAG, "onViewCreated: ");
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
         tabLayout = view.findViewById(R.id.tab_layout);
+
+        viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager.setAdapter(viewPagerAdapter);
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     tab.setText(tabArray[position]);

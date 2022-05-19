@@ -35,6 +35,10 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     private static final String TAG = "SpotlightTab";
     private static final int DELAY_TIME = 3000;
 
+    public SpotlightFragment newInstance(){
+        SpotlightFragment fragment = new SpotlightFragment();
+        return fragment;
+    }
 
     @BindView(R.id.viewpager_spotlight)
     LoopingViewPager viewPager;

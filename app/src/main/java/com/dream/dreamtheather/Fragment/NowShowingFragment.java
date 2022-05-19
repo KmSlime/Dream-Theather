@@ -41,6 +41,11 @@ public class NowShowingFragment extends Fragment implements OnCompleteListener<Q
 
     FirebaseFirestore db;
 
+    public NowShowingFragment newInstance(){
+        NowShowingFragment fragment = new NowShowingFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

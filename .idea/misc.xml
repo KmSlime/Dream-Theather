@@ -13,8 +13,13 @@
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_launcher_logo.xml" value="0.173" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_movie.xml" value="0.173" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_qr_code.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ic_search.xml" value="0.186" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/item_selector.xml" value="0.186" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/splash_bg.xml" value="0.173" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tab_item_background.xml" value="0.186" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tab_item_selected_background.xml" value="0.186" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tablayout_background.xml" value="0.186" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tablayout_selector.xml" value="0.186" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_login.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_register.xml" value="0.25" />
@@ -22,9 +27,9 @@
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_test.xml" value="0.1" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/booking_v2.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/custom_video_player_ui.xml" value="0.1734375" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_account_tab.xml" value="0.5" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_account_tab.xml" value="0.3758465011286682" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_booking.xml" value="0.1734375" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_home_tab.xml" value="0.1734375" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_home_tab.xml" value="0.33" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_now_showing.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_spotlight.xml" value="0.2" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/fragment_theather.xml" value="0.33" />
@@ -37,6 +42,7 @@
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/movie_detail_body.xml" value="0.33" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/now_showing_for_cinema.xml" value="0.25" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/send_new_movie.xml" value="0.22" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/tablayout_title.xml" value="0.33" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/ticket_print.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/menu-v26/navigation.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/menu/navigation.xml" value="0.25" />

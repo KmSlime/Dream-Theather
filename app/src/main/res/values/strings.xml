@@ -108,6 +108,9 @@
     <string name="splash_description">Hệ thống rạp chiếu phim hiện đại toàn cầu</string>
     <string name="login_slogan">Nơi trải nghiệm phim tốt nhất cho bạn</string>
     <string name="button_login_google">Đăng nhập Google</string>
+    <string name="tab_spotlight_title">SPOTLIGHT</string>
+    <string name="tab_nowshowing_title">ĐANG CHIẾU</string>
+    <string name="tab_incoming_title" >SẮP CHIẾU</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">

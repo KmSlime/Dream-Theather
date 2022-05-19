@@ -40,6 +40,11 @@ public class UpcomingFragment extends Fragment implements OnCompleteListener<Que
 
     FirebaseFirestore db;
 
+    public UpcomingFragment newInstance(){
+        UpcomingFragment fragment = new UpcomingFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -215,5 +215,7 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="a_white">#FFFFFF</color>
+    <color name="TabLayoutBackground">#282828</color>
+    <color name="TabItemBackground">#4A4A4A</color>
 
 </resources>

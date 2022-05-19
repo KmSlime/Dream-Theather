@@ -277,8 +277,7 @@ public class ChooseSeatBottomSheet extends BottomSheetDialogFragment
                 }, 2000);
                 s.setVisibility(View.VISIBLE);
                 s.startTickAnim();
-                setTextSending("Đặt mua vé thành công", R.color.FlatGreen);
-                setTextSending("Đang in vé", R.color.FlatGreen);
+                setTextSending("Đặt mua vé thành công", getResources().getColor(R.color.FlatGreen, getActivity().getTheme()));
             }
         }
     }

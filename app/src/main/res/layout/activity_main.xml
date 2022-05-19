@@ -13,9 +13,10 @@
         android:layout_weight="9">
 
         <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/MainFragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/FragmentHomeTab"
+            android:name="com.dream.dreamtheather.Fragment.HomeTabFragment"
             />
 
     </LinearLayout>
