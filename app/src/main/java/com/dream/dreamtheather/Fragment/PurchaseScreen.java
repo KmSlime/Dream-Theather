@@ -40,6 +40,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Ticket;
 import com.dream.dreamtheather.Model.UserInfo;
@@ -69,6 +70,8 @@ public class PurchaseScreen extends Fragment {
     Context context;
     Activity activity;
 
+    @BindView(R.id.imgTicket)
+    ImageView ticketImageView;
     @BindView(R.id.user)
     TextView mUser;
     @BindView(R.id.movie)
@@ -94,6 +97,7 @@ public class PurchaseScreen extends Fragment {
     UserInfo user;
 
     Boolean canSaveQR = false;
+
 
     public static PurchaseScreen newInstance(Ticket t, UserInfo user) {
         PurchaseScreen p = new PurchaseScreen();
@@ -137,14 +141,23 @@ public class PurchaseScreen extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: create view");
         ButterKnife.bind(this, view);
         setContent();
-        qrImage.setVisibility(View.GONE);
-        btnSaveQR.setVisibility(View.GONE);
         this.activityResultLauncher.launch(permission);
+//        showQR();
+        getContent();
+        showQR();
+        Log.d(TAG, "onViewCreated: finish launch QR code");
     }
 
     void setContent() {
+//        Glide.with(this)
+//                .load(ticketImageView)
+//                .error(R.drawable.drstrang)
+//                .centerInside()
+//                .into(ticketImageView);
+//
         String fullName = user.getFullName();
         mUser.setText(fullName);
         mMovie.setText(mTicket.getMovieName());
@@ -154,6 +167,10 @@ public class PurchaseScreen extends Fragment {
         mDate.setText(mTicket.getDate());
         mTime.setText(mTicket.getTime());
         mPrice.setText(mTicket.getPrice() + "");
+    }
+
+    void getMovieImageUrl(){
+
     }
 
     void getContent() {
@@ -184,7 +201,7 @@ public class PurchaseScreen extends Fragment {
 
     @OnClick(R.id.btnShowQR)
     public void showQR() {
-        getContent();
+
         if (canSaveQR) {
             Toast.makeText(getActivity(), "Đã tạo mã QR cho vé của quý khách", Toast.LENGTH_SHORT).show();
             qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, getDimension());
@@ -194,6 +211,7 @@ public class PurchaseScreen extends Fragment {
             btnSaveQR.setVisibility(View.VISIBLE);
         } else {
             requestReadWriteExternalCard();
+            showQR();
         }
     }
 

@@ -15,6 +15,7 @@ import com.asksira.loopingviewpager.LoopingViewPager;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
+import com.dream.dreamtheather.adapter.SpotlightAdapter;
 import com.dream.dreamtheather.adapter.SpotlightViewPagerAdapter;
 import com.dream.dreamtheather.adapter.transformer.DepthPageTransformer;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,9 +42,9 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     }
 
     @BindView(R.id.viewpager_spotlight)
-    LoopingViewPager viewPager;
+    ViewPager2 viewPager;
 
-    SpotlightViewPagerAdapter viewPagerAdapter;
+    SpotlightAdapter viewPagerAdapter;
 
     FirebaseFirestore firebaseFirestore;
 
@@ -85,7 +86,9 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
                     return (int) (m2.getRate() - m1.getRate());
                 }
             });
-            viewPagerAdapter = new SpotlightViewPagerAdapter(listMovieGetFromFirebase, true);
+//            viewPagerAdapter = new SpotlightViewPagerAdapter(listMovieGetFromFirebase, true);
+            viewPagerAdapter = new SpotlightAdapter(getContext());
+            viewPagerAdapter.setData(listMovieGetFromFirebase);
             viewPager.setAdapter(viewPagerAdapter);
             Log.v(TAG, "done add spotlight movie");
         } else

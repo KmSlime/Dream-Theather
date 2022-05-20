@@ -300,7 +300,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                             if (user.isEmailVerified()) {
-                                myPrefs.setIsSignIn(true);
                                 Toast.makeText(Login.this, "Đăng nhập email thành công", Toast.LENGTH_SHORT).show();
                                 gotoMain();
                             } else {

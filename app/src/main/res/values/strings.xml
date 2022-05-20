@@ -83,7 +83,7 @@
     <string name="log_out">Đăng xuất</string>
     <string name="update">Cập nhật</string>
     <string name="notiUser">Vui lòng đem theo vé điện tử này đến rạp để nhận vé hoặc check-in.</string>
-    <string name="notiQR">Hoặc tạo QR bằng nút phía trên.</string>
+    <string name="notiQR">Nếu QR không hiển thị - vui lòng nhấn tạo QR bằng nút ở góc phải .</string>
     <string name="dream_thank_you">Dream Cinema xin cảm ơn</string>
     <string name="your_purchase">Hóa đơn của bạn</string>
     <string name="Customer">Người dùng :</string>
@@ -111,6 +111,19 @@
     <string name="tab_spotlight_title">SPOTLIGHT</string>
     <string name="tab_nowshowing_title">ĐANG CHIẾU</string>
     <string name="tab_incoming_title" >SẮP CHIẾU</string>
+    <string name="cinema_ticket_name">CGV HÙNG VƯƠNG PLAZA</string>
+    <string name="movie_type">2D/Digital</string>
+    <string name="date">Ngày</string>
+    <string name="description_ticket_back_button">BACK TO MAIN</string>
+    <string name="qrGenerate">qrGenerate</string>
+    <string name="ticket_img_content">default_img</string>
+    <string name="sample_ticket_date">12/01/2019</string>
+    <string name="ticket_soget">Ghế :</string>
+    <string name="tong_thanh_toan">Tổng thanh toán :</string>
+    <string name="ticket_content_qrcode">qrcode</string>
+    <string name="ticket_sample_price">200000 vnd</string>
+    <string name="ticket_sample_seats">A2 C3 H1</string>
+    <string name="save_qr_string">Lưu mã QR</string>
 
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">
