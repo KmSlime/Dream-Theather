@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
         user = mAuth.getCurrentUser();
 //        myPrefs = new MyPrefs(this);
 

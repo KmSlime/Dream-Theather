@@ -83,8 +83,13 @@
     <string name="log_out">Đăng xuất</string>
     <string name="update">Cập nhật</string>
     <string name="notiUser">Vui lòng đem theo vé điện tử này đến rạp để nhận vé hoặc check-in.</string>
+<<<<<<< HEAD
     <string name="notiQR">Nếu QR không hiển thị - vui lòng nhấn tạo QR bằng nút ở góc phải .</string>
     <string name="dream_thank_you">Dream Cinema xin cảm ơn</string>
+=======
+    <string name="notiQR">Hoặc tạo QR bằng nút phía trên.</string>
+    <string name="dream_thank_you">Dream Cinema xin cảm ơn ạ!</string>
+>>>>>>> e1e0b197fd04236ede6d9456392ab9a643f31d76
     <string name="your_purchase">Hóa đơn của bạn</string>
     <string name="Customer">Người dùng :</string>
     <string name="default_name">Tên người dùng</string>

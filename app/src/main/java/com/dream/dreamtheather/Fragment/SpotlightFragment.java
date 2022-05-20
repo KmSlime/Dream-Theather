@@ -104,5 +104,7 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
     @Override
     public void onResume() {
         super.onResume();
+//        handler.postDelayed(runnable, 2000); // Slide duration 3 seconds
+
     }
 }
