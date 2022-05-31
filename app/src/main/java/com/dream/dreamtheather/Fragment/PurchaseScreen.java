@@ -145,7 +145,6 @@ public class PurchaseScreen extends Fragment {
         ButterKnife.bind(this, view);
         setContent();
         this.activityResultLauncher.launch(permission);
-//        showQR();
         getContent();
         showQR();
         Log.d(TAG, "onViewCreated: finish launch QR code");
@@ -166,7 +165,7 @@ public class PurchaseScreen extends Fragment {
         mSeat.setText(mTicket.getSeat());
         mDate.setText(mTicket.getDate());
         mTime.setText(mTicket.getTime());
-        mPrice.setText(mTicket.getPrice() + "");
+        mPrice.setText(mTicket.getPrice() + "VNĐ");
     }
 
     void getMovieImageUrl(){
@@ -211,7 +210,7 @@ public class PurchaseScreen extends Fragment {
             btnSaveQR.setVisibility(View.VISIBLE);
         } else {
             requestReadWriteExternalCard();
-            showQR();
+//            showQR();
         }
     }
 

@@ -63,7 +63,45 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
         viewPager.setPadding(100,0,100,0);
         firebaseFirestore = ((MainActivity) getActivity()).firebaseFirestore;
         refreshData();
+        viewPager.setPageTransformer(new DepthPageTransformer());
+        viewPager.registerOnPageChangeCallback(viewPagerCallback);
     }
+
+    private int currentPosition;
+    private int listSize;
+
+    final ViewPager2.OnPageChangeCallback viewPagerCallback =
+            new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    currentPosition = position;
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    super.onPageScrollStateChanged(state);
+                    if (state == ViewPager2.SCROLL_STATE_IDLE || state == ViewPager2.SCROLL_STATE_DRAGGING) {
+                        if (currentPosition == 0) {
+                            viewPager.setCurrentItem(listSize - 2, false);
+                        } else if (currentPosition == listSize - 1) {
+                            viewPager.setCurrentItem(1, false);
+                        }
+                    } else
+                    if (state == ViewPager2.SCROLL_STATE_DRAGGING
+                            && currentPosition == listSize) {
+                        //we scroll too fast and miss the state SCROLL_STATE_IDLE for the previous item
+                        viewPager.setCurrentItem(2, false);
+                    }
+                }
+            };
+
+
 
     public void refreshData() {
         firebaseFirestore.collection("feature_movie")
@@ -86,10 +124,11 @@ public class SpotlightFragment extends Fragment implements OnCompleteListener<Qu
                     return (int) (m2.getRate() - m1.getRate());
                 }
             });
-//            viewPagerAdapter = new SpotlightViewPagerAdapter(listMovieGetFromFirebase, true);
+
             viewPagerAdapter = new SpotlightAdapter(getContext());
             viewPagerAdapter.setData(listMovieGetFromFirebase);
             viewPager.setAdapter(viewPagerAdapter);
+            listSize = viewPagerAdapter.getItemCount();
             Log.v(TAG, "done add spotlight movie");
         } else
             Log.w(TAG, "Error getting documents.", task.getException());
