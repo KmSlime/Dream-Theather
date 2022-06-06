@@ -1,10 +1,6 @@
 package com.dream.dreamtheather.Fragment;
 
-import static android.content.Intent.ACTION_PICK;
-
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,20 +12,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dream.dreamtheather.DreamLocation;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.adapter.NowShowingAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -47,6 +49,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
     private ArrayList<Integer> mMovies;
     private String CinemaName;
     private String hotline;
+    private String address;
 
     @BindView(R.id.swipe_layout)
     SwipeRefreshLayout swipeLayout;
@@ -66,6 +69,10 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
     @BindView(R.id.btnCall)
     ImageButton btnCall;
 
+    @BindView(R.id.btnMap)
+    FloatingActionButton btnMap;
+
+
     NowShowingAdapter mAdapter;
 
     FirebaseFirestore db;
@@ -83,14 +90,16 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         fragment.mMovies = Movies;
         fragment.CinemaName = CinemaName;
         fragment.hotline = hotline;
-
+        
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.now_showing_for_cinema,container,false);
+        View view = inflater.inflate(R.layout.now_showing_for_cinema, container,false);
+
+        return view;
     }
 
     @Override
@@ -98,6 +107,8 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+
+
 
         mTitle.setText(CinemaName);
 
@@ -187,6 +198,42 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         startActivity(intent);
     }
 
+
+    @OnClick(R.id.btnMap)
+    public void LoadMap() {
+        Intent intent = new Intent(getContext(), DreamLocation.class);
+        intent.putExtra("address", address);
+        Log.v(TAG,"get Map Location" + address);
+        startActivity(intent);
+
+
+        //init map
+//        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+//
+//        //async map
+//        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+//            @Override
+//            public void onMapReady(@NonNull GoogleMap googleMap) {
+//                //load map
+//                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//                    @Override
+//                    public void onMapClick(@NonNull LatLng latLng) {
+//                        //loaded
+//                        MarkerOptions markerOptions = new MarkerOptions(); //init marker
+//                        latLng = new LatLng(14.05, 108.27);
+//                        markerOptions.position(latLng); //set position of maker
+//                        markerOptions.title(latLng.latitude + ":" + latLng.longitude); // title of marker
+//                        googleMap.clear(); //clear marker
+//                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10)); // animated zoom
+//                        googleMap.addMarker(markerOptions); //add maker on map
+//
+//                    }
+//                });
+//            }
+//        });
+    }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -202,5 +249,12 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
         mRecyclerView.setVisibility(View.GONE);
         mErrorTextView.setVisibility(View.VISIBLE);
+
     }
+
+//
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//
+//    }
 }

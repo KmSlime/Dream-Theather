@@ -2,7 +2,7 @@
     <string name="app_name">DreamTheater</string>
     <!--    add-->
     <string name="title_home">TRANG CHỦ</string>
-    <string name="title_theather">LỊCH CHIẾU</string>
+    <string name="title_theather">RẠP CHIẾU</string>
     <string name="title_favorites">Yêu thích</string>
     <string name="title_personal">CÁ NHÂN</string>
 
@@ -15,6 +15,9 @@
     <string name="tvLogin">Đăng nhập</string>
     <string name="forgottenPassword">Quên mật khẩu?</string>
     <string name="tvRegister">Đăng ký!</string>
+
+    <string name="API_KEY">AIzaSyAqBPhWLWnyGmVMH4oU4xD_SOaw7n4tVBs</string>
+
 
     <!--    fb required-->
     <string name="facebook_application_id">7192728940769261</string>
@@ -110,7 +113,7 @@
     <string name="button_login_google">Đăng nhập Google</string>
     <string name="tab_spotlight_title">SPOTLIGHT</string>
     <string name="tab_nowshowing_title">ĐANG CHIẾU</string>
-    <string name="tab_incoming_title" >SẮP CHIẾU</string>
+    <string name="tab_incoming_title">SẮP CHIẾU</string>
     <string name="cinema_ticket_name">CGV HÙNG VƯƠNG PLAZA</string>
     <string name="movie_type">2D/Digital</string>
     <string name="date">Ngày</string>
@@ -172,5 +175,6 @@
         <item>5SQrpBQne7A</item>
         <item>5WJ3r67ORxo</item>
     </string-array>
+    <string name="title_activity_dream_location">DreamLocation</string>
 
 </resources>

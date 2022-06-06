@@ -97,6 +97,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
         @BindView(R.id.itemCinema)
         CardView itemCinema;
 
+
         public ItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

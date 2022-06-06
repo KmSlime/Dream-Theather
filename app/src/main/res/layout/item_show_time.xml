@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/line_bottom"
@@ -13,8 +13,8 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:srcCompat="@drawable/minus"
     android:paddingEnd="16dp"
-    android:tint="@color/FlatRed"
-    android:paddingStart="16dp" />
+    android:paddingStart="16dp"
+    app:tint="@color/FlatRed" />
     <ImageView
         android:id="@+id/add"
         android:layout_width="60dp"
@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/ic_add_circle_black_24dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:tint="@color/FlatGreen"/>
+        app:tint="@color/FlatGreen" />
     <EditText
         android:id="@+id/date"
         android:layout_width="0dp"
@@ -69,4 +69,4 @@
         app:layout_constraintStart_toStartOf="@id/date"
         app:layout_constraintEnd_toEndOf="@id/date"
         android:textColor="@color/FlatOrange"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
