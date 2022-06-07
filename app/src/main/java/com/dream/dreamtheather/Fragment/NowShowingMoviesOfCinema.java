@@ -90,7 +90,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         fragment.mMovies = Movies;
         fragment.CinemaName = CinemaName;
         fragment.hotline = hotline;
-        
+
         return fragment;
     }
 
@@ -194,7 +194,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:"+ hotline));
-        Log.v(TAG,"complete intent");
+        Log.i(TAG,"complete intent");
         startActivity(intent);
     }
 
@@ -202,8 +202,10 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
     @OnClick(R.id.btnMap)
     public void LoadMap() {
         Intent intent = new Intent(getContext(), DreamLocation.class);
-        intent.putExtra("address", address);
-        Log.v(TAG,"get Map Location" + address);
+        intent.putExtra("cinemaName", mTitle.getText().toString());
+        intent.putExtra("cinemaHotLine", hotline);
+
+        Log.v(TAG,"get CinemaName" + mTitle.getText().toString());
         startActivity(intent);
 
 
