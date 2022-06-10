@@ -320,7 +320,8 @@ public class AddNewCinema extends Fragment implements RequestListener<Drawable>,
     }
 
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_add_new_cinema,container,false);
     }
 

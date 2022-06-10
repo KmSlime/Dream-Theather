@@ -88,7 +88,8 @@ public class ChooseCinema extends Fragment implements ChooseCinemaAdapter.Counti
     }
 
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_choose_cinema,container,false);
     }
 

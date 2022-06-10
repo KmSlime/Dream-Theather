@@ -92,6 +92,8 @@ public class AccountTabFragment extends Fragment {
 
     @BindView(R.id.btnBack)
     ImageView btnBack;
+    @BindView(R.id.btnGoToAdmin)
+    ImageView btnGoToAdmin;
     @BindView(R.id.imgAvata)
     RoundedImageView imgAvatar;
     @BindView(R.id.btnUploadAvatar)
@@ -318,7 +320,10 @@ public class AccountTabFragment extends Fragment {
         } else if (gender.equals(radioFemale.getText().toString().toLowerCase())) {
             radioFemale.toggle();
         }
-
+        if (users.getUserType().equals("Admin"))
+            btnGoToAdmin.setVisibility(View.VISIBLE);
+        else
+            btnGoToAdmin.setVisibility(View.GONE);
     }
 
     private void gotoLoginActivity() {

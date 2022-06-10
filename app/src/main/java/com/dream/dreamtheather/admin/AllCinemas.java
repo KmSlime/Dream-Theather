@@ -66,7 +66,8 @@ public class AllCinemas extends Fragment implements OnCompleteListener<QuerySnap
     }
 
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_all_cinemas,container,false);
     }
 

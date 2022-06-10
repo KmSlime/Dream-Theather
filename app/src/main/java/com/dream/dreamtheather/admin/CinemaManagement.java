@@ -31,7 +31,6 @@ public class CinemaManagement extends Fragment {
 
     @OnClick(R.id.back_button)
     void back() {
-//        getMainActivity().dismiss();
     }
 
 
@@ -55,7 +54,6 @@ public class CinemaManagement extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
     }
-
 
     @Override
     @Nullable

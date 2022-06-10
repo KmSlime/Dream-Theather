@@ -42,12 +42,6 @@ public class ChooseWhichCinemaToAdd extends Fragment implements OnCompleteListen
         return new ChooseWhichCinemaToAdd();
     }
 
-    @Override
-    @Nullable
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.admin_add_movie2cinema,container,false);
-    }
-
     @BindView(R.id.back_button)
     ImageView mBackButton;
 
@@ -71,6 +65,12 @@ public class ChooseWhichCinemaToAdd extends Fragment implements OnCompleteListen
     @OnClick(R.id.back_button)
     void back() {
 //        getMainActivity().dismiss();
+    }
+
+    @Override
+    @Nullable
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.admin_add_movie2cinema,container,false);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,7 +49,7 @@
         android:gravity="center"
         android:background="@drawable/rounded_corners_dark"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <androidx.core.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_height="0dp"
         android:layout_width="0dp"
@@ -57,13 +58,13 @@
         app:layout_constraintBottom_toTopOf="@id/comfirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
             tools:listitem="@layout/item_admin_choose_movie"/>
-    </androidx.core.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
         android:visibility="gone"
         />
 
-    <android.support.v7.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/comfirm"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -108,7 +109,7 @@
         android:layout_marginLeft="10dp"
         android:visibility="gone"
         />
-    <com.ldt.cinematicket.ui.widget.SuccessTickView
+    <com.dream.dreamtheather.util.widget.SuccessTickView
         android:id="@+id/success_tick_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -119,4 +120,4 @@
         android:background="@drawable/black_rounded_big_alpha"
         android:visibility="gone"
         />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.dream.dreamtheather.AdminActivity;
-import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.R;
 
 import butterknife.BindView;
@@ -30,7 +29,7 @@ public class MovieManagement extends Fragment {
 
     @OnClick(R.id.back_button)
     void back() {
-//        getMainActivity().dismiss();
+
     }
 
     @OnClick(R.id.see_all_movie_panel)

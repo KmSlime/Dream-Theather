@@ -45,7 +45,7 @@
         android:theme="@style/Theme.DreamTheaTher">
         <activity
             android:name=".AdminActivity"
-            android:exported="false" />
+            android:exported="true" />
         <!-- meta fb required -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -91,9 +91,6 @@
             android:exported="true" />
         <activity
             android:name=".UserProfile"
-            android:exported="true"></activity>
-        <activity
-            android:name=".admin.DashBoard"
             android:exported="true"></activity>
         <activity
             android:name=".MainActivity"

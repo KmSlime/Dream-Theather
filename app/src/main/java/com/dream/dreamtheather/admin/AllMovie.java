@@ -31,8 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener{
-    private static final String TAG ="AllMovie";
+public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapshot>, OnFailureListener {
+    private static final String TAG = "AllMovie";
 
     public static AllMovie newInstance() {
         return new AllMovie();
@@ -55,24 +55,25 @@ public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapsh
 
     NowShowingAdapter mAdapter;
 
-    FirebaseFirestore mDb;
+    FirebaseFirestore firebaseFirestore;
 
     @OnClick(R.id.back_button)
     void back() {
-//        getMainActivity().dismiss();
+
     }
 
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.admin_all_movie,container,false);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.admin_all_movie, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
-        mDb = FirebaseFirestore.getInstance();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        ButterKnife.bind(this, view);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new NowShowingAdapter(getActivity());
@@ -83,7 +84,8 @@ public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapsh
 
     public void refreshData() {
         mSwipeLayout.setRefreshing(true);
-        mDb.collection("movie")
+        firebaseFirestore
+                .collection("movie")
                 .get()
                 .addOnCompleteListener(this)
                 .addOnFailureListener(this);
@@ -92,7 +94,7 @@ public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapsh
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        if(mSwipeLayout.isRefreshing())
+        if (mSwipeLayout.isRefreshing())
             mSwipeLayout.setRefreshing(false);
 
         mErrorTextView.setVisibility(View.GONE);
@@ -103,8 +105,8 @@ public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapsh
 
             List<Movie> mM = querySnapshot.toObjects(Movie.class);
             Collections.sort(mM, (o1, o2) -> o1.getId() - o2.getId());
-            if(mAdapter!=null)
-            mAdapter.setData(mM);
+            if (mAdapter != null)
+                mAdapter.setData(mM);
 
         } else
             Log.w(TAG, "Error getting documents.", task.getException());
@@ -113,7 +115,7 @@ public class AllMovie extends Fragment implements OnCompleteListener<QuerySnapsh
     @Override
     public void onFailure(@NonNull Exception e) {
         Log.d(TAG, "onFailure");
-        if(mSwipeLayout.isRefreshing())
+        if (mSwipeLayout.isRefreshing())
             mSwipeLayout.setRefreshing(false);
 
         mRecyclerView.setVisibility(View.GONE);
