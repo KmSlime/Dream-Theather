@@ -6,58 +6,70 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
-
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="http"/>
+
+            <data android:scheme="http" />
+
             <category android:name="android.intent.category.DEFAULT" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="https"/>
+
+            <data android:scheme="https" />
+
             <category android:name="android.intent.category.DEFAULT" />
         </intent>
     </queries>
+
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DreamTheaTher"
-        >
+        android:theme="@style/Theme.DreamTheaTher">
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <!-- meta fb required -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
 
-        <!--meta fb required-->
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_application_id"/>
-        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity>
-        <!-- add fb permission -->
-
+        </activity> <!-- add fb permission -->
         <activity
             android:name=".ForgottenPassword"
             android:exported="true" />
@@ -67,39 +79,37 @@
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:theme="@style/AppTheme.Launcher"
-            >
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Login"
             android:exported="true" />
-
-        <activity android:name=".UserProfile"
-
-            android:exported="true" >
-
-        </activity>
-
+        <activity
+            android:name=".UserProfile"
+            android:exported="true"></activity>
+        <activity
+            android:name=".admin.DashBoard"
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            >
-            <meta-data android:name="android.app.searchable"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".SearchResultsActivity"
-            android:exported="true"
-            >
+        <activity
+            android:name=".SearchResultsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-    </activity>
+        </activity>
     </application>
 
 </manifest>

@@ -110,7 +110,7 @@
     <string name="button_login_google">Đăng nhập Google</string>
     <string name="tab_spotlight_title">SPOTLIGHT</string>
     <string name="tab_nowshowing_title">ĐANG CHIẾU</string>
-    <string name="tab_incoming_title" >SẮP CHIẾU</string>
+    <string name="tab_incoming_title">SẮP CHIẾU</string>
     <string name="cinema_ticket_name">CGV HÙNG VƯƠNG PLAZA</string>
     <string name="movie_type">2D/Digital</string>
     <string name="date">Ngày</string>

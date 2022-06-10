@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.R;
 
@@ -34,27 +35,27 @@ public class MovieManagement extends Fragment {
 
     @OnClick(R.id.see_all_movie_panel)
     void goToAllMoviePage() {
-        ((MainActivity) getActivity()).loadFragment(AllMovie.newInstance());
+        ((AdminActivity) getActivity()).loadFragment(AllMovie.newInstance());
     }
 
     @OnClick({R.id.cncm_movie, R.id.next_cncm})
     void goToChooseMoviesForNowShowing() {
-        ((MainActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.NOW_SHOWING));
+        ((AdminActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.NOW_SHOWING));
     }
 
     @OnClick({R.id.choose_feature_movie, R.id.next_feature_movie})
     void goToChooseFeatureMovies() {
-        ((MainActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.FEATURE));
+        ((AdminActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.FEATURE));
     }
 
     @OnClick({R.id.choose_upcoming_movie, R.id.next_choose_upcoming})
     void goToChooseMoviesForUpComing() {
-        ((MainActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.UP_COMING));
+        ((AdminActivity) getActivity()).loadFragment(ChooseMovie.newInstance(ChooseMovie.MODE.UP_COMING));
     }
 
     @OnClick(R.id.add_new_movie_panel)
     void goToAddNewMovie() {
-        ((MainActivity) getActivity()).loadFragment(AddNewMovie.newInstance());
+        ((AdminActivity) getActivity()).loadFragment(AddNewMovie.newInstance());
     }
 
 
@@ -65,8 +66,9 @@ public class MovieManagement extends Fragment {
     }
 
 
+    @Override
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_movie_dashboard,container,false);
     }
 }

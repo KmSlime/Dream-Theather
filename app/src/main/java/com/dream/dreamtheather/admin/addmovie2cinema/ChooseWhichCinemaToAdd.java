@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Cinema;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.adapter.CinemaAdapter;
+import com.dream.dreamtheather.admin.DashBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +42,9 @@ public class ChooseWhichCinemaToAdd extends Fragment implements OnCompleteListen
         return new ChooseWhichCinemaToAdd();
     }
 
+    @Override
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_add_movie2cinema,container,false);
     }
 
@@ -153,6 +156,6 @@ public class ChooseWhichCinemaToAdd extends Fragment implements OnCompleteListen
 
     @Override
     public void onItemClick(Cinema cinema) {
-        ((MainActivity)getActivity()).loadFragment(ChooseWhichMovieToAdd.newInstance(cinema));
+        ((AdminActivity)getActivity()).loadFragment(ChooseWhichMovieToAdd.newInstance(cinema));
         }
 }

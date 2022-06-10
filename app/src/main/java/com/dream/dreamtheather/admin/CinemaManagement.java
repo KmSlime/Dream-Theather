@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.R;
 
@@ -36,17 +37,17 @@ public class CinemaManagement extends Fragment {
 
     @OnClick(R.id.see_all_cinema_panel)
     void goToAllCinemasPage() {
-        ((MainActivity) getActivity()).loadFragment(AllCinemas.newInstance());
+        ((AdminActivity) getActivity()).loadFragment(AllCinemas.newInstance());
     }
 
     @OnClick(R.id.choose_cinema_for_showing_panel)
     void goToChooseCinemasForShowing() {
-        ((MainActivity) getActivity()).loadFragment(ChooseCinema.newInstance());
+        ((AdminActivity) getActivity()).loadFragment(ChooseCinema.newInstance());
     }
 
     @OnClick(R.id.add_new_cinema_panel)
     void gotToAddNewCinema() {
-        ((MainActivity) getActivity()).loadFragment(AddNewCinema.newInstance());
+        ((AdminActivity) getActivity()).loadFragment(AddNewCinema.newInstance());
     }
 
     @Override
@@ -56,8 +57,9 @@ public class CinemaManagement extends Fragment {
     }
 
 
+    @Override
     @Nullable
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_cinema_dashboard,container,false);
     }
 }

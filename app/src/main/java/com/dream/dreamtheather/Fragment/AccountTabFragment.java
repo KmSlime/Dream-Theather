@@ -1,7 +1,5 @@
 package com.dream.dreamtheather.Fragment;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -13,8 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,32 +25,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.Login;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.data.MyPrefs;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,7 +55,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.Executor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +66,6 @@ public class AccountTabFragment extends Fragment {
     // request code for get image choose
     private final int PICK_IMAGE_REQUEST = 22;
     private boolean isChangeValue = false;
-    MyPrefs myPrefs;
 
     FragmentActivity mActivity;
     Context context;
@@ -226,6 +209,12 @@ public class AccountTabFragment extends Fragment {
         getActivity().finish();
     }
 
+    @OnClick(R.id.btnGoToAdmin)
+    public void gotoAdmin(View view) {
+        startActivity(new Intent(getActivity(), AdminActivity.class));
+        getActivity().finish();
+    }
+
     @OnClick({R.id.btnUploadAvatar, R.id.imgAvata})
     public void ChangeAvatar(View view) {
         SelectImage();
@@ -306,7 +295,7 @@ public class AccountTabFragment extends Fragment {
     private void displayUserInfo(Users users) {
         String avt = users.getAvaUrl();
 
-        Glide.with(getContext())
+        Glide.with(requireContext())
                 .load(avt)
                 .error(R.drawable.default_avatar)
                 .placeholder(R.drawable.movie_boy)

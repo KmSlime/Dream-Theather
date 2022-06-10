@@ -24,14 +24,16 @@
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tablayout_background.xml" value="0.186" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/tablayout_selector.xml" value="0.186" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/drawable/ticket_info_background.xml" value="0.186" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_admin.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_login.xml" value="0.1734375" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_main.xml" value="0.13005780346820808" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_splash_screen.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/activity_test.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_add_movie2cinema.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_add_new_cinema.xml" value="0.5" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_cinema_dashboard.xml" value="0.5" />
-        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_dash_board.xml" value="0.1" />
+        <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_dash_board.xml" value="0.2" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/admin_movie_dashboard.xml" value="0.1" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/booking_v2.xml" value="0.1734375" />
         <entry key="..\:/MONHOC HUTECH/AppJava/app-java-last/app/src/main/res/layout/custom_video_player_ui.xml" value="0.1734375" />
