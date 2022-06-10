@@ -113,6 +113,8 @@ public class AccountTabFragment extends Fragment {
     RoundedImageView imgAvatar;
     @BindView(R.id.btnUploadAvatar)
     FloatingActionButton btnUploadAvatar;
+    @BindView(R.id.btnDeposit)
+    ImageView btnDeposit;
     @BindView(R.id.tvBalance)
     TextView tvBalance;
     @BindView(R.id.tvLoyaltyPoint)
@@ -477,5 +479,10 @@ public class AccountTabFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                     Log.w(TAG, "addUserToDatabase:failure", e);
                 });
+    }
+
+    @OnClick(R.id.btnDeposit)
+    private void deposit(){
+
     }
 }

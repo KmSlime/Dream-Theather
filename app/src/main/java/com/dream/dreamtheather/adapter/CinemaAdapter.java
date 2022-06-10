@@ -114,7 +114,8 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
                                         .newInstance(
                                                 cinemaList.get(getBindingAdapterPosition()).getMovies(),
                                                 cinemaList.get(getBindingAdapterPosition()).getName(),
-                                                cinemaList.get(getBindingAdapterPosition()).getHotline()
+                                                cinemaList.get(getBindingAdapterPosition()).getHotline(),
+                                                cinemaList.get(getBindingAdapterPosition()).getAddress()
                                         ));
             }
         }

@@ -127,7 +127,6 @@
     <string name="ticket_sample_price">200000 vnd</string>
     <string name="ticket_sample_seats">A2 C3 H1</string>
     <string name="save_qr_string">Lưu mã QR</string>
-
     <string name="profile_detail">Account Information</string>
     <string name="control_center_for_admin">Control Center ( for admin )</string>
     <string name="dark_mode">Dark Mode</string>

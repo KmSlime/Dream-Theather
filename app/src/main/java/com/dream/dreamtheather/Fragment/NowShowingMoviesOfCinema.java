@@ -84,13 +84,14 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
     public static NowShowingMoviesOfCinema newInstance(ArrayList<Integer> Movies,
                                                        String CinemaName,
-                                                       String hotline) {
+                                                       String hotline,
+                                                       String address) {
         NowShowingMoviesOfCinema fragment = new NowShowingMoviesOfCinema();
 
         fragment.mMovies = Movies;
         fragment.CinemaName = CinemaName;
         fragment.hotline = hotline;
-
+        fragment.address = address;
         return fragment;
     }
 
@@ -143,29 +144,29 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         if (task.isSuccessful()) {
             QuerySnapshot querySnapshot = task.getResult();
 
-            List<Movie> mM = querySnapshot.toObjects(Movie.class);
+            List<Movie> listMovie = querySnapshot.toObjects(Movie.class);
 
             // Lọc lại danh sách Movies
             int i = 0;
 
-            while (i < mM.size())
+            while (i < listMovie.size())
             {
                 // Nếu ID phim không khớp với ID trong danh sách Cinema thì xoá phim đó
-                if (!mMovies.contains(mM.get(i).getId()))
+                if (!mMovies.contains(listMovie.get(i).getId()))
                 {
-                    mM.remove(i);
+                    listMovie.remove(i);
                 }
                 else
                     i++;
             }
 
-            if (mM.isEmpty()) // Nếu danh sách Movies rỗng thì hiện thông báo rỗng
+            if (listMovie.isEmpty()) // Nếu danh sách Movies rỗng thì hiện thông báo rỗng
             {
                 mRecyclerView.setVisibility(View.GONE);
                 mNoMovieTextView.setVisibility(View.VISIBLE);
             }
             else { // Nếu đã rỗng thì khỏi sort luôn
-                Collections.sort(mM, new Comparator<Movie>() {
+                Collections.sort(listMovie, new Comparator<Movie>() {
                     @Override
                     public int compare(Movie o1, Movie o2) {
                         return o1.getId() - o2.getId();
@@ -174,7 +175,7 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
             }
 
             if(mAdapter!=null)
-                mAdapter.setData(mM);
+                mAdapter.setData(listMovie);
 
         } else
             Log.w(TAG, "Error getting documents.", task.getException());
@@ -204,35 +205,11 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
         Intent intent = new Intent(getContext(), DreamLocation.class);
         intent.putExtra("cinemaName", mTitle.getText().toString());
         intent.putExtra("cinemaHotLine", hotline);
+        intent.putExtra("cinemaAddress", this.address);
 
         Log.v(TAG,"get CinemaName" + mTitle.getText().toString());
         startActivity(intent);
 
-
-        //init map
-//        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//
-//        //async map
-//        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-//            @Override
-//            public void onMapReady(@NonNull GoogleMap googleMap) {
-//                //load map
-//                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//                    @Override
-//                    public void onMapClick(@NonNull LatLng latLng) {
-//                        //loaded
-//                        MarkerOptions markerOptions = new MarkerOptions(); //init marker
-//                        latLng = new LatLng(14.05, 108.27);
-//                        markerOptions.position(latLng); //set position of maker
-//                        markerOptions.title(latLng.latitude + ":" + latLng.longitude); // title of marker
-//                        googleMap.clear(); //clear marker
-//                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10)); // animated zoom
-//                        googleMap.addMarker(markerOptions); //add maker on map
-//
-//                    }
-//                });
-//            }
-//        });
     }
 
 
@@ -254,9 +231,4 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
     }
 
-//
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//
-//    }
 }
