@@ -8,11 +8,8 @@
     <TextView
         android:id="@+id/ask"
         android:layout_width="0dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:maxLines="2"
         android:text="@string/alert_leaving"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"

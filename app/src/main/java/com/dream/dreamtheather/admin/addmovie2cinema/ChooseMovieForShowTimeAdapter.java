@@ -158,7 +158,7 @@ public class ChooseMovieForShowTimeAdapter extends RecyclerView.Adapter<ChooseMo
 
         @OnClick(R.id.panel)
         void clickPanel() {
-          if(mListener!=null) mListener.OnMovieClicked(mMovieData.get(getAdapterPosition()));
+          if(mListener!=null) mListener.OnMovieClicked(mMovieData.get(getBindingAdapterPosition()));
         }
 
         @SuppressLint("DefaultLocale")
@@ -168,8 +168,8 @@ public class ChooseMovieForShowTimeAdapter extends RecyclerView.Adapter<ChooseMo
             mID.setText(String.format("%d", movie.getId()));
             mReleaseDay.setText(movie.getOpeningDay());
 
-            if(mSelectedData.size()>getAdapterPosition() && mSelectedData.get(getAdapterPosition())) {
-                Log.d(TAG, "bind: select position = "+getAdapterPosition());
+            if(mSelectedData.size()>getBindingAdapterPosition() && mSelectedData.get(getBindingAdapterPosition())) {
+                Log.d(TAG, "bind: select position = "+getBindingAdapterPosition());
                 mPanel.setBackgroundResource(R.drawable.black_rounded_big_selected);
             }
             else {

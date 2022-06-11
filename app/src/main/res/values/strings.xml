@@ -70,9 +70,9 @@
     <string name="profile_updated">Profile updated</string>
 
     //Error
-    <string name="fullname_empty">Full Name cannot be blank</string>
-    <string name="email_empty">Email không được bỏ trống</string>
-    <string name="email_invalid">Email không đúng</string>
+    <string name="fullname_empty">Tên đầy đủ không thể để trống!</string>
+    <string name="email_empty">Email không được bỏ trống!</string>
+    <string name="email_invalid">Email không đúng!</string>
     <string name="password_empty">Mật khẩu không được để trống</string>
     <string name="password_length">"Mật khẩu phải có tối thiểu 6 ký tự"</string>
     <string name="retype_empty">Retype password cannot be blank</string>
@@ -138,27 +138,27 @@
     <string name="save_change">SAVE CHANGE</string>
     <string name="add_new_movie">Add new movie</string>
     <string name="all_movies">All Movies</string>
-    <string name="alert_leaving">Everything will be deleted after you leave !</string>
-    <string name="ok_i_know">OK, I know</string>
-    <string name="auto_id">( Auto-generated ID )</string>
-    <string name="creating_new_id">Creating new ID …</string>
-    <string name="fail_to_create_id">Unable to create ID, please refresh the data</string>
+    <string name="alert_leaving">Tất cả mọi thứ sẽ bị mất nếu bạn rời khỏi!</string>
+    <string name="ok_i_know">OK, Tôi biết mà!</string>
+    <string name="auto_id">( ID tự động )</string>
+    <string name="creating_new_id">Tạo mới ID …</string>
+    <string name="fail_to_create_id">Không thể tạo mới ID, vui lòng tải lại trang!</string>
     <string name="note_youtube_link" translatable="false"><![CDATA[* Valid youtube link format should be like\nhttps://www.youtube.com/watch?v=abc_xyz, or\nhttps://youtu.be/abc_xyz]]></string>
     <string name="check" translatable="false">Check</string>
     <string name="youtube_pattern_id" translatable="false"><![CDATA[(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%‌​2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*]]></string>
     <string name="autoplay_youtube_pattern" translatable="false">\?autoplay=1</string>
-    <string name="choose_feature_movies">Choose Feature movies</string>
-    <string name="choose_up_coming_movies">Choose Up Coming movies</string>
-    <string name="choose_now_showing_movies">Choose Now Showing movies</string>
+    <string name="choose_feature_movies">Chọn phim đặc biệt</string>
+    <string name="choose_up_coming_movies">Chọn phim Sắp chiếu</string>
+    <string name="choose_now_showing_movies">Chọn phim đang chiếu</string>
     <string name="exist_movie_alert">Using a Movie ID which already exists will update that movie</string>
-    <string name="all_cinemas">All Cinemas</string>
-    <string name="choose_showing_cinemas">Choose Showing Cinemas</string>
-    <string name="add_new_cinema">Add new cinema</string>
-    <string name="cinema_management">Cinema Management</string>
-    <string name="detail">Detail</string>
+    <string name="all_cinemas">Tất cả các rạp</string>
+    <string name="choose_showing_cinemas">Chọn rạp Showings</string>
+    <string name="add_new_cinema">Thêm rạp mới</string>
+    <string name="cinema_management">Quản lý rạp</string>
+    <string name="detail">Chi tiết</string>
     <string name="exist_cinema_alert">Using a Cinema ID which already exists will replace that cinema</string>
-    <string name="address">Address : %s</string>
-    <string name="add_update_show_times">Add/Update Show Times</string>
+    <string name="address">Địa chỉ : %s</string>
+    <string name="add_update_show_times">Thêm/Sửa Show Times</string>
 
 
     <!--  we need to use video ids instead of video link  -->
@@ -175,5 +175,9 @@
         <item>5WJ3r67ORxo</item>
     </string-array>
     <string name="title_activity_dream_location">DreamLocation</string>
+    <string name="movie_manegement">Quản lý phim</string>
+    <string name="admin_dashboard">Trang Quản Trị</string>
+    <string name="all_film_in_db">Tất cả phim trong cơ sở dữ liệu</string>
+    <string name="add_new_film">Thêm phim mới</string>
 
 </resources>

@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.Fragment.MovieDetail;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
@@ -92,7 +92,12 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
 
         @OnClick(R.id.panel)
         void clickPanel() {
-            ((MainActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
+            String curContext = mContext.getClass().getSimpleName();
+            Log.d("MovieDetail", "curContext: "+curContext);
+            if(curContext.equals("AdminActivity"))
+                ((AdminActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
+            else
+                ((MainActivity) mContext).loadFragment(MovieDetail.newInstance(mData.get(getBindingAdapterPosition())));
         }
         public void bind(Movie movie) {
 

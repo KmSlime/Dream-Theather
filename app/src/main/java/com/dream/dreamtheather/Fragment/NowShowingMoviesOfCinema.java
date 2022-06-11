@@ -22,12 +22,6 @@ import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Movie;
 import com.dream.dreamtheather.R;
 import com.dream.dreamtheather.adapter.NowShowingAdapter;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -146,19 +140,19 @@ public class NowShowingMoviesOfCinema extends Fragment implements OnCompleteList
 
             List<Movie> listMovie = querySnapshot.toObjects(Movie.class);
 
-            // Lọc lại danh sách Movies
-            int i = 0;
-
-            while (i < listMovie.size())
-            {
-                // Nếu ID phim không khớp với ID trong danh sách Cinema thì xoá phim đó
-                if (!mMovies.contains(listMovie.get(i).getId()))
-                {
-                    listMovie.remove(i);
-                }
-                else
-                    i++;
-            }
+//            // Lọc lại danh sách Movies
+//            int i = 0;
+//
+//            while (i < listMovie.size())
+//            {
+//                // Nếu ID phim không khớp với ID trong danh sách Cinema thì xoá phim đó
+//                if (!mMovies.contains(listMovie.get(i).getId()))
+//                {
+//                    listMovie.remove(i);
+//                }
+//                else
+//                    i++;
+//            }
 
             if (listMovie.isEmpty()) // Nếu danh sách Movies rỗng thì hiện thông báo rỗng
             {

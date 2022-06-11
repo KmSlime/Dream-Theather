@@ -33,12 +33,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChooseWhichMovieToAdd extends Fragment implements ChooseMovieForShowTimeAdapter.MovieOnClickListener, ChooseMovieForShowTimeAdapter.CountingCallBack, OnCompleteListener<QuerySnapshot>, OnFailureListener, AddShowTime.UpdatableCallback {
+public class ChooseWhichMovieToAdd 
+        extends Fragment 
+        implements 
+            ChooseMovieForShowTimeAdapter.MovieOnClickListener, 
+            ChooseMovieForShowTimeAdapter.CountingCallBack, 
+            OnCompleteListener<QuerySnapshot>, OnFailureListener, AddShowTime.UpdatableCallback {
     private static final String TAG ="ChooseWhichMovieToAdd";
 
     public static ChooseWhichMovieToAdd newInstance(@NonNull Cinema cinema) {
         ChooseWhichMovieToAdd f = new ChooseWhichMovieToAdd();
         f.mCinema = cinema;
+        Log.d(TAG, "newInstance: access add movie to cinema admin");
         return f;
     }
 
@@ -138,7 +144,7 @@ public class ChooseWhichMovieToAdd extends Fragment implements ChooseMovieForSho
 
     @Override
     public void OnMovieClicked(Movie movie) {
-        ((AdminActivity)getActivity()).loadFragment(AddShowTime.newInstance(mCinema,movie,this));
+        ((AdminActivity) getActivity()).loadFragment(AddShowTime.newInstance(mCinema,movie,this));
     }
 
     @SuppressLint("DefaultLocale")

@@ -215,7 +215,7 @@ public class AccountTabFragment extends Fragment {
     @OnClick(R.id.btnGoToAdmin)
     public void gotoAdmin(View view) {
         startActivity(new Intent(getActivity(), AdminActivity.class));
-        getActivity().finish();
+//        getActivity().finish();
     }
 
     @OnClick({R.id.btnUploadAvatar, R.id.imgAvata})

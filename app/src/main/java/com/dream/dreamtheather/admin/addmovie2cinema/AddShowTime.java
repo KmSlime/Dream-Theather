@@ -45,7 +45,9 @@ import butterknife.OnClick;
  * Truyền vào một rạp và một phim
  * Tạo một lịch chiếu cho phim đó trên rạp đó
  */
-public class AddShowTime extends Fragment implements EventListener<QuerySnapshot>, OnSuccessListener<Void>, OnFailureListener, OnCompleteListener<DocumentSnapshot> {
+public class AddShowTime extends Fragment
+        implements EventListener<QuerySnapshot>,
+        OnSuccessListener<Void>, OnFailureListener, OnCompleteListener<DocumentSnapshot> {
     private static final String TAG = "AddShowTime";
 
 
@@ -64,13 +66,14 @@ public class AddShowTime extends Fragment implements EventListener<QuerySnapshot
         csf.mCinema = cinema;
         csf.mMovie = movie;
         csf.mCallback = callback;
+        Log.d(TAG, "newInstance: AddShowTime access Admin");
         return csf;
     }
 
     private ShowTime mShowTime;
 
     @Override
-    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
         mSwipeLayout.setRefreshing(false);
         if (e == null) {
 
@@ -168,21 +171,29 @@ public class AddShowTime extends Fragment implements EventListener<QuerySnapshot
         mShowTime.setID(id);
         Log.d(TAG, mShowTime.toString());
 
-        mSendingDialog = new BottomSheetDialog(getActivity());
+        mSendingDialog = new BottomSheetDialog(requireContext());
 
         mSendingDialog.setContentView(R.layout.send_new_movie);
         mSendingDialog.setCancelable(false);
         mSendingDialog.findViewById(R.id.close).setOnClickListener(v -> cancelSending());
         mSendingDialog.show();
         success_step = 1;
-        mDb.collection("show_time").document(mShowTime.getID() + "").set(mShowTime).addOnSuccessListener(this).addOnFailureListener(this);
+        firebaseFirestore.collection("show_time")
+                .document(mShowTime.getID() + "")
+                .set(mShowTime).addOnSuccessListener(this)
+                .addOnFailureListener(this);
 
         if (!mCinema.getMovies().contains(mMovie.getId())) {
             mCinema.getMovies().add(mMovie.getId());
             mCinema.getShowTimes().add(mShowTime.getID());
             success_step = 2;
-            mDb.collection("database_info").document("show_time_info").update("count", count);
-            mDb.collection("cinema_list").document(mCinema.getId() + "").set(mCinema).addOnSuccessListener(this).addOnFailureListener(this);
+            firebaseFirestore.collection("database_info")
+                    .document("show_time_info")
+                    .update("count", count);
+            firebaseFirestore.collection("cinema_list")
+                    .document(mCinema.getId() + "")
+                    .set(mCinema).addOnSuccessListener(this)
+                    .addOnFailureListener(this);
         }
     }
 
@@ -204,17 +215,16 @@ public class AddShowTime extends Fragment implements EventListener<QuerySnapshot
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.admin_config_show_time, container, false);
-
     }
 
-    FirebaseFirestore mDb;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        mDb = FirebaseFirestore.getInstance();
-        mAdapter = new LinearHolderAdapter(getActivity(), mShowTimeParent);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        mAdapter = new LinearHolderAdapter(requireContext(), mShowTimeParent);
         disableIdField();
         mSwipeLayout.setOnRefreshListener(this::refreshData);
         refreshData();
@@ -223,15 +233,24 @@ public class AddShowTime extends Fragment implements EventListener<QuerySnapshot
     private void refreshData() {
         mSwipeLayout.setRefreshing(true);
         int foundPos = mCinema.getMovies().indexOf(mMovie.getId());
+        Log.d(TAG, "refreshData: foundPos:"+ String.valueOf(foundPos));
         if (foundPos != -1)
-            mDb.collection("show_time").whereEqualTo("id", mCinema.getShowTimes().get(foundPos)).limit(1).addSnapshotListener(this);
+            firebaseFirestore.collection("show_time")
+                    .whereEqualTo("id", mCinema.getShowTimes().get(foundPos))
+                    .limit(1)
+                    .addSnapshotListener(this);
         else {
             createNewShowTime();
         }
     }
 
     private void createNewShowTime() {
-        mDb.collection("database_info").document("show_time_info").get().addOnCompleteListener(this).addOnFailureListener(this);
+        firebaseFirestore
+                .collection("database_info")
+                .document("show_time_info")
+                .get()
+                .addOnCompleteListener(this)
+                .addOnFailureListener(this);
 
         mShowTime = new ShowTime();
         mShowTime.setCinemaName(mCinema.getName());

@@ -13,10 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dream.dreamtheather.AdminActivity;
 import com.dream.dreamtheather.Fragment.NowShowingMoviesOfCinema;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Cinema;
 import com.dream.dreamtheather.R;
+import com.dream.dreamtheather.admin.addmovie2cinema.ChooseWhichMovieToAdd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +119,9 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.ItemHolder
                                                 cinemaList.get(getBindingAdapterPosition()).getHotline(),
                                                 cinemaList.get(getBindingAdapterPosition()).getAddress()
                                         ));
+            }
+            else if(context instanceof AdminActivity){
+                ((AdminActivity) context).loadFragment(ChooseWhichMovieToAdd.newInstance(cinemaList.get(getBindingAdapterPosition())                                        ));
             }
         }
 
