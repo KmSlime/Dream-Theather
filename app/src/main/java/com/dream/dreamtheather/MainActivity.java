@@ -1,37 +1,25 @@
 package com.dream.dreamtheather;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.dream.dreamtheather.Fragment.AccountTabFragment;
-import com.dream.dreamtheather.Fragment.BookingFragment;
 import com.dream.dreamtheather.Fragment.HomeTabFragment;
 import com.dream.dreamtheather.Fragment.TheatherFragment;
-import com.dream.dreamtheather.Model.UserInfo;
-import com.dream.dreamtheather.data.MyPrefs;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = "MainActivity";
     private static final int HOME = R.id.navigation_home,
             THEATHER = R.id.navigation_theather,
             ACCOUNT = R.id.navigation_account ;
@@ -42,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
     public static GoogleSignInClient mGoogleSignInClient;
 
-    private BottomNavigationView bottom_navigation;
+    BottomNavigationView bottom_navigation;
+
+    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        mainLayout = findViewById(R.id.mainLayout);
         firebaseFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-//        myPrefs = new MyPrefs(this);
 
     }
 

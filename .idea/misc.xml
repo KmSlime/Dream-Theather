@@ -91,16 +91,23 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.153" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_calendar.xml" value="0.1845" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_done_black_24dp.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_expand_more_black_24dp.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_facebook_logo.xml" value="0.1595" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1125" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.258" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_launcher_logo.xml" value="0.258" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_photo_black_24dp.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/ic_search.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/item_selector.xml" value="0.1815" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/line_top.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/neoncolor.xml" value="0.124" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/rounded_corner_background.xml" value="0.127" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/rounded_corner_without_border_dark.xml" value="0.1805" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/drawable/splash_bg.xml" value="0.19" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout-land/admin_add_new_cinema.xml" value="0.22812051649928264" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout-land/admin_cinema_dashboard.xml" value="0.16799999999999998" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_admin.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_dream_location.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_forgotten_password.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_login.xml" value="0.264" />
@@ -110,11 +117,22 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_test.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_add_movie2cinema.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_add_new_cinema.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_add_new_movie.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_all_movie.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_choose_movie.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_choose_movie_to_add_showtime.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_cinema_dashboard.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_config_show_time.xml" value="0.2" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_dash_board.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/admin_movie_dashboard.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/alert_layout.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/booking_v2.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/choose_seat_bottom_sheet.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/custom_video_player_ui.xml" value="0.18489583333333334" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/film_picked.xml" value="0.264" />
-        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_account_tab.xml" value="0.6" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_account_tab.xml" value="0.2" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_booking.xml" value="0.24010416666666667" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_future_film.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
@@ -123,10 +141,15 @@
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_spotlight.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_theather.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/fragment_youtube.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/home_child_tab.xml" value="0.1" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_admin_choose_cinema.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_choose_movie_for_showtime.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_cinema_booking.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_cinema_tab.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_date_booking.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_detail_show_time.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_card.xml" value="0.25416666666666665" />
+        <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_home_tab.xml" value="0.1" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_nowshowing_tab.xml" value="0.264" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_movie_spotlight.xml" value="0.25416666666666665" />
         <entry key="..\:/projects/Android/DreamTheather/app/src/main/res/layout/item_show_time.xml" value="0.25416666666666665" />

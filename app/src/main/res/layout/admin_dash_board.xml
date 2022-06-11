@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="65dp"
+        android:layout_height="75dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_button" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingStart="65dp"
+        android:paddingEnd="65dp"
+        android:text="Admin Dashboard"
+        android:textColor="@color/a_white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/movie_panel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/black_rounded_big"
+                app:layout_constraintBottom_toBottomOf="@id/movie"
+                app:layout_constraintEnd_toEndOf="@id/next_movie"
+                app:layout_constraintStart_toStartOf="@id/movie"
+                app:layout_constraintTop_toTopOf="@id/movie" />
+
+            <TextView
+                android:id="@+id/movie"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Movie Management"
+                android:textColor="@color/setting_label_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/next_movie"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/next_movie"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:src="@drawable/next"
+                app:layout_constraintBottom_toBottomOf="@id/movie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/movie" />
+
+            <View
+                android:id="@+id/cinema_panel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/black_rounded_big"
+                app:layout_constraintBottom_toBottomOf="@id/cinema"
+                app:layout_constraintEnd_toEndOf="@id/next_cinema"
+                app:layout_constraintStart_toStartOf="@id/movie"
+                app:layout_constraintTop_toTopOf="@id/cinema" />
+
+            <TextView
+                android:id="@+id/cinema"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/cinema_management"
+                android:textColor="@color/setting_label_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/next_cinema"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie" />
+
+            <ImageView
+                android:id="@+id/next_cinema"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:src="@drawable/next"
+                app:layout_constraintBottom_toBottomOf="@id/cinema"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cinema" />
+
+            <View
+                android:id="@+id/add_new_showtime_panel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/black_rounded_big"
+                app:layout_constraintBottom_toBottomOf="@id/add_new_showtime"
+                app:layout_constraintEnd_toEndOf="@id/next_add_new_showtime"
+                app:layout_constraintStart_toStartOf="@id/add_new_showtime"
+                app:layout_constraintTop_toTopOf="@id/add_new_showtime" />
+
+            <TextView
+                android:id="@+id/add_new_showtime"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/add_update_show_times"
+                android:textColor="@color/setting_label_color"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cinema"
+                tools:ignore="NotSibling" />
+
+            <ImageView
+                android:id="@+id/next_add_new_showtime"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:src="@drawable/next"
+                app:layout_constraintBottom_toBottomOf="@id/add_new_showtime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/add_new_showtime" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     tools:context=".Fragment.AccountTabFragment">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -18,22 +18,38 @@
             android:id="@+id/btnBack"
             android:layout_width="50dp"
             android:layout_height="?attr/actionBarSize"
-            android:contentDescription="Back"
-            android:onClick="BackToMain"
-            android:paddingVertical="15dp"
-            app:srcCompat="@drawable/ic_back_button" />
+            android:padding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_back_button"
+            android:contentDescription="Back" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Trang cá nhân"
             android:textColor="@color/white"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toStartOf="@id/btnGoToAdmin"
+            />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/btnGoToAdmin"
+            android:onClick="gotoAdmin"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_admin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="Admin" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <ScrollView
