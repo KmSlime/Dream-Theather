@@ -1,23 +1,16 @@
 package com.dream.dreamtheather;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
-
-    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +32,6 @@ public class SplashScreen extends AppCompatActivity {
 
         introAnimation();
 
-
     }
 
     public void gotoNextActivity(){
@@ -52,7 +44,6 @@ public class SplashScreen extends AppCompatActivity {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        //don't allow to return to this activity
         this.finish();
     }
 
@@ -74,12 +65,6 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
-//                TextView swipeText = (TextView)findViewById(R.id.swipeSuggestionText);
-//
-//                //Slide TextView and set opacity to 100
-//                swipeText.startAnimation(AnimationUtils.loadAnimation(SplashScreen.this, R.anim.right_to_left_swipe));
-//                swipeText.animate().alpha(1f).setDuration(1000);
                 gotoNextActivity();
             }
 
