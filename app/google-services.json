@@ -15,21 +15,29 @@
       },
       "oauth_client": [
         {
-          "client_id": "359747608446-t2ldr498dnmil1qaub8o0627cob2ua3r.apps.googleusercontent.com",
+          "client_id": "359747608446-4c776gq0l199oanbcnk1nr8ih5ksihda.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dream.dreamtheather",
-            "certificate_hash": "c6855007d497af8b29397d339044e504da64c8f5"
+            "certificate_hash": "a110bd157cc8f191d1b0588d88f1d58795acde73"
           }
         },
         {
-          "client_id": "359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com",
+          "client_id": "359747608446-ripqh6168vmst1f4c95bupnpsit07ho9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dream.dreamtheather",
+            "certificate_hash": "c1b159bdc26912e5c7c45f3c6be10776ca654083"
+          }
+        },
+        {
+          "client_id": "359747608446-hevnr087e283h3v438c9eqq5sser41mi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD5tnnHjaB6mMak2PxEPm6wYLKEapAvd58"
+          "current_key": "AIzaSyCh4voT0O5DwVz8rwzKu7Fu89zGeR5WcxE"
         }
       ],
       "services": {

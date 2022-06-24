@@ -58,7 +58,7 @@ import butterknife.ButterKnife;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "LogInActivity";
+    private static final String TAG = "LoginActivity";
     private static final int
             LOGIN = R.id.btnLogin,
             GOOGLE = R.id.btnLoginGoogle,

@@ -16,13 +16,13 @@
     <string name="forgottenPassword">Quên mật khẩu?</string>
     <string name="tvRegister">Đăng ký!</string>
 
-    <string name="API_KEY">AIzaSyAqBPhWLWnyGmVMH4oU4xD_SOaw7n4tVBs</string>
+    <string name="API_KEY">AIzaSyCh4voT0O5DwVz8rwzKu7Fu89zGeR5WcxE</string>
 
 
     <!--    fb required-->
     <string name="facebook_application_id">7192728940769261</string>
     <string name="fb_login_protocol_scheme">fb7192728940769261</string>
-    <string name="facebook_client_token">d1e00aa6bbe9653dc878caf9d90c965b</string>
+    <string name="facebook_client_token">b56e9cb5bfe19f270d7975b394072daf</string>
 
     <string name="register">Đăng ký</string>
     <string name="what_is_your_name">Tên của bạn là gì?</string>
@@ -58,7 +58,6 @@
     <string name="it_is_not_enough">₫, it\'s không đủ để thanh toán</string>
     <string name="screen">Màn hình</string>
     <string name="sending_data">Đang đặt vé …</string>
-    <string name="server_client_idold">359747608446-9iitu3bmdgjrtjfia0ekvcld4tbi58bn.apps.googleusercontent.com</string>
     <string name="server_client_id">359747608446-hevnr087e283h3v438c9eqq5sser41mi.apps.googleusercontent.com</string>
 
     //Message
@@ -105,6 +104,7 @@
     <string name="sample_cinema_name">CGV Hùng Vương Plaza</string>
     <string name="sample_address">Tầng 2, Thảo Điền Mall, 12 Quốc Hương, Phường Thảo Điền, Quận 2, TP. Hồ Chí Minh</string>
     <string name="sample_phone">19006677</string>
+    <string name="sample_cast">Hứa Vĩ Văn, Thu Trang, Kiều Minh Tuấn, Tiến Luật, Huỳnh Phương, Quang Tuấn, Vũ Ngọc Anh, Thanh Mỹ.</string>
     <string name="ops">Opp!! Lỗi lỗi lỗi!!</string>
     <string name="sample_movie_title">DOCTOR STRANGE - MULTI VERSE</string>
     <string name="login_with_facebook">Đăng nhập bằng facebook</string>
@@ -160,7 +160,6 @@
     <string name="address">Địa chỉ : %s</string>
     <string name="add_update_show_times">Thêm/Sửa Show Times</string>
 
-
     <!--  we need to use video ids instead of video link  -->
     <string-array name="video_id_array">
         <item>CqhpNxI8qYw</item>
@@ -179,5 +178,7 @@
     <string name="admin_dashboard">Trang Quản Trị</string>
     <string name="all_film_in_db">Tất cả phim trong cơ sở dữ liệu</string>
     <string name="add_new_film">Thêm phim mới</string>
+    <string name="choose_recharge_provider">Vui lòng chọn phương thức nạp tiền</string>
+    <string name="sending_recharge_order">Đang thực hiện thanh toán ...</string>
 
 </resources>

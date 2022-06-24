@@ -12,30 +12,32 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <category android:name="android.intent.category.BROWSABLE" />
-
             <data android:scheme="https" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <data android:scheme="http" />
-
             <category android:name="android.intent.category.DEFAULT" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-
             <data android:scheme="https" />
-
             <category android:name="android.intent.category.DEFAULT" />
         </intent>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider"
+            android:exported="false" /> <!-- allows app to access Facebook app features -->
+        <provider android:authorities="com.facebook.orca.provider.PlatformProvider"
+            android:exported="false" /> <!-- allows sharing to Messenger app -->
+
+        <!-- ZaloPay-->
+        <package android:name="vn.com.vng.zalopay"/>
+        <package android:name="vn.com.vng.zalopay.sbmc"/>
     </queries>
 
     <application
@@ -122,6 +124,17 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".RechargeActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demozpdk"
+                    android:host="app" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SearchResultsActivity"

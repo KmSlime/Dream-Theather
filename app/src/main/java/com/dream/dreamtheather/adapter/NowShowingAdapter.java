@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +53,7 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
     }
 
 
+    @NonNull
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -114,7 +116,6 @@ public class NowShowingAdapter extends RecyclerView.Adapter<NowShowingAdapter.It
                         if(!type.isEmpty()) {
                             TextView tv = (TextView) inflater.inflate(R.layout.type_movie_text_view, mTypeParent, false);
                             tv.setText(type);
-                            //tv.setBackgroundColor(Color.GREEN);
                             tv.setBackgroundResource(R.drawable.round_yellow_drawable);
                             mTypeParent.addView(tv);
                         }

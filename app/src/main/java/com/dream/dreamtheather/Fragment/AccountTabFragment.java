@@ -38,6 +38,7 @@ import com.dream.dreamtheather.Login;
 import com.dream.dreamtheather.MainActivity;
 import com.dream.dreamtheather.Model.Users;
 import com.dream.dreamtheather.R;
+import com.dream.dreamtheather.helper.AppInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,6 +59,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPaySDK;
 
 public class AccountTabFragment extends Fragment {
 
@@ -97,7 +100,7 @@ public class AccountTabFragment extends Fragment {
     RoundedImageView imgAvatar;
     @BindView(R.id.btnUploadAvatar)
     FloatingActionButton btnUploadAvatar;
-    @BindView(R.id.btnDeposit)
+    @BindView(R.id.btnNapTien)
     ImageView btnDeposit;
     @BindView(R.id.tvBalance)
     TextView tvBalance;
@@ -126,6 +129,12 @@ public class AccountTabFragment extends Fragment {
     @BindView(R.id.radioMale)
     RadioButton radioMale;
     RadioButton radioButtonGender;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initZaloPay();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -474,8 +483,14 @@ public class AccountTabFragment extends Fragment {
                 });
     }
 
-    @OnClick(R.id.btnDeposit)
-    public void deposit(){
+    void initZaloPay(){
+        ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX);
+    }
 
+
+    @OnClick(R.id.btnNapTien)
+    public void napTien(){
+        Log.e(TAG, "napTien: click");
+        ChooseRechargeProviderBottomSheet.newInstance((MainActivity)getActivity());
     }
 }
